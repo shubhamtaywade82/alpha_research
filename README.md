@@ -80,6 +80,18 @@ ETHUSDT, XRPUSDT from mainnet, runs the discovery pipeline at both
 per-regime bucket table (`n`, `mean_r`, `win_rate`, `baseline_r`, `edge`),
 flagging any bucket that clears `DynamicRiskPlanner`'s tradeable gate.
 
+It now also runs a walk-forward out-of-sample pass per symbol/delay:
+
+- discover tradeable regime buckets on each train fold
+- trade only those buckets on the next test fold
+- report fold/aggregate `gross_r`, `net_r`, `baseline`, and `alpha`
+
+`net_r` includes explicit round-trip friction assumptions of 4 bps fee per
+side, 2 bps slippage per side, plus prorated funding accrual over the
+trade hold. `alpha` is the OOS net expectancy minus the unconditional
+baseline net expectancy in the same regime buckets and dominant
+train-selected directions.
+
 Raw API responses are cached under `data/cache/*.json` so re-runs don't
 re-hit the API. Force a fresh pull with:
 
@@ -87,15 +99,12 @@ re-hit the API. Force a fresh pull with:
 FORCE_REFRESH=1 ruby bin/run_real_data_analysis.rb
 ```
 
-**Before trusting any `TRADEABLE` bucket the script prints:** this is one
-historical window on one pull. Route it through `WalkForwardValidator`
-(purge/embargo, multiple folds) before it means anything — that harness
-already exists in `lib/walk_forward_validator.rb` but isn't wired to this
-real-data path yet. Treat first-run output as "worth investigating
-further," not as a validated signal.
+**Before trusting any positive OOS result the script prints:** this is
+still one historical window on one pull, with priors in `SymbolProfile`
+that remain hand-authored rather than calibrated. Treat the output as a
+useful falsification pass, not as deployment approval.
 
 `spec/mock_binance_shape_test.rb` verifies the parsing layer (string
 prices, ms timestamps, funding alignment) against data shaped exactly like
 Binance's real JSON — run it any time to sanity-check the loader without
 touching the network.
-

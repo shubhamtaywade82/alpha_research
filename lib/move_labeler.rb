@@ -25,7 +25,9 @@ class MoveLabeler
     :exit_index, :exit_price, :r_multiple, :context, keyword_init: true
   )
   BaselineSample = Struct.new(
-    :index, :ts, :context, :long_r_multiple, :short_r_multiple, keyword_init: true
+    :index, :ts, :entry_price, :stop_distance, :context,
+    :long_exit_index, :short_exit_index, :long_r_multiple, :short_r_multiple,
+    keyword_init: true
   )
 
   def initialize(atr_period: 14, stop_atr_buffer: 0.5, r_multiple_target:)
@@ -202,17 +204,29 @@ class MoveLabeler
 
       long_r = nil
       short_r = nil
+      long_exit_index = nil
+      short_exit_index = nil
       last_bar = i + forward_horizon_bars
 
       ((i + 1)..last_bar).each do |j|
         bar = candles[j]
         if long_r.nil?
-          long_r = -1.0 if bar[:low] <= stop_long
-          long_r = @r_multiple_target if !long_r && bar[:high] >= target_long
+          if bar[:low] <= stop_long
+            long_r = -1.0
+            long_exit_index = j
+          elsif bar[:high] >= target_long
+            long_r = @r_multiple_target
+            long_exit_index = j
+          end
         end
         if short_r.nil?
-          short_r = -1.0 if bar[:high] >= stop_short
-          short_r = @r_multiple_target if !short_r && bar[:low] <= target_short
+          if bar[:high] >= stop_short
+            short_r = -1.0
+            short_exit_index = j
+          elsif bar[:low] <= target_short
+            short_r = @r_multiple_target
+            short_exit_index = j
+          end
         end
         break if !long_r.nil? && !short_r.nil?
       end
@@ -220,10 +234,12 @@ class MoveLabeler
       if long_r.nil?
         close_price = candles[last_bar][:close]
         long_r = (close_price - entry_price) / stop_distance
+        long_exit_index = last_bar
       end
       if short_r.nil?
         close_price = candles[last_bar][:close]
         short_r = (entry_price - close_price) / stop_distance
+        short_exit_index = last_bar
       end
 
       context = feature_extractor.extract(
@@ -232,7 +248,10 @@ class MoveLabeler
       next if context.nil?
 
       samples << BaselineSample.new(
-        index: i, ts: candles[i][:ts], context: context,
+        index: i, ts: candles[i][:ts], entry_price: entry_price,
+        stop_distance: stop_distance, context: context,
+        long_exit_index: long_exit_index,
+        short_exit_index: short_exit_index,
         long_r_multiple: long_r.round(3),
         short_r_multiple: short_r.round(3)
       )

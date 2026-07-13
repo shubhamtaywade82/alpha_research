@@ -23,10 +23,16 @@ require_relative "../lib/context_feature_extractor"
 require_relative "../lib/move_labeler"
 require_relative "../lib/signature_analyzer"
 require_relative "../lib/dynamic_risk_planner"
+require_relative "../lib/trade_cost_model"
+require_relative "../lib/walk_forward_discovery_evaluator"
 
 SYMBOLS = %w[SOLUSDT ETHUSDT XRPUSDT].freeze
 INTERVAL = "15m"
 DAYS_BACK = 90
+WALK_FORWARD_FOLDS = 6
+EMBARGO_BARS = 20
+FEE_BPS_PER_SIDE = 4.0
+SLIPPAGE_BPS_PER_SIDE = 2.0
 CACHE_DIR = File.join(root, "data", "cache")
 FileUtils.mkdir_p(CACHE_DIR)
 
@@ -51,6 +57,27 @@ def print_bucket_table(label, buckets)
                  b.bucket_key, b.swing_count, b.swing_mean_r.inspect, b.swing_win_rate.inspect,
                  b.baseline_mean_r.inspect, b.edge_over_baseline.inspect)
   end
+end
+
+def print_walk_forward_summary(label, result)
+  puts "\n-- #{label} --"
+  aggregate = result[:aggregate]
+  if aggregate[:note]
+    puts aggregate[:note]
+    return
+  end
+
+  puts format("%-6s %-8s %-10s %-10s %-10s %-10s %-10s", "fold", "trades", "gross_r", "net_r", "baseline", "alpha", "win_rate")
+  result[:folds].each_with_index do |fold, idx|
+    puts format("%-6d %-8d %-10s %-10s %-10s %-10s %-10s",
+                idx + 1, fold.trade_count, fold.gross_expectancy_r.inspect,
+                fold.net_expectancy_r.inspect, fold.baseline_net_expectancy_r.inspect,
+                fold.alpha_net_r.inspect, fold.win_rate.inspect)
+  end
+
+  puts "aggregate: trades=#{aggregate[:total_trades]} gross_r=#{aggregate[:mean_gross_expectancy_r].inspect} " \
+       "net_r=#{aggregate[:mean_net_expectancy_r].inspect} baseline=#{aggregate[:mean_baseline_net_expectancy_r].inspect} " \
+       "alpha=#{aggregate[:mean_alpha_net_r].inspect} win_rate=#{aggregate[:mean_win_rate].inspect}"
 end
 
 SYMBOLS.each do |symbol|
@@ -83,6 +110,13 @@ SYMBOLS.each do |symbol|
   )
   puts "#{baseline_samples.size} baseline samples"
 
+  bar_interval_minutes = candles.size >= 2 ? ((candles[1][:ts] - candles[0][:ts]) / 60.0).round : 15
+  cost_model = TradeCostModel.new(
+    fee_bps_per_side: FEE_BPS_PER_SIDE,
+    slippage_bps_per_side: SLIPPAGE_BPS_PER_SIDE,
+    bar_interval_minutes: bar_interval_minutes
+  )
+
   [1, 3].each do |delay|
     events = labeler.label_signal_events(
       candles: candles, swings: swings, regimes: regimes, funding_series: funding_series,
@@ -98,11 +132,20 @@ SYMBOLS.each do |symbol|
       puts "  TRADEABLE: #{b.bucket_key} delay=#{delay} -> r_target=#{plan.r_multiple_target} " \
            "risk_pct=#{plan.risk_pct} (#{plan.reason})"
     end
+  
+    oos_result = WalkForwardDiscoveryEvaluator.new(
+      profile: profile,
+      cost_model: cost_model,
+      entry_delay_bars: delay
+    ).evaluate(
+      candles: candles,
+      funding_series: funding_series,
+      n_folds: WALK_FORWARD_FOLDS,
+      embargo_bars: EMBARGO_BARS
+    )
+    print_walk_forward_summary("walk_forward_oos delay=#{delay}", oos_result)
   end
 end
 
 puts "\n#{'=' * 70}"
 puts "Done. Raw data cached under #{CACHE_DIR} — delete files or set FORCE_REFRESH=1 to re-pull."
-puts "Reminder: this is ONE historical window, not yet walk-forward validated."
-puts "Next step before trusting any TRADEABLE bucket above: run it through"
-puts "WalkForwardValidator with purge/embargo across multiple folds."
