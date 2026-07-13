@@ -37,6 +37,7 @@ require_relative "../lib/signals/funding_carry_signal"
 require_relative "../lib/confluence_scorer"
 require_relative "../lib/supertrend_calculator"
 require_relative "../lib/supertrend_flip_detector"
+require_relative "../lib/smc_flip_detector"
 
 SUPERTREND_BUILDERS = {
   "supertrend_percentile" => ->(candles, p) { SupertrendCalculator.percentile_scaled(candles, atr_period: p["atr_period"], min_mult: p["min_mult"], max_mult: p["max_mult"], pct_lookback: 100) },
@@ -44,16 +45,58 @@ SUPERTREND_BUILDERS = {
   "supertrend_adaptive" => ->(candles, p) { SupertrendCalculator.fully_adaptive(candles, base_period: p["base_period"], min_period: p["min_period"], max_period: p["max_period"], min_mult: p["min_mult"], max_mult: p["max_mult"], er_lookback: p["er_lookback"], pct_lookback: 100) }
 }.freeze
 
-# swing-point-like events for a finalist: either the ATR-ZigZag (discovery
-# family) or a SuperTrend-flip series (supertrend_* families) — structurally
-# interchangeable inputs to MoveLabeler/WalkForwardDiscoveryEvaluator.
-def events_for(family, entry_candles, params)
-  if SUPERTREND_BUILDERS.key?(family)
-    series = SUPERTREND_BUILDERS[family].call(entry_candles, params)
-    SupertrendFlipDetector.detect(series, entry_candles)
-  else
-    SwingPointDetector.new(min_move_atr_multiple: 1.5).detect(entry_candles)
+GATE_FILTERS = {
+  "trending_only" => { trending_only: true, require_htf_alignment: false },
+  "htf_aligned" => { trending_only: false, require_htf_alignment: true },
+  "trending+htf" => { trending_only: true, require_htf_alignment: true }
+}.freeze
+
+def apply_gate(events, gate_label, entry_regimes, aligned_htf)
+  gate = GATE_FILTERS[gate_label]
+  return events if gate.nil? # nil or "ungated" -> no filtering
+
+  events.select do |event|
+    idx = event.confirmed_index
+    regime = entry_regimes[idx]
+    next false if regime.nil?
+    next false if gate[:trending_only] && ![:trending_bull, :trending_bear].include?(regime.state)
+
+    if gate[:require_htf_alignment]
+      htf = aligned_htf[idx]
+      next false if htf.nil? || htf.state != regime.state
+    end
+
+    true
   end
+end
+
+# swing-point-like events for a finalist: ATR-ZigZag (discovery/price_action),
+# a SuperTrend-flip series (supertrend_* families), or SMC structure flips
+# (smc_standalone) — all structurally interchangeable inputs to
+# MoveLabeler/WalkForwardDiscoveryEvaluator. Applies the finalist's own
+# "gate" parameter (trending_only / htf_aligned / trending+htf), if present
+# — the SOL deep-dive sweep tested these as a hard pre-filter, so replaying
+# a gated finalist without the gate would silently reproduce different
+# (larger, ungated) trades than what was actually measured.
+def events_for(finalist, entry_candles, profile, entry_regimes, aligned_htf)
+  family = finalist["family"]
+  params = finalist["parameters"]
+
+  raw_events =
+    if SUPERTREND_BUILDERS.key?(family)
+      series = SUPERTREND_BUILDERS[family].call(entry_candles, params)
+      SupertrendFlipDetector.detect(series, entry_candles)
+    elsif family == "smc_standalone"
+      smc_profile = profile.dup
+      smc_profile.structure_lookback = params["structure_lookback"] if params["structure_lookback"]
+      SmcFlipDetector.detect(entry_candles, smc_profile)
+    elsif family == "price_action"
+      SwingPointDetector.new(min_move_atr_multiple: params["min_move_atr_multiple"] || 1.5).detect(entry_candles)
+    else
+      SwingPointDetector.new(min_move_atr_multiple: 1.5).detect(entry_candles)
+    end
+
+  apply_gate(raw_events, params["gate"], entry_regimes, aligned_htf)
 end
 
 CACHE_DIR = File.join(root, "data", "cache")
@@ -108,7 +151,7 @@ def discovery_trades(finalist, cache_dir, base_cache)
   htf_regimes = RegimeClassifier.new(profile).classify(htf_candles)
   aligned_htf = CandleResampler.align_higher_regimes(lower_candles: entry_candles, higher_candles: htf_candles, higher_regimes: htf_regimes)
   entry_regimes = RegimeClassifier.new(profile).classify(entry_candles)
-  swings = events_for(finalist["family"], entry_candles, p)
+  swings = events_for(finalist, entry_candles, profile, entry_regimes, aligned_htf)
   atr_cache = Indicators.atr(entry_candles, 14)
   closes = entry_candles.map { |c| c[:close] }
   extractor = ContextFeatureExtractor.new(profile)
@@ -119,7 +162,7 @@ def discovery_trades(finalist, cache_dir, base_cache)
                                    bar_interval_minutes: pair[:base_minutes] * pair[:entry_factor])
   profile_for_run = profile.dup
   profile_for_run.r_multiple_target = p["r_multiple_target"]
-  embargo_bars = p["forward_horizon_bars"] + profile.structure_lookback
+  embargo_bars = p["forward_horizon_bars"] + (p["structure_lookback"] || profile.structure_lookback)
 
   result = WalkForwardDiscoveryEvaluator.new(
     profile: profile_for_run, cost_model: cost_model, entry_delay_bars: p["entry_delay_bars"],

@@ -90,6 +90,33 @@
     ]
   },
   {
+    "symbol": "SOLUSDT",
+    "family": "price_action",
+    "timeframe_pair": "1h+4h",
+    "parameters": {
+      "min_move_atr_multiple": 1.5,
+      "stop_atr_buffer": 1.0,
+      "r_multiple_target": 3.0,
+      "forward_horizon_bars": 20,
+      "entry_delay_bars": 1,
+      "gate": "trending_only"
+    },
+    "pooled_alpha_net_r": 0.399,
+    "pooled_net_expectancy_r": 0.179,
+    "pooled_win_rate": 0.37,
+    "mean_sharpe": 0.06,
+    "worst_fold_drawdown_r": 7.529,
+    "total_trades": 92,
+    "tradeable_buckets": [
+      {
+        "bucket_key": "trending_bear|4h_aligned=false",
+        "direction": "long",
+        "trade_count": 92,
+        "alpha_net_r": 0.399
+      }
+    ]
+  },
+  {
     "symbol": "XRPUSDT",
     "family": "discovery",
     "timeframe_pair": "1h+4h",
@@ -162,6 +189,66 @@
     ]
   },
   {
+    "symbol": "SOLUSDT",
+    "family": "supertrend_kmeans",
+    "timeframe_pair": "1h+4h",
+    "parameters": {
+      "atr_period": 10,
+      "mult_low": 0.75,
+      "mult_mid": 2.0,
+      "mult_high": 4.0,
+      "stop_atr_buffer": 1.0,
+      "r_multiple_target": 3.0,
+      "forward_horizon_bars": 20,
+      "entry_delay_bars": 3,
+      "gate": "trending_only"
+    },
+    "pooled_alpha_net_r": 0.374,
+    "pooled_net_expectancy_r": 0.188,
+    "pooled_win_rate": 0.395,
+    "mean_sharpe": -0.044,
+    "worst_fold_drawdown_r": 5.287,
+    "total_trades": 43,
+    "tradeable_buckets": [
+      {
+        "bucket_key": "trending_bear|4h_aligned=false",
+        "direction": "long",
+        "trade_count": 43,
+        "alpha_net_r": 0.374
+      }
+    ]
+  },
+  {
+    "symbol": "SOLUSDT",
+    "family": "supertrend_kmeans",
+    "timeframe_pair": "1h+4h",
+    "parameters": {
+      "atr_period": 10,
+      "mult_low": 0.75,
+      "mult_mid": 2.0,
+      "mult_high": 3.0,
+      "stop_atr_buffer": 1.0,
+      "r_multiple_target": 3.0,
+      "forward_horizon_bars": 20,
+      "entry_delay_bars": 3,
+      "gate": "trending_only"
+    },
+    "pooled_alpha_net_r": 0.374,
+    "pooled_net_expectancy_r": 0.188,
+    "pooled_win_rate": 0.395,
+    "mean_sharpe": -0.044,
+    "worst_fold_drawdown_r": 5.287,
+    "total_trades": 43,
+    "tradeable_buckets": [
+      {
+        "bucket_key": "trending_bear|4h_aligned=false",
+        "direction": "long",
+        "trade_count": 43,
+        "alpha_net_r": 0.374
+      }
+    ]
+  },
+  {
     "symbol": "XRPUSDT",
     "family": "supertrend_kmeans",
     "timeframe_pair": "15m+4h",
@@ -169,7 +256,7 @@
       "atr_period": 14,
       "mult_low": 1.0,
       "mult_mid": 2.0,
-      "mult_high": 4.0,
+      "mult_high": 3.0,
       "stop_atr_buffer": 1.0,
       "r_multiple_target": 3.0,
       "forward_horizon_bars": 20,
@@ -204,7 +291,7 @@
       "atr_period": 14,
       "mult_low": 1.0,
       "mult_mid": 2.0,
-      "mult_high": 3.0,
+      "mult_high": 4.0,
       "stop_atr_buffer": 1.0,
       "r_multiple_target": 3.0,
       "forward_horizon_bars": 20,
@@ -263,6 +350,33 @@
         "direction": "short",
         "trade_count": 7,
         "alpha_net_r": 0.317
+      }
+    ]
+  },
+  {
+    "symbol": "SOLUSDT",
+    "family": "price_action",
+    "timeframe_pair": "1h+4h",
+    "parameters": {
+      "min_move_atr_multiple": 1.5,
+      "stop_atr_buffer": 1.0,
+      "r_multiple_target": 3.0,
+      "forward_horizon_bars": 20,
+      "entry_delay_bars": 1,
+      "gate": "ungated"
+    },
+    "pooled_alpha_net_r": 0.358,
+    "pooled_net_expectancy_r": 0.138,
+    "pooled_win_rate": 0.358,
+    "mean_sharpe": 0.042,
+    "worst_fold_drawdown_r": 7.529,
+    "total_trades": 95,
+    "tradeable_buckets": [
+      {
+        "bucket_key": "trending_bear|4h_aligned=false",
+        "direction": "long",
+        "trade_count": 95,
+        "alpha_net_r": 0.358
       }
     ]
   },
@@ -358,6 +472,33 @@
     ]
   },
   {
+    "symbol": "SOLUSDT",
+    "family": "smc_standalone",
+    "timeframe_pair": "1h+4h",
+    "parameters": {
+      "structure_lookback": 30,
+      "stop_atr_buffer": 1.0,
+      "r_multiple_target": 2.0,
+      "forward_horizon_bars": 20,
+      "entry_delay_bars": 3,
+      "gate": "trending_only"
+    },
+    "pooled_alpha_net_r": 0.352,
+    "pooled_net_expectancy_r": 0.159,
+    "pooled_win_rate": 0.455,
+    "mean_sharpe": 0.076,
+    "worst_fold_drawdown_r": 5.29,
+    "total_trades": 55,
+    "tradeable_buckets": [
+      {
+        "bucket_key": "trending_bear|4h_aligned=false",
+        "direction": "long",
+        "trade_count": 55,
+        "alpha_net_r": 0.352
+      }
+    ]
+  },
+  {
     "symbol": "XRPUSDT",
     "family": "supertrend_kmeans",
     "timeframe_pair": "1h+4h",
@@ -429,6 +570,33 @@
   },
   {
     "symbol": "SOLUSDT",
+    "family": "smc_standalone",
+    "timeframe_pair": "1h+4h",
+    "parameters": {
+      "structure_lookback": 30,
+      "stop_atr_buffer": 1.0,
+      "r_multiple_target": 2.0,
+      "forward_horizon_bars": 20,
+      "entry_delay_bars": 3,
+      "gate": "ungated"
+    },
+    "pooled_alpha_net_r": 0.334,
+    "pooled_net_expectancy_r": 0.144,
+    "pooled_win_rate": 0.446,
+    "mean_sharpe": 0.063,
+    "worst_fold_drawdown_r": 6.432,
+    "total_trades": 65,
+    "tradeable_buckets": [
+      {
+        "bucket_key": "trending_bear|4h_aligned=false",
+        "direction": "long",
+        "trade_count": 65,
+        "alpha_net_r": 0.334
+      }
+    ]
+  },
+  {
+    "symbol": "SOLUSDT",
     "family": "confluence",
     "timeframe_pair": "2h+4h",
     "parameters": {
@@ -475,6 +643,66 @@
         "direction": "long",
         "trade_count": 45,
         "alpha_net_r": 0.321
+      }
+    ]
+  },
+  {
+    "symbol": "SOLUSDT",
+    "family": "supertrend_kmeans",
+    "timeframe_pair": "1h+4h",
+    "parameters": {
+      "atr_period": 10,
+      "mult_low": 0.75,
+      "mult_mid": 2.0,
+      "mult_high": 4.0,
+      "stop_atr_buffer": 1.0,
+      "r_multiple_target": 3.0,
+      "forward_horizon_bars": 20,
+      "entry_delay_bars": 3,
+      "gate": "ungated"
+    },
+    "pooled_alpha_net_r": 0.317,
+    "pooled_net_expectancy_r": 0.132,
+    "pooled_win_rate": 0.375,
+    "mean_sharpe": -0.061,
+    "worst_fold_drawdown_r": 6.429,
+    "total_trades": 48,
+    "tradeable_buckets": [
+      {
+        "bucket_key": "trending_bear|4h_aligned=false",
+        "direction": "long",
+        "trade_count": 48,
+        "alpha_net_r": 0.317
+      }
+    ]
+  },
+  {
+    "symbol": "SOLUSDT",
+    "family": "supertrend_kmeans",
+    "timeframe_pair": "1h+4h",
+    "parameters": {
+      "atr_period": 10,
+      "mult_low": 0.75,
+      "mult_mid": 2.0,
+      "mult_high": 3.0,
+      "stop_atr_buffer": 1.0,
+      "r_multiple_target": 3.0,
+      "forward_horizon_bars": 20,
+      "entry_delay_bars": 3,
+      "gate": "ungated"
+    },
+    "pooled_alpha_net_r": 0.317,
+    "pooled_net_expectancy_r": 0.132,
+    "pooled_win_rate": 0.375,
+    "mean_sharpe": -0.061,
+    "worst_fold_drawdown_r": 6.429,
+    "total_trades": 48,
+    "tradeable_buckets": [
+      {
+        "bucket_key": "trending_bear|4h_aligned=false",
+        "direction": "long",
+        "trade_count": 48,
+        "alpha_net_r": 0.317
       }
     ]
   },
@@ -659,6 +887,66 @@
     ]
   },
   {
+    "symbol": "SOLUSDT",
+    "family": "supertrend_kmeans",
+    "timeframe_pair": "1h+4h",
+    "parameters": {
+      "atr_period": 10,
+      "mult_low": 0.75,
+      "mult_mid": 1.5,
+      "mult_high": 4.0,
+      "stop_atr_buffer": 1.0,
+      "r_multiple_target": 3.0,
+      "forward_horizon_bars": 20,
+      "entry_delay_bars": 3,
+      "gate": "trending_only"
+    },
+    "pooled_alpha_net_r": 0.271,
+    "pooled_net_expectancy_r": 0.085,
+    "pooled_win_rate": 0.365,
+    "mean_sharpe": -0.068,
+    "worst_fold_drawdown_r": 8.665,
+    "total_trades": 52,
+    "tradeable_buckets": [
+      {
+        "bucket_key": "trending_bear|4h_aligned=false",
+        "direction": "long",
+        "trade_count": 52,
+        "alpha_net_r": 0.271
+      }
+    ]
+  },
+  {
+    "symbol": "SOLUSDT",
+    "family": "supertrend_kmeans",
+    "timeframe_pair": "1h+4h",
+    "parameters": {
+      "atr_period": 10,
+      "mult_low": 0.75,
+      "mult_mid": 1.5,
+      "mult_high": 3.0,
+      "stop_atr_buffer": 1.0,
+      "r_multiple_target": 3.0,
+      "forward_horizon_bars": 20,
+      "entry_delay_bars": 3,
+      "gate": "trending_only"
+    },
+    "pooled_alpha_net_r": 0.271,
+    "pooled_net_expectancy_r": 0.085,
+    "pooled_win_rate": 0.365,
+    "mean_sharpe": -0.068,
+    "worst_fold_drawdown_r": 8.665,
+    "total_trades": 52,
+    "tradeable_buckets": [
+      {
+        "bucket_key": "trending_bear|4h_aligned=false",
+        "direction": "long",
+        "trade_count": 52,
+        "alpha_net_r": 0.271
+      }
+    ]
+  },
+  {
     "symbol": "ETHUSDT",
     "family": "discovery",
     "timeframe_pair": "1h+4h",
@@ -721,6 +1009,39 @@
     ]
   },
   {
+    "symbol": "SOLUSDT",
+    "family": "smc_standalone",
+    "timeframe_pair": "1h+4h",
+    "parameters": {
+      "structure_lookback": 20,
+      "stop_atr_buffer": 1.0,
+      "r_multiple_target": 2.0,
+      "forward_horizon_bars": 20,
+      "entry_delay_bars": 3,
+      "gate": "ungated"
+    },
+    "pooled_alpha_net_r": 0.254,
+    "pooled_net_expectancy_r": 0.221,
+    "pooled_win_rate": 0.48,
+    "mean_sharpe": 0.137,
+    "worst_fold_drawdown_r": 4.934,
+    "total_trades": 75,
+    "tradeable_buckets": [
+      {
+        "bucket_key": "trending_bear|4h_aligned=false",
+        "direction": "long",
+        "trade_count": 70,
+        "alpha_net_r": 0.381
+      },
+      {
+        "bucket_key": "low_vol_range|4h_aligned=false",
+        "direction": "short",
+        "trade_count": 5,
+        "alpha_net_r": 0.111
+      }
+    ]
+  },
+  {
     "symbol": "XRPUSDT",
     "family": "supertrend_kmeans",
     "timeframe_pair": "1h+4h",
@@ -752,6 +1073,293 @@
         "direction": "long",
         "trade_count": 16,
         "alpha_net_r": -0.007
+      }
+    ]
+  },
+  {
+    "symbol": "XRPUSDT",
+    "family": "supertrend_kmeans",
+    "timeframe_pair": "1h+4h",
+    "parameters": {
+      "atr_period": 10,
+      "mult_low": 1.0,
+      "mult_mid": 2.0,
+      "mult_high": 3.0,
+      "stop_atr_buffer": 1.0,
+      "r_multiple_target": 3.0,
+      "forward_horizon_bars": 20,
+      "entry_delay_bars": 3
+    },
+    "pooled_alpha_net_r": 0.243,
+    "pooled_net_expectancy_r": 0.072,
+    "pooled_win_rate": 0.297,
+    "mean_sharpe": -0.011,
+    "worst_fold_drawdown_r": 8.033,
+    "total_trades": 74,
+    "tradeable_buckets": [
+      {
+        "bucket_key": "trending_bear|4h_aligned=true",
+        "direction": "long",
+        "trade_count": 67,
+        "alpha_net_r": 0.29
+      },
+      {
+        "bucket_key": "trending_bull|4h_aligned=true",
+        "direction": "short",
+        "trade_count": 7,
+        "alpha_net_r": 0.118
+      }
+    ]
+  },
+  {
+    "symbol": "XRPUSDT",
+    "family": "supertrend_kmeans",
+    "timeframe_pair": "1h+4h",
+    "parameters": {
+      "atr_period": 10,
+      "mult_low": 1.0,
+      "mult_mid": 2.0,
+      "mult_high": 4.0,
+      "stop_atr_buffer": 0.7,
+      "r_multiple_target": 3.0,
+      "forward_horizon_bars": 20,
+      "entry_delay_bars": 1
+    },
+    "pooled_alpha_net_r": 0.239,
+    "pooled_net_expectancy_r": 0.055,
+    "pooled_win_rate": 0.31,
+    "mean_sharpe": 0.092,
+    "worst_fold_drawdown_r": 15.597,
+    "total_trades": 84,
+    "tradeable_buckets": [
+      {
+        "bucket_key": "trending_bear|4h_aligned=true",
+        "direction": "long",
+        "trade_count": 68,
+        "alpha_net_r": 0.296
+      },
+      {
+        "bucket_key": "low_vol_range|4h_aligned=false",
+        "direction": "long",
+        "trade_count": 16,
+        "alpha_net_r": -0.003
+      }
+    ]
+  },
+  {
+    "symbol": "SOLUSDT",
+    "family": "supertrend_kmeans",
+    "timeframe_pair": "15m+1h",
+    "parameters": {
+      "atr_period": 14,
+      "mult_low": 1.0,
+      "mult_mid": 1.5,
+      "mult_high": 4.0,
+      "stop_atr_buffer": 1.0,
+      "r_multiple_target": 3.0,
+      "forward_horizon_bars": 20,
+      "entry_delay_bars": 3,
+      "gate": "htf_aligned"
+    },
+    "pooled_alpha_net_r": 0.234,
+    "pooled_net_expectancy_r": 0.183,
+    "pooled_win_rate": 0.387,
+    "mean_sharpe": 0.045,
+    "worst_fold_drawdown_r": 9.767,
+    "total_trades": 93,
+    "tradeable_buckets": [
+      {
+        "bucket_key": "low_vol_range|1h_aligned=true",
+        "direction": "long",
+        "trade_count": 7,
+        "alpha_net_r": 1.358
+      },
+      {
+        "bucket_key": "trending_bear|1h_aligned=true",
+        "direction": "long",
+        "trade_count": 86,
+        "alpha_net_r": 0.145
+      }
+    ]
+  },
+  {
+    "symbol": "SOLUSDT",
+    "family": "smc_standalone",
+    "timeframe_pair": "1h+4h",
+    "parameters": {
+      "structure_lookback": 15,
+      "stop_atr_buffer": 1.0,
+      "r_multiple_target": 2.0,
+      "forward_horizon_bars": 20,
+      "entry_delay_bars": 3,
+      "gate": "ungated"
+    },
+    "pooled_alpha_net_r": 0.233,
+    "pooled_net_expectancy_r": 0.056,
+    "pooled_win_rate": 0.432,
+    "mean_sharpe": 0.019,
+    "worst_fold_drawdown_r": 12.33,
+    "total_trades": 132,
+    "tradeable_buckets": [
+      {
+        "bucket_key": "high_vol_range|4h_aligned=false",
+        "direction": "long",
+        "trade_count": 24,
+        "alpha_net_r": 0.375
+      },
+      {
+        "bucket_key": "low_vol_range|4h_aligned=false",
+        "direction": "long",
+        "trade_count": 31,
+        "alpha_net_r": 0.196
+      },
+      {
+        "bucket_key": "trending_bear|4h_aligned=false",
+        "direction": "long",
+        "trade_count": 77,
+        "alpha_net_r": 0.159
+      }
+    ]
+  },
+  {
+    "symbol": "SOLUSDT",
+    "family": "supertrend_kmeans",
+    "timeframe_pair": "15m+4h",
+    "parameters": {
+      "atr_period": 14,
+      "mult_low": 0.75,
+      "mult_mid": 2.0,
+      "mult_high": 4.0,
+      "stop_atr_buffer": 1.0,
+      "r_multiple_target": 3.0,
+      "forward_horizon_bars": 20,
+      "entry_delay_bars": 3,
+      "gate": "ungated"
+    },
+    "pooled_alpha_net_r": 0.185,
+    "pooled_net_expectancy_r": 0.141,
+    "pooled_win_rate": 0.391,
+    "mean_sharpe": 0.388,
+    "worst_fold_drawdown_r": 14.944,
+    "total_trades": 46,
+    "tradeable_buckets": [
+      {
+        "bucket_key": "trending_bear|4h_aligned=true",
+        "direction": "long",
+        "trade_count": 46,
+        "alpha_net_r": 0.185
+      }
+    ]
+  },
+  {
+    "symbol": "XRPUSDT",
+    "family": "confluence",
+    "timeframe_pair": "2h+4h",
+    "parameters": {
+      "min_score_threshold": 0.55,
+      "weight_preset": "trend_heavy",
+      "require_htf_alignment": true,
+      "stop_atr_buffer": 1.0,
+      "r_multiple_target": 2.0,
+      "forward_horizon_bars": 20
+    },
+    "pooled_alpha_net_r": 0.181,
+    "pooled_net_expectancy_r": 0.128,
+    "pooled_win_rate": 0.4,
+    "mean_sharpe": null,
+    "worst_fold_drawdown_r": null,
+    "total_trades": 220,
+    "tradeable_buckets": null
+  },
+  {
+    "symbol": "XRPUSDT",
+    "family": "confluence",
+    "timeframe_pair": "2h+4h",
+    "parameters": {
+      "min_score_threshold": 0.55,
+      "weight_preset": "trend_heavy",
+      "require_htf_alignment": false,
+      "stop_atr_buffer": 1.0,
+      "r_multiple_target": 2.0,
+      "forward_horizon_bars": 20
+    },
+    "pooled_alpha_net_r": 0.168,
+    "pooled_net_expectancy_r": 0.117,
+    "pooled_win_rate": 0.396,
+    "mean_sharpe": null,
+    "worst_fold_drawdown_r": null,
+    "total_trades": 222,
+    "tradeable_buckets": null
+  },
+  {
+    "symbol": "SOLUSDT",
+    "family": "discovery",
+    "timeframe_pair": "1h+4h",
+    "parameters": {
+      "stop_atr_buffer": 1.0,
+      "r_multiple_target": 3.0,
+      "forward_horizon_bars": 40,
+      "entry_delay_bars": 1
+    },
+    "pooled_alpha_net_r": 0.12,
+    "pooled_net_expectancy_r": 0.121,
+    "pooled_win_rate": 0.324,
+    "mean_sharpe": 0.07,
+    "worst_fold_drawdown_r": 9.327,
+    "total_trades": 136,
+    "tradeable_buckets": [
+      {
+        "bucket_key": "trending_bear|4h_aligned=false",
+        "direction": "long",
+        "trade_count": 104,
+        "alpha_net_r": 0.455
+      },
+      {
+        "bucket_key": "trending_bull|4h_aligned=false",
+        "direction": "short",
+        "trade_count": 32,
+        "alpha_net_r": -0.838
+      }
+    ]
+  },
+  {
+    "symbol": "SOLUSDT",
+    "family": "supertrend_kmeans",
+    "timeframe_pair": "1h+4h",
+    "parameters": {
+      "atr_period": 14,
+      "mult_low": 1.0,
+      "mult_mid": 2.0,
+      "mult_high": 3.0,
+      "stop_atr_buffer": 0.7,
+      "r_multiple_target": 3.0,
+      "forward_horizon_bars": 20,
+      "entry_delay_bars": 1
+    },
+    "pooled_alpha_net_r": 0.113,
+    "pooled_net_expectancy_r": 0.112,
+    "pooled_win_rate": 0.333,
+    "mean_sharpe": 0.055,
+    "worst_fold_drawdown_r": 8.322,
+    "total_trades": 72,
+    "tradeable_buckets": [
+      {
+        "bucket_key": "trending_bear|4h_aligned=false",
+        "direction": "long",
+        "trade_count": 15,
+        "alpha_net_r": 0.248
+      },
+      {
+        "bucket_key": "trending_bull|4h_aligned=false",
+        "direction": "short",
+        "trade_count": 17,
+        "alpha_net_r": 0.152
+      },
+      {
+        "bucket_key": "trending_bear|4h_aligned=true",
+        "direction": "long",
+        "trade_count": 40,
+        "alpha_net_r": 0.035
       }
     ]
   }

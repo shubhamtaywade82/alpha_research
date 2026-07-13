@@ -52,6 +52,19 @@
     "status": "FAILED"
   },
   {
+    "symbol": "SOLUSDT",
+    "family": "price_action",
+    "timeframe_pair": "1h+4h",
+    "research_alpha_net_r": 0.399,
+    "research_net_expectancy_r": 0.179,
+    "holdout_trades": 16,
+    "holdout_net_expectancy_r": -0.474,
+    "holdout_win_rate": 0.25,
+    "holdout_sharpe": -0.377,
+    "holdout_max_drawdown_r": 10.386,
+    "status": "FAILED"
+  },
+  {
     "symbol": "XRPUSDT",
     "family": "discovery",
     "timeframe_pair": "1h+4h",
@@ -75,6 +88,32 @@
     "holdout_win_rate": 0.409,
     "holdout_sharpe": -0.093,
     "holdout_max_drawdown_r": 5.628,
+    "status": "FAILED"
+  },
+  {
+    "symbol": "SOLUSDT",
+    "family": "supertrend_kmeans",
+    "timeframe_pair": "1h+4h",
+    "research_alpha_net_r": 0.374,
+    "research_net_expectancy_r": 0.188,
+    "holdout_trades": 7,
+    "holdout_net_expectancy_r": -0.276,
+    "holdout_win_rate": 0.286,
+    "holdout_sharpe": -0.186,
+    "holdout_max_drawdown_r": 4.759,
+    "status": "FAILED"
+  },
+  {
+    "symbol": "SOLUSDT",
+    "family": "supertrend_kmeans",
+    "timeframe_pair": "1h+4h",
+    "research_alpha_net_r": 0.374,
+    "research_net_expectancy_r": 0.188,
+    "holdout_trades": 7,
+    "holdout_net_expectancy_r": -0.276,
+    "holdout_win_rate": 0.286,
+    "holdout_sharpe": -0.186,
+    "holdout_max_drawdown_r": 4.759,
     "status": "FAILED"
   },
   {
@@ -117,6 +156,19 @@
     "status": "FAILED"
   },
   {
+    "symbol": "SOLUSDT",
+    "family": "price_action",
+    "timeframe_pair": "1h+4h",
+    "research_alpha_net_r": 0.358,
+    "research_net_expectancy_r": 0.138,
+    "holdout_trades": 16,
+    "holdout_net_expectancy_r": -0.474,
+    "holdout_win_rate": 0.25,
+    "holdout_sharpe": -0.377,
+    "holdout_max_drawdown_r": 10.386,
+    "status": "FAILED"
+  },
+  {
     "symbol": "XRPUSDT",
     "family": "supertrend_kmeans",
     "timeframe_pair": "1h+4h",
@@ -156,6 +208,19 @@
     "status": "PASSED"
   },
   {
+    "symbol": "SOLUSDT",
+    "family": "smc_standalone",
+    "timeframe_pair": "1h+4h",
+    "research_alpha_net_r": 0.352,
+    "research_net_expectancy_r": 0.159,
+    "holdout_trades": 7,
+    "holdout_net_expectancy_r": -0.011,
+    "holdout_win_rate": 0.429,
+    "holdout_sharpe": -0.008,
+    "holdout_max_drawdown_r": 3.411,
+    "status": "FAILED"
+  },
+  {
     "symbol": "XRPUSDT",
     "family": "supertrend_kmeans",
     "timeframe_pair": "1h+4h",
@@ -183,6 +248,19 @@
   },
   {
     "symbol": "SOLUSDT",
+    "family": "smc_standalone",
+    "timeframe_pair": "1h+4h",
+    "research_alpha_net_r": 0.334,
+    "research_net_expectancy_r": 0.144,
+    "holdout_trades": 7,
+    "holdout_net_expectancy_r": -0.011,
+    "holdout_win_rate": 0.429,
+    "holdout_sharpe": -0.008,
+    "holdout_max_drawdown_r": 3.411,
+    "status": "FAILED"
+  },
+  {
+    "symbol": "SOLUSDT",
     "family": "confluence",
     "timeframe_pair": "2h+4h",
     "research_alpha_net_r": 0.333,
@@ -206,6 +284,32 @@
     "holdout_sharpe": 0.176,
     "holdout_max_drawdown_r": 3.471,
     "status": "PASSED"
+  },
+  {
+    "symbol": "SOLUSDT",
+    "family": "supertrend_kmeans",
+    "timeframe_pair": "1h+4h",
+    "research_alpha_net_r": 0.317,
+    "research_net_expectancy_r": 0.132,
+    "holdout_trades": 7,
+    "holdout_net_expectancy_r": -0.276,
+    "holdout_win_rate": 0.286,
+    "holdout_sharpe": -0.186,
+    "holdout_max_drawdown_r": 4.759,
+    "status": "FAILED"
+  },
+  {
+    "symbol": "SOLUSDT",
+    "family": "supertrend_kmeans",
+    "timeframe_pair": "1h+4h",
+    "research_alpha_net_r": 0.317,
+    "research_net_expectancy_r": 0.132,
+    "holdout_trades": 7,
+    "holdout_net_expectancy_r": -0.276,
+    "holdout_win_rate": 0.286,
+    "holdout_sharpe": -0.186,
+    "holdout_max_drawdown_r": 4.759,
+    "status": "FAILED"
   },
   {
     "symbol": "XRPUSDT",
@@ -286,6 +390,32 @@
     "status": "FAILED"
   },
   {
+    "symbol": "SOLUSDT",
+    "family": "supertrend_kmeans",
+    "timeframe_pair": "1h+4h",
+    "research_alpha_net_r": 0.271,
+    "research_net_expectancy_r": 0.085,
+    "holdout_trades": 7,
+    "holdout_net_expectancy_r": -0.276,
+    "holdout_win_rate": 0.286,
+    "holdout_sharpe": -0.186,
+    "holdout_max_drawdown_r": 4.759,
+    "status": "FAILED"
+  },
+  {
+    "symbol": "SOLUSDT",
+    "family": "supertrend_kmeans",
+    "timeframe_pair": "1h+4h",
+    "research_alpha_net_r": 0.271,
+    "research_net_expectancy_r": 0.085,
+    "holdout_trades": 7,
+    "holdout_net_expectancy_r": -0.276,
+    "holdout_win_rate": 0.286,
+    "holdout_sharpe": -0.186,
+    "holdout_max_drawdown_r": 4.759,
+    "status": "FAILED"
+  },
+  {
     "symbol": "ETHUSDT",
     "family": "discovery",
     "timeframe_pair": "1h+4h",
@@ -312,6 +442,19 @@
     "status": "FAILED"
   },
   {
+    "symbol": "SOLUSDT",
+    "family": "smc_standalone",
+    "timeframe_pair": "1h+4h",
+    "research_alpha_net_r": 0.254,
+    "research_net_expectancy_r": 0.221,
+    "holdout_trades": 18,
+    "holdout_net_expectancy_r": 0.273,
+    "holdout_win_rate": 0.5,
+    "holdout_sharpe": 0.188,
+    "holdout_max_drawdown_r": 3.833,
+    "status": "PASSED"
+  },
+  {
     "symbol": "XRPUSDT",
     "family": "supertrend_kmeans",
     "timeframe_pair": "1h+4h",
@@ -322,6 +465,123 @@
     "holdout_win_rate": 0.174,
     "holdout_sharpe": -0.346,
     "holdout_max_drawdown_r": 16.344,
+    "status": "FAILED"
+  },
+  {
+    "symbol": "XRPUSDT",
+    "family": "supertrend_kmeans",
+    "timeframe_pair": "1h+4h",
+    "research_alpha_net_r": 0.243,
+    "research_net_expectancy_r": 0.072,
+    "holdout_trades": 15,
+    "holdout_net_expectancy_r": -0.144,
+    "holdout_win_rate": 0.333,
+    "holdout_sharpe": -0.096,
+    "holdout_max_drawdown_r": 4.725,
+    "status": "FAILED"
+  },
+  {
+    "symbol": "XRPUSDT",
+    "family": "supertrend_kmeans",
+    "timeframe_pair": "1h+4h",
+    "research_alpha_net_r": 0.239,
+    "research_net_expectancy_r": 0.055,
+    "holdout_trades": 22,
+    "holdout_net_expectancy_r": -0.499,
+    "holdout_win_rate": 0.182,
+    "holdout_sharpe": -0.32,
+    "holdout_max_drawdown_r": 15.159,
+    "status": "FAILED"
+  },
+  {
+    "symbol": "SOLUSDT",
+    "family": "supertrend_kmeans",
+    "timeframe_pair": "15m+1h",
+    "research_alpha_net_r": 0.234,
+    "research_net_expectancy_r": 0.183,
+    "holdout_trades": 18,
+    "holdout_net_expectancy_r": -0.7,
+    "holdout_win_rate": 0.222,
+    "holdout_sharpe": -0.645,
+    "holdout_max_drawdown_r": 12.594,
+    "status": "FAILED"
+  },
+  {
+    "symbol": "SOLUSDT",
+    "family": "smc_standalone",
+    "timeframe_pair": "1h+4h",
+    "research_alpha_net_r": 0.233,
+    "research_net_expectancy_r": 0.056,
+    "holdout_trades": 24,
+    "holdout_net_expectancy_r": -0.055,
+    "holdout_win_rate": 0.375,
+    "holdout_sharpe": -0.039,
+    "holdout_max_drawdown_r": 8.523,
+    "status": "FAILED"
+  },
+  {
+    "symbol": "SOLUSDT",
+    "family": "supertrend_kmeans",
+    "timeframe_pair": "15m+4h",
+    "research_alpha_net_r": 0.185,
+    "research_net_expectancy_r": 0.141,
+    "holdout_trades": 0,
+    "holdout_net_expectancy_r": null,
+    "holdout_win_rate": null,
+    "holdout_sharpe": null,
+    "holdout_max_drawdown_r": 0.0,
+    "status": "NO_TRADES"
+  },
+  {
+    "symbol": "XRPUSDT",
+    "family": "confluence",
+    "timeframe_pair": "2h+4h",
+    "research_alpha_net_r": 0.181,
+    "research_net_expectancy_r": 0.128,
+    "holdout_trades": 72,
+    "holdout_net_expectancy_r": 0.347,
+    "holdout_win_rate": 0.472,
+    "holdout_sharpe": 0.233,
+    "holdout_max_drawdown_r": 25.868,
+    "status": "PASSED"
+  },
+  {
+    "symbol": "XRPUSDT",
+    "family": "confluence",
+    "timeframe_pair": "2h+4h",
+    "research_alpha_net_r": 0.168,
+    "research_net_expectancy_r": 0.117,
+    "holdout_trades": 72,
+    "holdout_net_expectancy_r": 0.347,
+    "holdout_win_rate": 0.472,
+    "holdout_sharpe": 0.233,
+    "holdout_max_drawdown_r": 25.868,
+    "status": "PASSED"
+  },
+  {
+    "symbol": "SOLUSDT",
+    "family": "discovery",
+    "timeframe_pair": "1h+4h",
+    "research_alpha_net_r": 0.12,
+    "research_net_expectancy_r": 0.121,
+    "holdout_trades": 35,
+    "holdout_net_expectancy_r": -0.101,
+    "holdout_win_rate": 0.257,
+    "holdout_sharpe": -0.058,
+    "holdout_max_drawdown_r": 11.717,
+    "status": "FAILED"
+  },
+  {
+    "symbol": "SOLUSDT",
+    "family": "supertrend_kmeans",
+    "timeframe_pair": "1h+4h",
+    "research_alpha_net_r": 0.113,
+    "research_net_expectancy_r": 0.112,
+    "holdout_trades": 30,
+    "holdout_net_expectancy_r": -0.242,
+    "holdout_win_rate": 0.233,
+    "holdout_sharpe": -0.142,
+    "holdout_max_drawdown_r": 11.865,
     "status": "FAILED"
   }
 ]
