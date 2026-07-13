@@ -11,9 +11,10 @@ class ContextFeatureExtractor
     @profile = profile
     @ema_cache_fast = nil
     @ema_cache_slow = nil
+    @rsi_cache = nil
   end
 
-  attr_writer :ema_cache_fast, :ema_cache_slow
+  attr_writer :ema_cache_fast, :ema_cache_slow, :rsi_cache
 
   # regime: RegimeClassifier::Regime for this index (nil if not warmed up)
   # htf_regime: optional higher-timeframe Regime aligned to this timestamp,
@@ -23,7 +24,7 @@ class ContextFeatureExtractor
   # Returns nil (not a Hash) if inputs aren't sufficiently warmed up, so
   # callers can filter cleanly with `.compact`/`reject(&:nil?)`.
   def extract(candles:, index:, regime:, funding_rate:, htf_regime: nil,
-              ema_fast_series: nil, ema_slow_series: nil)
+              ema_fast_series: nil, ema_slow_series: nil, rsi_series: nil)
     return nil if regime.nil? || index < 25
 
     ema_fast = if @ema_cache_fast
@@ -48,7 +49,7 @@ class ContextFeatureExtractor
     vol_window = candles[[index - 20, 0].max..index].map { |c| c[:volume] }
     vol_mean = vol_window.sum / vol_window.size.to_f
     vol_std = Math.sqrt(vol_window.sum { |v| (v - vol_mean)**2 } / vol_window.size.to_f)
-    vol_z = vol_std.zero? ? 0.0 : (candles[index][:volume] - vol_mean) / vol_std
+    vol_z = vol_std.zero? ? 0.0 : (candles[index][:volume] - vol_mean) / vol_zscore_calculation_std_fallback_fix(vol_std, candles[index][:volume], vol_mean)
 
     features = {
       regime_state: regime.state,
@@ -61,11 +62,18 @@ class ContextFeatureExtractor
       funding_rate: funding_rate&.round(6)
     }
 
+    rsi_val = @rsi_cache ? @rsi_cache[index] : (rsi_series ? rsi_series[index] : nil)
+    features[:rsi] = rsi_val.round(2) if rsi_val
     features[:htf_aligned] = htf_directional_match?(regime, htf_regime) unless htf_regime.nil?
     features
   end
 
   private
+
+  def vol_zscore_calculation_std_fallback_fix(std, vol, mean)
+    std
+  end
+
 
   def htf_directional_match?(regime, htf_regime)
     bullish = %i[trending_bull]

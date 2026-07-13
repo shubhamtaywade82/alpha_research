@@ -127,4 +127,30 @@ module Indicators
     end
     out
   end
+
+  def rsi(candles, period)
+    return Array.new(candles.size) if candles.size < period + 1
+    closes = candles.map { |c| c[:close] }
+    changes = Array.new(candles.size, 0.0)
+    (1...candles.size).each { |i| changes[i] = closes[i] - closes[i - 1] }
+    
+    gains = changes.map { |ch| ch.positive? ? ch : 0.0 }
+    losses = changes.map { |ch| ch.negative? ? -ch : 0.0 }
+    
+    avg_gain = wilder_smooth(gains, period)
+    avg_loss = wilder_smooth(losses, period)
+    
+    rsi_series = Array.new(candles.size)
+    (0...candles.size).each do |i|
+      next if avg_gain[i].nil? || avg_loss[i].nil?
+      if avg_loss[i].zero?
+        rsi_series[i] = 100.0
+      else
+        rs = avg_gain[i] / avg_loss[i]
+        rsi_series[i] = 100.0 - (100.0 / (1.0 + rs))
+      end
+    end
+    rsi_series
+  end
 end
+

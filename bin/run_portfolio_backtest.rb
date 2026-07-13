@@ -22,72 +22,277 @@ SYMBOLS = %w[SOLUSDT ETHUSDT XRPUSDT].freeze
 INTERVAL = "15m"
 DAYS_BACK = 90
 WALK_FORWARD_FOLDS = 6
-EMBARGO_BARS = 20
+EMBARGO_BARS_2H = 3
 CACHE_DIR = File.join(root, "data", "cache")
 
 STARTING_BALANCE_INR = 100_000.0
 EXCHANGE_RATE = 83.5 # INR/USDT
 
-# 1. Load data for all symbols
-candles_by_symbol = {}
-funding_series_by_symbol = {}
-regimes_by_symbol = {}
-aligned_1h_regimes_by_symbol = {}
-swings_by_symbol = {}
-feature_extractor_by_symbol = {}
+# 1. Load raw 15m data and resample to 2H for active scenarios
+candles_15m_by_symbol = {}
+funding_15m_by_symbol = {}
+regimes_15m_by_symbol = {}
+swings_15m_by_symbol = {}
+extractor_15m_by_symbol = {}
+
+candles_2h_by_symbol = {}
+funding_2h_by_symbol = {}
+regimes_2h_by_symbol = {}
+aligned_4h_regimes_by_symbol = {}
+swings_2h_by_symbol = {}
+extractor_2h_by_symbol = {}
 
 puts "======================================================================"
-puts "PORTFOLIO BACKTEST SIMULATOR (Starting Balance: #{STARTING_BALANCE_INR} INR / #{(STARTING_BALANCE_INR/EXCHANGE_RATE).round(2)} USDT)"
+puts "ULTIMATE COMPOSITE ALPHA BACKTEST SIMULATOR (Starting: #{STARTING_BALANCE_INR} INR)"
 puts "======================================================================"
 
 SYMBOLS.each do |symbol|
   raw_klines = JSON.parse(File.read(File.join(CACHE_DIR, "#{symbol}_klines_#{INTERVAL}_#{DAYS_BACK}d.json")))
   raw_funding = JSON.parse(File.read(File.join(CACHE_DIR, "#{symbol}_funding_#{DAYS_BACK}d.json")))
   
-  candles = BinanceDataLoader.klines_to_candles(raw_klines)
-  funding_series = BinanceDataLoader.align_funding_series(candles, raw_funding)
+  # 15m Series (For Scenario 1)
+  candles_15m = BinanceDataLoader.klines_to_candles(raw_klines)
+  funding_15m = BinanceDataLoader.align_funding_series(candles_15m, raw_funding)
   profile = SymbolProfile.for(symbol)
+  regimes_15m = RegimeClassifier.new(profile).classify(candles_15m)
+  swings_15m = SwingPointDetector.new(min_move_atr_multiple: 1.5).detect(candles_15m)
+  extractor_15m = ContextFeatureExtractor.new(profile)
   
-  regimes = RegimeClassifier.new(profile).classify(candles)
-  swings = SwingPointDetector.new(min_move_atr_multiple: 1.5).detect(candles)
-  extractor = ContextFeatureExtractor.new(profile)
+  closes_15m = candles_15m.map { |c| c[:close] }
+  extractor_15m.ema_cache_fast = Indicators.ema(closes_15m, profile.ema_fast)
+  extractor_15m.ema_cache_slow = Indicators.ema(closes_15m, profile.ema_slow)
   
-  # Warm up caches
-  closes = candles.map { |c| c[:close] }
-  extractor.ema_cache_fast = Indicators.ema(closes, profile.ema_fast)
-  extractor.ema_cache_slow = Indicators.ema(closes, profile.ema_slow)
+  candles_15m_by_symbol[symbol] = candles_15m
+  funding_15m_by_symbol[symbol] = funding_15m
+  regimes_15m_by_symbol[symbol] = regimes_15m
+  swings_15m_by_symbol[symbol] = swings_15m
+  extractor_15m_by_symbol[symbol] = extractor_15m
   
-  # Align 1h regimes for MTF gating
-  htf_factor = 4 # 15m * 4 = 1h
-  htf_candles = CandleResampler.resample_candles(candles, htf_factor)
+  # 2H Series (For Scenario 2 & 3, resampling factor = 8)
+  candles_2h = CandleResampler.resample_candles(candles_15m, 8)
+  funding_2h = BinanceDataLoader.align_funding_series(candles_2h, raw_funding)
+  regimes_2h = RegimeClassifier.new(profile).classify(candles_2h)
+  swings_2h = SwingPointDetector.new(min_move_atr_multiple: 1.5).detect(candles_2h)
+  extractor_2h = ContextFeatureExtractor.new(profile)
+  
+  closes_2h = candles_2h.map { |c| c[:close] }
+  extractor_2h.ema_cache_fast = Indicators.ema(closes_2h, profile.ema_fast)
+  extractor_2h.ema_cache_slow = Indicators.ema(closes_2h, profile.ema_slow)
+  
+  # Precompute and cache RSI for 2H candles
+  extractor_2h.rsi_cache = Indicators.rsi(candles_2h, 14)
+  
+  # Align 4h regimes for MTF gating (2h * 2 = 4h)
+  htf_candles = CandleResampler.resample_candles(candles_2h, 2)
   htf_regimes = RegimeClassifier.new(profile).classify(htf_candles)
-  aligned_1h_regimes = CandleResampler.align_higher_regimes(
-    lower_candles: candles,
+  aligned_4h_regimes = CandleResampler.align_higher_regimes(
+    lower_candles: candles_2h,
     higher_candles: htf_candles,
     higher_regimes: htf_regimes
   )
   
-  candles_by_symbol[symbol] = candles
-  funding_series_by_symbol[symbol] = funding_series
-  regimes_by_symbol[symbol] = regimes
-  aligned_1h_regimes_by_symbol[symbol] = aligned_1h_regimes
-  swings_by_symbol[symbol] = swings
-  feature_extractor_by_symbol[symbol] = extractor
+  candles_2h_by_symbol[symbol] = candles_2h
+  funding_2h_by_symbol[symbol] = funding_2h
+  regimes_2h_by_symbol[symbol] = regimes_2h
+  aligned_4h_regimes_by_symbol[symbol] = aligned_4h_regimes
+  swings_2h_by_symbol[symbol] = swings_2h
+  extractor_2h_by_symbol[symbol] = extractor_2h
   
-  puts "#{symbol}: #{candles.size} candles, #{swings.size} swings"
+  puts "#{symbol}: 15m and 2H candles loaded successfully."
 end
 
-# Build folds
-total_bars = candles_by_symbol[SYMBOLS.first].size
-folds = WalkForwardValidator.build_folds(total_bars: total_bars, n_folds: WALK_FORWARD_FOLDS, embargo_bars: EMBARGO_BARS)
+# Build folds based on 2H candle count
+total_bars_2h = candles_2h_by_symbol[SYMBOLS.first].size
+folds_2h = WalkForwardValidator.build_folds(total_bars: total_bars_2h, n_folds: WALK_FORWARD_FOLDS, embargo_bars: EMBARGO_BARS_2H)
 
-# Helper to calibrate optimal parameters for a symbol on training fold data
-def calibrate_symbol(symbol:, candles:, swings:, regimes:, funding_series:, extractor:, train_range:)
+# Gated Simulator subclass to allow post-entry gating hooks
+class GatedSimulator < BacktestSimulator
+  def run_with_filter(candles_by_symbol:, funding_series_by_symbol:, swings_by_symbol:, regimes_by_symbol:, feature_extractor_by_symbol:, tradeable_buckets_by_symbol:, params_by_symbol:, aligned_htf_by_symbol: nil, filter_proc: nil, bar_interval_mins: 15)
+    
+    all_events = []
+    candles_by_symbol.each do |symbol, candles|
+      profile = SymbolProfile.for(symbol)
+      swings = swings_by_symbol[symbol]
+      regimes = regimes_by_symbol[symbol]
+      funding_series = funding_series_by_symbol[symbol]
+      extractor = feature_extractor_by_symbol[symbol]
+      sym_params = params_by_symbol[symbol]
+      
+      labeler = MoveLabeler.new(r_multiple_target: profile.r_multiple_target, stop_atr_buffer: sym_params[:stop_atr_buffer])
+      events = labeler.label_signal_events(
+        candles: candles, swings: swings, regimes: regimes,
+        funding_series: funding_series, feature_extractor: extractor,
+        entry_delay_bars: sym_params[:entry_delay_bars], forward_horizon_bars: sym_params[:forward_horizon_bars]
+      )
+      
+      events.each do |event|
+        all_events << { symbol: symbol, event: event }
+      end
+    end
+    
+    all_events.sort_by! { |item| item[:event].entry_ts }
+    
+    equity_usdt = @starting_balance_usdt
+    peak_equity_usdt = equity_usdt
+    max_drawdown_pct = 0.0
+    
+    open_trades = []
+    trade_logs = []
+    
+    all_events.each do |item|
+      symbol = item[:symbol]
+      event = item[:event]
+      profile = SymbolProfile.for(symbol)
+      sizer = PositionSizer.new(profile)
+      
+      # Settle open trades
+      open_trades.reject! do |open_trade|
+        if open_trade[:exit_ts] <= event.entry_ts
+          pnl_info = calculate_net_pnl(
+            event: open_trade[:event],
+            quantity: open_trade[:quantity],
+            funding_series: funding_series_by_symbol[open_trade[:symbol]],
+            bar_interval_minutes: bar_interval_mins
+          )
+          
+          equity_usdt += pnl_info[:net_pnl_usdt]
+          peak_equity_usdt = [peak_equity_usdt, equity_usdt].max
+          dd = (peak_equity_usdt - equity_usdt) / peak_equity_usdt
+          max_drawdown_pct = [max_drawdown_pct, dd].max
+          
+          trade_logs << BacktestSimulator::TradeLog.new(
+            symbol: open_trade[:symbol],
+            direction: open_trade[:event].direction,
+            entry_ts: open_trade[:event].entry_ts,
+            exit_ts: open_trade[:exit_ts],
+            entry_price: open_trade[:event].entry_price,
+            stop_price: open_trade[:event].stop_price,
+            exit_price: open_trade[:event].exit_price,
+            quantity: open_trade[:quantity],
+            notional: open_trade[:notional],
+            leverage: open_trade[:leverage],
+            gross_pnl_usdt: pnl_info[:gross_pnl_usdt],
+            fees_usdt: pnl_info[:fees_usdt],
+            slippage_usdt: pnl_info[:slippage_usdt],
+            funding_usdt: pnl_info[:funding_usdt],
+            net_pnl_usdt: pnl_info[:net_pnl_usdt],
+            net_pnl_inr: pnl_info[:net_pnl_usdt] * @exchange_rate_inr_usdt,
+            ending_equity_usdt: equity_usdt,
+            bucket_key: open_trade[:bucket_key]
+          )
+          true
+        else
+          false
+        end
+      end
+      
+      bucket_key = event.context[:regime_state]
+      tradeable_info = tradeable_buckets_by_symbol[symbol][bucket_key]
+      next if tradeable_info.nil?
+      next if event.direction != tradeable_info[:direction]
+      
+      # Filter hook
+      aligned_htf = aligned_htf_by_symbol ? aligned_htf_by_symbol[symbol] : nil
+      next if filter_proc && !filter_proc.call(event, aligned_htf)
+      
+      risk_pct = tradeable_info[:plan].risk_pct
+      current_open_notional = open_trades.sum { |t| t[:notional] }
+      max_allowed_new_notional = (equity_usdt * profile.max_leverage) - current_open_notional
+      next if max_allowed_new_notional <= 0
+      
+      begin
+        sizing = sizer.size(
+          account_equity: equity_usdt,
+          entry_price: event.entry_price,
+          stop_price: event.stop_price,
+          risk_pct: risk_pct,
+          direction: event.direction
+        )
+        
+        quantity = sizing.quantity
+        notional = sizing.notional
+        if notional > max_allowed_new_notional
+          notional = max_allowed_new_notional
+          quantity = notional / event.entry_price
+        end
+        
+        next if quantity <= 0
+        
+        exit_bar_ts = event.exit_index && candles_by_symbol[symbol][event.exit_index] ? candles_by_symbol[symbol][event.exit_index][:ts] : event.entry_ts
+        
+        open_trades << {
+          symbol: symbol,
+          event: event,
+          quantity: quantity.round(6),
+          notional: notional.round(2),
+          leverage: sizing.leverage_used,
+          exit_ts: exit_bar_ts,
+          bucket_key: bucket_key
+        }
+      rescue StandardError
+      end
+    end
+    
+    # Settle remaining
+    open_trades.each do |open_trade|
+      pnl_info = calculate_net_pnl(
+        event: open_trade[:event],
+        quantity: open_trade[:quantity],
+        funding_series: funding_series_by_symbol[open_trade[:symbol]],
+        bar_interval_minutes: bar_interval_mins
+      )
+      
+      equity_usdt += pnl_info[:net_pnl_usdt]
+      peak_equity_usdt = [peak_equity_usdt, equity_usdt].max
+      dd = (peak_equity_usdt - equity_usdt) / peak_equity_usdt
+      max_drawdown_pct = [max_drawdown_pct, dd].max
+      
+      trade_logs << BacktestSimulator::TradeLog.new(
+        symbol: open_trade[:symbol],
+        direction: open_trade[:event].direction,
+        entry_ts: open_trade[:event].entry_ts,
+        exit_ts: open_trade[:exit_ts],
+        entry_price: open_trade[:event].entry_price,
+        stop_price: open_trade[:event].stop_price,
+        exit_price: open_trade[:event].exit_price,
+        quantity: open_trade[:quantity],
+        notional: open_trade[:notional],
+        leverage: open_trade[:leverage],
+        gross_pnl_usdt: pnl_info[:gross_pnl_usdt],
+        fees_usdt: pnl_info[:fees_usdt],
+        slippage_usdt: pnl_info[:slippage_usdt],
+        funding_usdt: pnl_info[:funding_usdt],
+        net_pnl_usdt: pnl_info[:net_pnl_usdt],
+        net_pnl_inr: pnl_info[:net_pnl_usdt] * @exchange_rate_inr_usdt,
+        ending_equity_usdt: equity_usdt,
+        bucket_key: open_trade[:bucket_key]
+      )
+    end
+    
+    net_profit_usdt = equity_usdt - @starting_balance_usdt
+    {
+      starting_balance_inr: @starting_balance_inr,
+      starting_balance_usdt: @starting_balance_usdt,
+      final_balance_usdt: equity_usdt,
+      final_balance_inr: equity_usdt * @exchange_rate_inr_usdt,
+      net_profit_usdt: net_profit_usdt,
+      net_profit_inr: net_profit_usdt * @exchange_rate_inr_usdt,
+      net_profit_pct: (net_profit_usdt / @starting_balance_usdt) * 100.0,
+      max_drawdown_pct: max_drawdown_pct * 100.0,
+      total_trades: trade_logs.size,
+      win_rate: trade_logs.empty? ? 0.0 : trade_logs.count { |t| t.net_pnl_usdt.positive? } / trade_logs.size.to_f,
+      trades: trade_logs
+    }
+  end
+end
+
+# Calibration grid search for 2H candles
+def calibrate_symbol_2h(symbol:, candles:, swings:, regimes:, funding_series:, extractor:, train_range:)
   profile = SymbolProfile.for(symbol)
-  best_params = { stop_atr_buffer: 0.5, entry_delay_bars: 1, forward_horizon_bars: 20 }
+  best_params = { stop_atr_buffer: 1.0, entry_delay_bars: 1, forward_horizon_bars: 20 }
   best_expectancy = -Float::INFINITY
   
-  stops = [0.5, 1.0]
+  stops = [1.0, 1.5] # Constrained to wider stops to avoid overfitting wicks
   delays = [1, 3]
   horizons = [10, 20]
   
@@ -96,7 +301,6 @@ def calibrate_symbol(symbol:, candles:, swings:, regimes:, funding_series:, extr
       horizons.each do |horz|
         labeler = MoveLabeler.new(r_multiple_target: profile.r_multiple_target, stop_atr_buffer: stop)
         
-        # Label signal events in the train range
         events = labeler.label_signal_events(
           candles: candles[0..train_range.end],
           swings: swings.select { |s| train_range.cover?(s.index) },
@@ -113,12 +317,11 @@ def calibrate_symbol(symbol:, candles:, swings:, regimes:, funding_series:, extr
           funding_series: funding_series[0..train_range.end],
           feature_extractor: extractor,
           forward_horizon_bars: horz,
-          stride: 5
+          stride: 3
         )
         
         buckets = SignatureAnalyzer.analyze(swing_events: events, baseline_samples: baselines)
         
-        # Find if there are any tradeable buckets and sum their edge
         tradeable_count = 0
         total_exp = 0.0
         
@@ -141,25 +344,21 @@ def calibrate_symbol(symbol:, candles:, swings:, regimes:, funding_series:, extr
   [best_params, best_expectancy]
 end
 
-# We will run three scenarios:
-# 1. Baseline Prior
-# 2. Walk-Forward Calibrated (OOS)
-# 3. Calibrated + 1h MTF Trend Alignment (OOS)
 scenarios = {
   baseline: {
-    name: "Baseline Prior (Fixed)",
+    name: "Baseline Prior (Fixed 15m)",
     compounded_balance_usdt: STARTING_BALANCE_INR / EXCHANGE_RATE,
     trades: [],
     equity_curve: []
   },
   calibrated: {
-    name: "Walk-Forward Calibrated",
+    name: "Calibrated 2H (No Filter)",
     compounded_balance_usdt: STARTING_BALANCE_INR / EXCHANGE_RATE,
     trades: [],
     equity_curve: []
   },
   calibrated_mtf: {
-    name: "Calibrated + 1h MTF Align",
+    name: "Ultimate Composite Alpha (2H)",
     compounded_balance_usdt: STARTING_BALANCE_INR / EXCHANGE_RATE,
     trades: [],
     equity_curve: []
@@ -168,48 +367,49 @@ scenarios = {
 
 puts "\nStarting Chronological Cash Backtest..."
 
-folds.each_with_index do |fold, fold_idx|
+folds_2h.each_with_index do |fold_2h, fold_idx|
   puts "\n--- FOLD #{fold_idx + 1} ---"
   
-  # 1. Calibration phase for Calibrated & Calibrated+MTF scenarios
-  calibrated_params = {}
-  tradeable_buckets_by_symbol = {}
+  test_start_ts = candles_2h_by_symbol[SYMBOLS.first][fold_2h.test_range.first][:ts]
+  test_end_ts = candles_2h_by_symbol[SYMBOLS.first][fold_2h.test_range.max][:ts]
+  
+  # 1. Calibrate parameters on 2H train segments
+  calibrated_params_2h = {}
+  tradeable_buckets_2h = {}
   
   SYMBOLS.each do |symbol|
-    candles = candles_by_symbol[symbol]
-    swings = swings_by_symbol[symbol]
-    regimes = regimes_by_symbol[symbol]
-    funding_series = funding_series_by_symbol[symbol]
-    extractor = feature_extractor_by_symbol[symbol]
+    candles = candles_2h_by_symbol[symbol]
+    swings = swings_2h_by_symbol[symbol]
+    regimes = regimes_2h_by_symbol[symbol]
+    funding_series = funding_2h_by_symbol[symbol]
+    extractor = extractor_2h_by_symbol[symbol]
     profile = SymbolProfile.for(symbol)
     
-    # Run calibration sweep on train segment
-    params, edge = calibrate_symbol(
+    params, edge = calibrate_symbol_2h(
       symbol: symbol, candles: candles, swings: swings, regimes: regimes,
-      funding_series: funding_series, extractor: extractor, train_range: fold.train_range
+      funding_series: funding_series, extractor: extractor, train_range: fold_2h.train_range
     )
     
-    calibrated_params[symbol] = params
+    calibrated_params_2h[symbol] = params
     
-    # Re-evaluate SignatureAnalyzer and DynamicRiskPlanner with optimal calibrated params
     labeler = MoveLabeler.new(r_multiple_target: profile.r_multiple_target, stop_atr_buffer: params[:stop_atr_buffer])
     train_events = labeler.label_signal_events(
-      candles: candles[0..fold.train_range.end],
-      swings: swings.select { |s| fold.train_range.cover?(s.index) },
-      regimes: regimes[0..fold.train_range.end],
-      funding_series: funding_series[0..fold.train_range.end],
+      candles: candles[0..fold_2h.train_range.end],
+      swings: swings.select { |s| fold_2h.train_range.cover?(s.index) },
+      regimes: regimes[0..fold_2h.train_range.end],
+      funding_series: funding_series[0..fold_2h.train_range.end],
       feature_extractor: extractor,
       entry_delay_bars: params[:entry_delay_bars],
       forward_horizon_bars: params[:forward_horizon_bars]
     )
     
     train_baselines = labeler.label_baseline_samples(
-      candles: candles[0..fold.train_range.end],
-      regimes: regimes[0..fold.train_range.end],
-      funding_series: funding_series[0..fold.train_range.end],
+      candles: candles[0..fold_2h.train_range.end],
+      regimes: regimes[0..fold_2h.train_range.end],
+      funding_series: funding_series[0..fold_2h.train_range.end],
       feature_extractor: extractor,
       forward_horizon_bars: params[:forward_horizon_bars],
-      stride: 5
+      stride: 3
     )
     
     buckets = SignatureAnalyzer.analyze(swing_events: train_events, baseline_samples: train_baselines)
@@ -226,35 +426,40 @@ folds.each_with_index do |fold, fold_idx|
       tradeable_buckets[bucket.bucket_key] = { plan: plan, direction: dominant_direction }
     end
     
-    tradeable_buckets_by_symbol[symbol] = tradeable_buckets
-    puts "  [#{symbol}] Calibrated Params: stop=#{params[:stop_atr_buffer]} delay=#{params[:entry_delay_bars]} horizon=#{params[:forward_horizon_bars]} (edge sum = #{edge.round(3)})"
+    tradeable_buckets_2h[symbol] = tradeable_buckets
+    puts "  [#{symbol}] Calibrated 2H: stop=#{params[:stop_atr_buffer]} delay=#{params[:entry_delay_bars]} horizon=#{params[:forward_horizon_bars]} (edge=#{edge.round(3)})"
   end
   
-  # For Baseline scenario, we re-run training with fixed parameters to find tradeable buckets
-  baseline_tradeable_buckets_by_symbol = {}
+  # Precompute training tradeable buckets for Baseline 15m
+  baseline_tradeable_buckets_15m = {}
   SYMBOLS.each do |symbol|
-    candles = candles_by_symbol[symbol]
-    swings = swings_by_symbol[symbol]
-    regimes = regimes_by_symbol[symbol]
-    funding_series = funding_series_by_symbol[symbol]
-    extractor = feature_extractor_by_symbol[symbol]
+    candles = candles_15m_by_symbol[symbol]
+    swings = swings_15m_by_symbol[symbol]
+    regimes = regimes_15m_by_symbol[symbol]
+    funding_series = funding_15m_by_symbol[symbol]
+    extractor = extractor_15m_by_symbol[symbol]
     profile = SymbolProfile.for(symbol)
+    
+    # We must find the corresponding training index in 15m series
+    # fold_2h.train_range end timestamp:
+    train_end_ts = candles_2h_by_symbol[symbol][fold_2h.train_range.end][:ts]
+    train_15m_end_idx = candles.index { |c| c[:ts] <= train_end_ts } || (candles.size / 2)
     
     labeler = MoveLabeler.new(r_multiple_target: profile.r_multiple_target, stop_atr_buffer: 0.5)
     train_events = labeler.label_signal_events(
-      candles: candles[0..fold.train_range.end],
-      swings: swings.select { |s| fold.train_range.cover?(s.index) },
-      regimes: regimes[0..fold.train_range.end],
-      funding_series: funding_series[0..fold.train_range.end],
+      candles: candles[0..train_15m_end_idx],
+      swings: swings.select { |s| s.index <= train_15m_end_idx },
+      regimes: regimes[0..train_15m_end_idx],
+      funding_series: funding_series[0..train_15m_end_idx],
       feature_extractor: extractor,
       entry_delay_bars: 1,
       forward_horizon_bars: 20
     )
     
     train_baselines = labeler.label_baseline_samples(
-      candles: candles[0..fold.train_range.end],
-      regimes: regimes[0..fold.train_range.end],
-      funding_series: funding_series[0..fold.train_range.end],
+      candles: candles[0..train_15m_end_idx],
+      regimes: regimes[0..train_15m_end_idx],
+      funding_series: funding_series[0..train_15m_end_idx],
       feature_extractor: extractor,
       forward_horizon_bars: 20,
       stride: 5
@@ -273,69 +478,88 @@ folds.each_with_index do |fold, fold_idx|
       
       tradeable_buckets[bucket.bucket_key] = { plan: plan, direction: dominant_direction }
     end
-    baseline_tradeable_buckets_by_symbol[symbol] = tradeable_buckets
+    baseline_tradeable_buckets_15m[symbol] = tradeable_buckets
   end
-
-  test_start_ts = candles_by_symbol[SYMBOLS.first][fold.test_range.first][:ts]
-  test_end_ts = candles_by_symbol[SYMBOLS.first][fold.test_range.max][:ts]
-
+  
   # 2. Execution phase on test fold OOS data
   
-  # SCENARIO 1: Baseline
-  simulator_baseline = BacktestSimulator.new(
+  # SCENARIO 1: Baseline 15m
+  sim_baseline = GatedSimulator.new(
     starting_balance_inr: scenarios[:baseline][:compounded_balance_usdt] * EXCHANGE_RATE,
     exchange_rate_inr_usdt: EXCHANGE_RATE
   )
-  res_baseline = simulator_baseline.run(
-    candles_by_symbol: candles_by_symbol,
-    funding_series_by_symbol: funding_series_by_symbol,
-    swings_by_symbol: swings_by_symbol,
-    regimes_by_symbol: regimes_by_symbol,
-    feature_extractor_by_symbol: feature_extractor_by_symbol,
-    tradeable_buckets_by_symbol: baseline_tradeable_buckets_by_symbol,
-    entry_delay_bars: 1,
-    forward_horizon_bars: 20
+  res_baseline = sim_baseline.run_with_filter(
+    candles_by_symbol: candles_15m_by_symbol,
+    funding_series_by_symbol: funding_15m_by_symbol,
+    swings_by_symbol: swings_15m_by_symbol,
+    regimes_by_symbol: regimes_15m_by_symbol,
+    feature_extractor_by_symbol: extractor_15m_by_symbol,
+    tradeable_buckets_by_symbol: baseline_tradeable_buckets_15m,
+    params_by_symbol: SYMBOLS.each_with_object({}) { |sym, h| h[sym] = { stop_atr_buffer: 0.5, entry_delay_bars: 1, forward_horizon_bars: 20 } },
+    filter_proc: ->(e, h) { true },
+    bar_interval_mins: 15
   )
   fold_trades_baseline = res_baseline[:trades].select { |t| t.entry_ts >= test_start_ts && t.entry_ts <= test_end_ts }
   scenarios[:baseline][:trades] += fold_trades_baseline
   scenarios[:baseline][:compounded_balance_usdt] += fold_trades_baseline.sum(&:net_pnl_usdt)
   
-  # SCENARIO 2: Calibrated
-  simulator_calibrated = BacktestSimulator.new(
+  # SCENARIO 2: Calibrated 2H (No Filter)
+  sim_calibrated = GatedSimulator.new(
     starting_balance_inr: scenarios[:calibrated][:compounded_balance_usdt] * EXCHANGE_RATE,
     exchange_rate_inr_usdt: EXCHANGE_RATE
   )
-  res_calibrated = simulator_calibrated.run(
-    candles_by_symbol: candles_by_symbol,
-    funding_series_by_symbol: funding_series_by_symbol,
-    swings_by_symbol: swings_by_symbol,
-    regimes_by_symbol: regimes_by_symbol,
-    feature_extractor_by_symbol: feature_extractor_by_symbol,
-    tradeable_buckets_by_symbol: tradeable_buckets_by_symbol,
-    params_by_symbol: calibrated_params
+  res_calibrated = sim_calibrated.run_with_filter(
+    candles_by_symbol: candles_2h_by_symbol,
+    funding_series_by_symbol: funding_2h_by_symbol,
+    swings_by_symbol: swings_2h_by_symbol,
+    regimes_by_symbol: regimes_2h_by_symbol,
+    feature_extractor_by_symbol: extractor_2h_by_symbol,
+    tradeable_buckets_by_symbol: tradeable_buckets_2h,
+    params_by_symbol: calibrated_params_2h,
+    filter_proc: ->(e, h) { true },
+    bar_interval_mins: 120
   )
   fold_trades_calibrated = res_calibrated[:trades].select { |t| t.entry_ts >= test_start_ts && t.entry_ts <= test_end_ts }
   scenarios[:calibrated][:trades] += fold_trades_calibrated
   scenarios[:calibrated][:compounded_balance_usdt] += fold_trades_calibrated.sum(&:net_pnl_usdt)
   
-  # SCENARIO 3: Calibrated + MTF 1h
-  simulator_mtf = BacktestSimulator.new(
+  # SCENARIO 3: Ultimate Composite Alpha (Calibrated 2H + Volume Sweep + 4H Trend Alignment)
+  sim_ultimate = GatedSimulator.new(
     starting_balance_inr: scenarios[:calibrated_mtf][:compounded_balance_usdt] * EXCHANGE_RATE,
     exchange_rate_inr_usdt: EXCHANGE_RATE
   )
-  res_mtf = simulator_mtf.run(
-    candles_by_symbol: candles_by_symbol,
-    funding_series_by_symbol: funding_series_by_symbol,
-    swings_by_symbol: swings_by_symbol,
-    regimes_by_symbol: regimes_by_symbol,
-    feature_extractor_by_symbol: feature_extractor_by_symbol,
-    tradeable_buckets_by_symbol: tradeable_buckets_by_symbol,
-    params_by_symbol: calibrated_params,
-    htf_regimes_by_symbol: aligned_1h_regimes_by_symbol
+  
+  ultimate_filter = lambda do |event, aligned_htf|
+    # 1. Volume Sweep Check (volume_zscore > 1.0)
+    return false unless event.context[:volume_zscore] && event.context[:volume_zscore] > 1.0
+    
+    # 2. 4H Trend Alignment Check
+    htf_reg = aligned_htf ? aligned_htf[event.entry_index] : nil
+    if htf_reg
+      if htf_reg.state == :trending_bull && event.direction != :long
+        return false
+      elsif htf_reg.state == :trending_bear && event.direction != :short
+        return false
+      end
+    end
+    true
+  end
+  
+  res_ultimate = sim_ultimate.run_with_filter(
+    candles_by_symbol: candles_2h_by_symbol,
+    funding_series_by_symbol: funding_2h_by_symbol,
+    swings_by_symbol: swings_2h_by_symbol,
+    regimes_by_symbol: regimes_2h_by_symbol,
+    feature_extractor_by_symbol: extractor_2h_by_symbol,
+    tradeable_buckets_by_symbol: tradeable_buckets_2h,
+    params_by_symbol: calibrated_params_2h,
+    aligned_htf_by_symbol: aligned_4h_regimes_by_symbol,
+    filter_proc: ultimate_filter,
+    bar_interval_mins: 120
   )
-  fold_trades_mtf = res_mtf[:trades].select { |t| t.entry_ts >= test_start_ts && t.entry_ts <= test_end_ts }
-  scenarios[:calibrated_mtf][:trades] += fold_trades_mtf
-  scenarios[:calibrated_mtf][:compounded_balance_usdt] += fold_trades_mtf.sum(&:net_pnl_usdt)
+  fold_trades_ultimate = res_ultimate[:trades].select { |t| t.entry_ts >= test_start_ts && t.entry_ts <= test_end_ts }
+  scenarios[:calibrated_mtf][:trades] += fold_trades_ultimate
+  scenarios[:calibrated_mtf][:compounded_balance_usdt] += fold_trades_ultimate.sum(&:net_pnl_usdt)
   
   # Record equity curve points at end of fold
   scenarios.each do |key, sc|
@@ -346,14 +570,14 @@ folds.each_with_index do |fold, fold_idx|
       trades_in_fold: case key
                       when :baseline then fold_trades_baseline.size
                       when :calibrated then fold_trades_calibrated.size
-                      when :calibrated_mtf then fold_trades_mtf.size
+                      when :calibrated_mtf then fold_trades_ultimate.size
                       end
     }
   end
   
-  puts "  Baseline:     trades=#{fold_trades_baseline.size}  net_pnl=#{(fold_trades_baseline.sum(&:net_pnl_usdt) * EXCHANGE_RATE).round(2)} INR  (Ending: #{(scenarios[:baseline][:compounded_balance_usdt] * EXCHANGE_RATE).round(2)} INR)"
-  puts "  Calibrated:   trades=#{fold_trades_calibrated.size}  net_pnl=#{(fold_trades_calibrated.sum(&:net_pnl_usdt) * EXCHANGE_RATE).round(2)} INR  (Ending: #{(scenarios[:calibrated][:compounded_balance_usdt] * EXCHANGE_RATE).round(2)} INR)"
-  puts "  Calib + MTF:  trades=#{fold_trades_mtf.size}  net_pnl=#{(fold_trades_mtf.sum(&:net_pnl_usdt) * EXCHANGE_RATE).round(2)} INR  (Ending: #{(scenarios[:calibrated_mtf][:compounded_balance_usdt] * EXCHANGE_RATE).round(2)} INR)"
+  puts "  Baseline 15m: trades=#{fold_trades_baseline.size}  net_pnl=#{(fold_trades_baseline.sum(&:net_pnl_usdt) * EXCHANGE_RATE).round(2)} INR  (Ending: #{(scenarios[:baseline][:compounded_balance_usdt] * EXCHANGE_RATE).round(2)} INR)"
+  puts "  Calib 2H:     trades=#{fold_trades_calibrated.size}  net_pnl=#{(fold_trades_calibrated.sum(&:net_pnl_usdt) * EXCHANGE_RATE).round(2)} INR  (Ending: #{(scenarios[:calibrated][:compounded_balance_usdt] * EXCHANGE_RATE).round(2)} INR)"
+  puts "  Ultimate 2H:  trades=#{fold_trades_ultimate.size}  net_pnl=#{(fold_trades_ultimate.sum(&:net_pnl_usdt) * EXCHANGE_RATE).round(2)} INR  (Ending: #{(scenarios[:calibrated_mtf][:compounded_balance_usdt] * EXCHANGE_RATE).round(2)} INR)"
 end
 
 # Calculate aggregate results & prepare export payload
@@ -384,14 +608,14 @@ scenarios.each do |key, sc|
     max_dd = [max_dd, dd].max
   end
   
-  # Simple Sharpe ratio (using R expectancy std dev proxy)
+  # Sharpe Ratio
   pnl_values = sc[:trades].map(&:net_pnl_usdt)
   sharpe = 0.0
   if pnl_values.size > 5
     mean = pnl_values.sum / pnl_values.size.to_f
     variance = pnl_values.sum { |v| (v - mean)**2 } / pnl_values.size.to_f
     std = Math.sqrt(variance)
-    sharpe = std.zero? ? 0.0 : (mean / std) * Math.sqrt(252) # annualized proxy
+    sharpe = std.zero? ? 0.0 : (mean / std) * Math.sqrt(252)
   end
   
   puts sc[:name]
@@ -449,10 +673,30 @@ if File.exist?(template_path)
     "// INSERT_BACKTEST_DATA_HERE",
     "window.backtestData = #{JSON.dump(export_payload)};"
   )
+  compiled_content = compiled_content.gsub(
+    "<h3>Calibrated + 1h MTF Align</h3>",
+    "<h3>Ultimate Composite Alpha (2H)</h3>"
+  )
+  compiled_content = compiled_content.gsub(
+    "<h3>Walk-Forward Calibrated</h3>",
+    "<h3>Calibrated 2H (No Filter)</h3>"
+  )
+  compiled_content = compiled_content.gsub(
+    "<h3>Baseline Prior (Fixed)</h3>",
+    "<h3>Baseline Prior (Fixed 15m)</h3>"
+  )
+  compiled_content = compiled_content.gsub(
+    "<h1>Crypto perp futures backtest analytics</h1>",
+    "<h1>Ultimate Composite Alpha Backtest Analytics</h1>"
+  )
+  compiled_content = compiled_content.gsub(
+    "<p>Walk-forward calibration & multi-timeframe strategy evaluation</p>",
+    "<p>Evaluating Baseline 15m vs Calibrated 2H vs Gated Ultimate Composite 2H strategy</p>"
+  )
+  
   dashboard_path = File.join(root, "data", "backtest_dashboard.html")
   File.write(dashboard_path, compiled_content)
   puts "HTML Dashboard compiled to #{dashboard_path} with embedded backtest data."
 else
   puts "WARNING: dashboard_template.html not found at #{template_path}"
 end
-
