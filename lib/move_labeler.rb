@@ -113,7 +113,7 @@ class MoveLabeler
   # close. This matches how a real trade would be managed, avoiding the
   # optimistic MFE bias of the previous implementation.
   def label_signal_events(candles:, swings:, regimes:, funding_series:, feature_extractor:,
-                           entry_delay_bars:, forward_horizon_bars: 20)
+                           entry_delay_bars:, forward_horizon_bars: 20, htf_regimes: nil)
     atr_series = @atr_cache || Indicators.atr(candles, @atr_period)
     events = []
 
@@ -169,8 +169,10 @@ class MoveLabeler
       end
 
       regime = regimes[entry_index]
+      htf_regime = htf_regimes ? htf_regimes[entry_index] : nil
       context = feature_extractor.extract(
-        candles: candles, index: entry_index, regime: regime, funding_rate: funding_series[entry_index]
+        candles: candles, index: entry_index, regime: regime, funding_rate: funding_series[entry_index],
+        htf_regime: htf_regime
       )
       next if context.nil?
 
@@ -185,7 +187,7 @@ class MoveLabeler
   end
 
   def label_baseline_samples(candles:, regimes:, funding_series:, feature_extractor:,
-                              forward_horizon_bars: 20, stride: 5)
+                              forward_horizon_bars: 20, stride: 5, htf_regimes: nil)
     atr_series = @atr_cache || Indicators.atr(candles, @atr_period)
     samples = []
 
@@ -245,8 +247,10 @@ class MoveLabeler
         short_exit_index = last_bar
       end
 
+      htf_regime = htf_regimes ? htf_regimes[i] : nil
       context = feature_extractor.extract(
-        candles: candles, index: i, regime: regime, funding_rate: funding_series[i]
+        candles: candles, index: i, regime: regime, funding_rate: funding_series[i],
+        htf_regime: htf_regime
       )
       next if context.nil?
 
