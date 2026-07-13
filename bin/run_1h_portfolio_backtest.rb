@@ -22,29 +22,32 @@ SYMBOLS = %w[SOLUSDT ETHUSDT XRPUSDT].freeze
 INTERVAL = "15m"
 DAYS_BACK = 90
 WALK_FORWARD_FOLDS = 6
-EMBARGO_BARS = 20
+EMBARGO_BARS = 5 # Reduced embargo for 1h candles
 CACHE_DIR = File.join(root, "data", "cache")
 
 STARTING_BALANCE_INR = 100_000.0
 EXCHANGE_RATE = 83.5 # INR/USDT
 
-# 1. Load data for all symbols
+# 1. Load data and resample to 1h for all symbols
 candles_by_symbol = {}
 funding_series_by_symbol = {}
 regimes_by_symbol = {}
-aligned_1h_regimes_by_symbol = {}
+aligned_4h_regimes_by_symbol = {}
 swings_by_symbol = {}
 feature_extractor_by_symbol = {}
 
 puts "======================================================================"
-puts "PORTFOLIO BACKTEST SIMULATOR (Starting Balance: #{STARTING_BALANCE_INR} INR / #{(STARTING_BALANCE_INR/EXCHANGE_RATE).round(2)} USDT)"
+puts "1H TIMEFRAME PORTFOLIO BACKTEST SIMULATOR"
 puts "======================================================================"
 
 SYMBOLS.each do |symbol|
   raw_klines = JSON.parse(File.read(File.join(CACHE_DIR, "#{symbol}_klines_#{INTERVAL}_#{DAYS_BACK}d.json")))
   raw_funding = JSON.parse(File.read(File.join(CACHE_DIR, "#{symbol}_funding_#{DAYS_BACK}d.json")))
   
-  candles = BinanceDataLoader.klines_to_candles(raw_klines)
+  candles_15m = BinanceDataLoader.klines_to_candles(raw_klines)
+  # Resample 15m to 1h (factor = 4)
+  candles = CandleResampler.resample_candles(candles_15m, 4)
+  
   funding_series = BinanceDataLoader.align_funding_series(candles, raw_funding)
   profile = SymbolProfile.for(symbol)
   
@@ -57,11 +60,11 @@ SYMBOLS.each do |symbol|
   extractor.ema_cache_fast = Indicators.ema(closes, profile.ema_fast)
   extractor.ema_cache_slow = Indicators.ema(closes, profile.ema_slow)
   
-  # Align 1h regimes for MTF gating
-  htf_factor = 4 # 15m * 4 = 1h
+  # Align 4h regimes for MTF gating (1h * 4 = 4h)
+  htf_factor = 4
   htf_candles = CandleResampler.resample_candles(candles, htf_factor)
   htf_regimes = RegimeClassifier.new(profile).classify(htf_candles)
-  aligned_1h_regimes = CandleResampler.align_higher_regimes(
+  aligned_4h_regimes = CandleResampler.align_higher_regimes(
     lower_candles: candles,
     higher_candles: htf_candles,
     higher_regimes: htf_regimes
@@ -70,7 +73,7 @@ SYMBOLS.each do |symbol|
   candles_by_symbol[symbol] = candles
   funding_series_by_symbol[symbol] = funding_series
   regimes_by_symbol[symbol] = regimes
-  aligned_1h_regimes_by_symbol[symbol] = aligned_1h_regimes
+  aligned_4h_regimes_by_symbol[symbol] = aligned_4h_regimes
   swings_by_symbol[symbol] = swings
   feature_extractor_by_symbol[symbol] = extractor
   
@@ -144,7 +147,7 @@ end
 # We will run three scenarios:
 # 1. Baseline Prior
 # 2. Walk-Forward Calibrated (OOS)
-# 3. Calibrated + 1h MTF Trend Alignment (OOS)
+# 3. Calibrated + 4h MTF Trend Alignment (OOS)
 scenarios = {
   baseline: {
     name: "Baseline Prior (Fixed)",
@@ -159,7 +162,7 @@ scenarios = {
     equity_curve: []
   },
   calibrated_mtf: {
-    name: "Calibrated + 1h MTF Align",
+    name: "Calibrated + 4h MTF Align",
     compounded_balance_usdt: STARTING_BALANCE_INR / EXCHANGE_RATE,
     trades: [],
     equity_curve: []
@@ -171,7 +174,7 @@ puts "\nStarting Chronological Cash Backtest..."
 folds.each_with_index do |fold, fold_idx|
   puts "\n--- FOLD #{fold_idx + 1} ---"
   
-  # 1. Calibration phase for Calibrated & Calibrated+MTF scenarios
+  # 1. Calibration phase
   calibrated_params = {}
   tradeable_buckets_by_symbol = {}
   
@@ -183,7 +186,6 @@ folds.each_with_index do |fold, fold_idx|
     extractor = feature_extractor_by_symbol[symbol]
     profile = SymbolProfile.for(symbol)
     
-    # Run calibration sweep on train segment
     params, edge = calibrate_symbol(
       symbol: symbol, candles: candles, swings: swings, regimes: regimes,
       funding_series: funding_series, extractor: extractor, train_range: fold.train_range
@@ -191,7 +193,6 @@ folds.each_with_index do |fold, fold_idx|
     
     calibrated_params[symbol] = params
     
-    # Re-evaluate SignatureAnalyzer and DynamicRiskPlanner with optimal calibrated params
     labeler = MoveLabeler.new(r_multiple_target: profile.r_multiple_target, stop_atr_buffer: params[:stop_atr_buffer])
     train_events = labeler.label_signal_events(
       candles: candles[0..fold.train_range.end],
@@ -230,7 +231,7 @@ folds.each_with_index do |fold, fold_idx|
     puts "  [#{symbol}] Calibrated Params: stop=#{params[:stop_atr_buffer]} delay=#{params[:entry_delay_bars]} horizon=#{params[:forward_horizon_bars]} (edge sum = #{edge.round(3)})"
   end
   
-  # For Baseline scenario, we re-run training with fixed parameters to find tradeable buckets
+  # Baseline calibration (Fixed params: stop=0.5, delay=1, horizon=20)
   baseline_tradeable_buckets_by_symbol = {}
   SYMBOLS.each do |symbol|
     candles = candles_by_symbol[symbol]
@@ -318,7 +319,7 @@ folds.each_with_index do |fold, fold_idx|
   scenarios[:calibrated][:trades] += fold_trades_calibrated
   scenarios[:calibrated][:compounded_balance_usdt] += fold_trades_calibrated.sum(&:net_pnl_usdt)
   
-  # SCENARIO 3: Calibrated + MTF 1h
+  # SCENARIO 3: Calibrated + MTF 4h (1h candles gated by 4h macro trend)
   simulator_mtf = BacktestSimulator.new(
     starting_balance_inr: scenarios[:calibrated_mtf][:compounded_balance_usdt] * EXCHANGE_RATE,
     exchange_rate_inr_usdt: EXCHANGE_RATE
@@ -331,13 +332,13 @@ folds.each_with_index do |fold, fold_idx|
     feature_extractor_by_symbol: feature_extractor_by_symbol,
     tradeable_buckets_by_symbol: tradeable_buckets_by_symbol,
     params_by_symbol: calibrated_params,
-    htf_regimes_by_symbol: aligned_1h_regimes_by_symbol
+    htf_regimes_by_symbol: aligned_4h_regimes_by_symbol
   )
   fold_trades_mtf = res_mtf[:trades].select { |t| t.entry_ts >= test_start_ts && t.entry_ts <= test_end_ts }
   scenarios[:calibrated_mtf][:trades] += fold_trades_mtf
   scenarios[:calibrated_mtf][:compounded_balance_usdt] += fold_trades_mtf.sum(&:net_pnl_usdt)
   
-  # Record equity curve points at end of fold
+  # Record equity curve points
   scenarios.each do |key, sc|
     sc[:equity_curve] << {
       fold: fold_idx + 1,
@@ -360,7 +361,7 @@ end
 export_payload = {}
 
 puts "\n" + "=" * 70
-puts "COMPARATIVE SCENARIO REPORT"
+puts "1H TIMEFRAME COMPARATIVE REPORT"
 puts "=" * 70
 
 scenarios.each do |key, sc|
@@ -384,14 +385,14 @@ scenarios.each do |key, sc|
     max_dd = [max_dd, dd].max
   end
   
-  # Simple Sharpe ratio (using R expectancy std dev proxy)
+  # Annualized Sharpe ratio proxy
   pnl_values = sc[:trades].map(&:net_pnl_usdt)
   sharpe = 0.0
   if pnl_values.size > 5
     mean = pnl_values.sum / pnl_values.size.to_f
     variance = pnl_values.sum { |v| (v - mean)**2 } / pnl_values.size.to_f
     std = Math.sqrt(variance)
-    sharpe = std.zero? ? 0.0 : (mean / std) * Math.sqrt(252) # annualized proxy
+    sharpe = std.zero? ? 0.0 : (mean / std) * Math.sqrt(252)
   end
   
   puts sc[:name]
@@ -436,11 +437,6 @@ scenarios.each do |key, sc|
   }
 end
 
-# Write payload to JSON
-results_path = File.join(root, "data", "backtest_results.json")
-File.write(results_path, JSON.pretty_generate(export_payload))
-puts "\nResults written to #{results_path} successfully."
-
 # Compile HTML dashboard with inline data
 template_path = File.join(root, "data", "dashboard_template.html")
 if File.exist?(template_path)
@@ -449,10 +445,19 @@ if File.exist?(template_path)
     "// INSERT_BACKTEST_DATA_HERE",
     "window.backtestData = #{JSON.dump(export_payload)};"
   )
-  dashboard_path = File.join(root, "data", "backtest_dashboard.html")
+  # Modify title to reflect 1H timeframe
+  compiled_content = compiled_content.gsub(
+    "<h1>Crypto perp futures backtest analytics</h1>",
+    "<h1>Crypto perp futures backtest analytics (1H Timeframe)</h1>"
+  )
+  compiled_content = compiled_content.gsub(
+    "<h3>Calibrated + 1h MTF Align</h3>",
+    "<h3>Calibrated + 4h MTF Align</h3>"
+  )
+  
+  dashboard_path = File.join(root, "data", "backtest_dashboard_1h.html")
   File.write(dashboard_path, compiled_content)
-  puts "HTML Dashboard compiled to #{dashboard_path} with embedded backtest data."
+  puts "HTML Dashboard compiled to #{dashboard_path} with embedded 1H backtest data."
 else
   puts "WARNING: dashboard_template.html not found at #{template_path}"
 end
-

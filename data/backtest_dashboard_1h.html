@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Perp Futures Backtest Analytics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0b0f19;
+            --bg-card: rgba(17, 24, 39, 0.75);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            
+            --color-baseline: #6b7280;
+            --color-calibrated: #14b8a6;
+            --color-mtf: #6366f1;
+            
+            --glow-calibrated: rgba(20, 184, 166, 0.15);
+            --glow-mtf: rgba(99, 102, 241, 0.15);
+            
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            padding: 2rem;
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        header {
+            margin-bottom: 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #a5b4fc, #6366f1, #14b8a6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-top: 0.25rem;
+        }
+
+        .starting-balance-badge {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            color: #818cf8;
+            font-size: 0.9rem;
+        }
+
+        /* Dashboard Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: 280px 1fr;
+            }
+        }
+
+        /* Sidebar Strategy Cards */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .strategy-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(12px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .strategy-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: transparent;
+            transition: background 0.3s;
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .strategy-card.active[data-strategy="baseline"] {
+            border-color: var(--color-baseline);
+            box-shadow: 0 4px 20px rgba(107, 114, 128, 0.1);
+        }
+        .strategy-card.active[data-strategy="baseline"]::before {
+            background: var(--color-baseline);
+        }
+
+        .strategy-card.active[data-strategy="calibrated"] {
+            border-color: var(--color-calibrated);
+            box-shadow: 0 4px 20px var(--glow-calibrated);
+        }
+        .strategy-card.active[data-strategy="calibrated"]::before {
+            background: var(--color-calibrated);
+        }
+
+        .strategy-card.active[data-strategy="calibrated_mtf"] {
+            border-color: var(--color-mtf);
+            box-shadow: 0 4px 20px var(--glow-mtf);
+        }
+        .strategy-card.active[data-strategy="calibrated_mtf"]::before {
+            background: var(--color-mtf);
+        }
+
+        .strategy-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .strategy-card .card-profit {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .strategy-card .card-profit.positive { color: var(--success); }
+        .strategy-card .card-profit.negative { color: var(--danger); }
+
+        .strategy-card .card-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Main Panel styling */
+        .main-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* Metrics Bar */
+        .metrics-bar {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .metrics-bar {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .metric-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.25rem;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s;
+        }
+
+        .metric-item:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .metric-item span {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .metric-item div {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-top: 0.25rem;
+        }
+
+        /* Chart container */
+        .chart-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(12px);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--text-secondary);
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        /* SVG Chart */
+        svg.equity-chart {
+            width: 100%;
+            height: 300px;
+            overflow: visible;
+        }
+
+        svg.equity-chart .grid-line {
+            stroke: rgba(255, 255, 255, 0.03);
+            stroke-width: 1;
+        }
+
+        svg.equity-chart .axis-line {
+            stroke: rgba(255, 255, 255, 0.1);
+            stroke-width: 1;
+        }
+
+        svg.equity-chart .axis-text {
+            fill: var(--text-secondary);
+            font-size: 10px;
+        }
+
+        svg.equity-chart path.series {
+            fill: none;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: d 0.5s ease;
+        }
+
+        /* Table & Filters container */
+        .data-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(12px);
+        }
+
+        .filters-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .filters-left {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .filter-input {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .filter-input:focus {
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        /* Custom select styling */
+        select.filter-input {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239ca3af'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1rem;
+            padding-right: 2.25rem;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-secondary);
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .badge-profit {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+        }
+
+        .badge-loss {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <h1>Crypto perp futures backtest analytics (1H Timeframe)</h1>
+            <p>Walk-forward calibration & multi-timeframe strategy evaluation</p>
+        </div>
+        <div class="starting-balance-badge">
+            Initial Capital: 100,000 INR
+        </div>
+    </header>
+
+    <div class="dashboard-grid">
+        <!-- Sidebar Strategies Selector -->
+        <div class="sidebar">
+            <h2 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text-secondary);">Select Strategy</h2>
+            
+            <div class="strategy-card active" data-strategy="calibrated_mtf">
+                <h3>Calibrated + 4h MTF Align</h3>
+                <div class="card-profit positive" id="profit-calibrated_mtf">-- INR</div>
+                <div class="card-meta">
+                    <span id="wr-calibrated_mtf">WR: --%</span>
+                    <span id="trades-calibrated_mtf">-- Trades</span>
+                </div>
+            </div>
+
+            <div class="strategy-card" data-strategy="calibrated">
+                <h3>Walk-Forward Calibrated</h3>
+                <div class="card-profit positive" id="profit-calibrated">-- INR</div>
+                <div class="card-meta">
+                    <span id="wr-calibrated">WR: --%</span>
+                    <span id="trades-calibrated">-- Trades</span>
+                </div>
+            </div>
+
+            <div class="strategy-card" data-strategy="baseline">
+                <h3>Baseline Prior (Fixed)</h3>
+                <div class="card-profit positive" id="profit-baseline">-- INR</div>
+                <div class="card-meta">
+                    <span id="wr-baseline">WR: --%</span>
+                    <span id="trades-baseline">-- Trades</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Panel contents -->
+        <div class="main-panel">
+            <!-- Metrics Bar -->
+            <div class="metrics-bar">
+                <div class="metric-item">
+                    <span>Net Profit %</span>
+                    <div id="m-profit">--%</div>
+                </div>
+                <div class="metric-item">
+                    <span>Max Drawdown</span>
+                    <div id="m-drawdown" style="color: var(--danger);">--%</div>
+                </div>
+                <div class="metric-item">
+                    <span>Win Rate</span>
+                    <div id="m-winrate">--%</div>
+                </div>
+                <div class="metric-item">
+                    <span>Sharpe Ratio</span>
+                    <div id="m-sharpe">--</div>
+                </div>
+            </div>
+
+            <!-- Equity Curve Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2>Equity Curve (Compounding)</h2>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: var(--color-mtf);"></div>
+                            <span>MTF Gated</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: var(--color-calibrated);"></div>
+                            <span>Calibrated</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: var(--color-baseline);"></div>
+                            <span>Baseline</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- SVG Equity Chart -->
+                <svg class="equity-chart" viewBox="0 0 1000 300" preserveAspectRatio="none">
+                    <!-- Grid & axes will be dynamically injected -->
+                </svg>
+            </div>
+
+            <!-- Trade History Log -->
+            <div class="data-container">
+                <div class="chart-header" style="margin-bottom: 1rem;">
+                    <h2>OOS Trades Execution log</h2>
+                </div>
+                
+                <div class="filters-bar">
+                    <div class="filters-left">
+                        <input type="text" id="search-input" placeholder="Search symbol/regime..." class="filter-input">
+                        
+                        <select id="symbol-select" class="filter-input">
+                            <option value="all">All Symbols</option>
+                            <option value="SOLUSDT">SOLUSDT</option>
+                            <option value="ETHUSDT">ETHUSDT</option>
+                            <option value="XRPUSDT">XRPUSDT</option>
+                        </select>
+                        
+                        <select id="result-select" class="filter-input">
+                            <option value="all">All Results</option>
+                            <option value="profit">Profits</option>
+                            <option value="loss">Losses</option>
+                        </select>
+                    </div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary);" id="trade-count-badge">
+                        Showing -- trades
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Symbol</th>
+                                <th>Direction</th>
+                                <th>Entry Time</th>
+                                <th>Exit Time</th>
+                                <th>Lev</th>
+                                <th>Entry Price</th>
+                                <th>Exit Price</th>
+                                <th>Net P&L (INR)</th>
+                                <th>Regime / Context</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trade-table-body">
+                            <!-- Injected dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.backtestData = {"baseline":{"name":"Baseline Prior (Fixed)","metrics":{"starting_balance_inr":100000.0,"final_balance_inr":82296.52,"net_profit_inr":-17703.48,"net_profit_pct":-17.7,"max_drawdown_pct":22.07,"sharpe_ratio":-6.34,"total_trades":53,"win_rate_pct":20.75,"wins":11,"losses":42},"equity_curve":[{"fold":1,"timestamp":1778733900,"balance_inr":100000.0,"trades_in_fold":0},{"fold":2,"timestamp":1780029900,"balance_inr":92302.22,"trades_in_fold":15},{"fold":3,"timestamp":1781325900,"balance_inr":87828.96,"trades_in_fold":15},{"fold":4,"timestamp":1782621900,"balance_inr":82123.54,"trades_in_fold":14},{"fold":5,"timestamp":1783917900,"balance_inr":82296.52,"trades_in_fold":9}],"trades":[{"symbol":"ETHUSDT","direction":"long","entry_time":"05-14 12:15","exit_time":"05-14 15:15","entry_price":2266.66,"exit_price":2259.3664,"quantity":0.972586,"notional":2204.52,"leverage":1.77,"net_pnl_inr":-813.84,"ending_equity_inr":103102.01,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-14 22:15","exit_time":"05-14 23:15","entry_price":2315.14,"exit_price":2306.6893,"quantity":0.832844,"notional":1928.15,"leverage":1.56,"net_pnl_inr":-780.73,"ending_equity_inr":102321.28,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-15 14:15","exit_time":"05-15 19:15","entry_price":2256.35,"exit_price":2247.998,"quantity":0.836299,"notional":1886.98,"leverage":1.54,"net_pnl_inr":-772.05,"ending_equity_inr":101549.23,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-15 23:15","exit_time":"05-16 02:15","entry_price":2228.41,"exit_price":2220.341,"quantity":0.859101,"notional":1914.43,"leverage":1.57,"net_pnl_inr":-770.52,"ending_equity_inr":100778.71,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-16 20:15","exit_time":"05-16 22:15","entry_price":2178.97,"exit_price":2172.6216,"quantity":1.083658,"notional":2361.26,"leverage":1.96,"net_pnl_inr":-811.37,"ending_equity_inr":99967.34,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-17 10:15","exit_time":"05-17 12:15","entry_price":2186.3,"exit_price":2181.4329,"quantity":1.4021,"notional":3065.41,"leverage":2.56,"net_pnl_inr":-877.77,"ending_equity_inr":99089.57,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-17 17:15","exit_time":"05-17 19:15","entry_price":2191.13,"exit_price":2186.8285,"quantity":1.572507,"notional":3445.57,"leverage":2.9,"net_pnl_inr":-910.59,"ending_equity_inr":98178.98,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-18 07:15","exit_time":"05-18 12:15","entry_price":2116.67,"exit_price":2108.5942,"quantity":0.82989,"notional":1756.6,"leverage":1.49,"net_pnl_inr":-735.74,"ending_equity_inr":97443.24,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-18 18:15","exit_time":"05-18 19:15","entry_price":2149.99,"exit_price":2142.7128,"quantity":0.914061,"notional":1965.22,"leverage":1.68,"net_pnl_inr":-752.04,"ending_equity_inr":96691.2,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-19 02:15","exit_time":"05-19 06:15","entry_price":2116.56,"exit_price":2142.0563,"quantity":0.6472,"notional":1369.84,"leverage":1.18,"net_pnl_inr":1238.85,"ending_equity_inr":97930.05,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-19 23:15","exit_time":"05-20 04:15","entry_price":2114.86,"exit_price":2106.6743,"quantity":0.81667,"notional":1727.14,"leverage":1.47,"net_pnl_inr":-731.73,"ending_equity_inr":97198.32,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-23 04:15","exit_time":"05-23 05:15","entry_price":2071.91,"exit_price":2064.5294,"quantity":0.898993,"notional":1862.63,"leverage":1.6,"net_pnl_inr":-740.62,"ending_equity_inr":96457.69,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-23 15:15","exit_time":"05-23 19:15","entry_price":2026.46,"exit_price":2043.9812,"quantity":0.939509,"notional":1903.88,"leverage":1.65,"net_pnl_inr":1182.04,"ending_equity_inr":97639.73,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-28 14:15","exit_time":"05-28 19:15","entry_price":1987.33,"exit_price":1979.064,"quantity":0.806338,"notional":1602.46,"leverage":1.37,"net_pnl_inr":-717.31,"ending_equity_inr":96922.42,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-28 22:15","exit_time":"05-29 08:15","entry_price":2012.5,"exit_price":2003.6296,"quantity":0.745884,"notional":1501.09,"leverage":1.29,"net_pnl_inr":-704.36,"ending_equity_inr":96218.06,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-01 23:15","exit_time":"06-02 00:15","entry_price":1.2997,"exit_price":1.2946,"quantity":1215.048622,"notional":1579.2,"leverage":1.47,"net_pnl_inr":-679.5,"ending_equity_inr":89277.98,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-02 10:15","exit_time":"06-02 11:15","entry_price":1.2796,"exit_price":1.2746,"quantity":1229.460978,"notional":1573.22,"leverage":1.47,"net_pnl_inr":-675.32,"ending_equity_inr":88602.66,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-02 23:15","exit_time":"06-03 00:15","entry_price":1.2357,"exit_price":1.2292,"quantity":944.943976,"notional":1167.67,"leverage":1.1,"net_pnl_inr":-630.53,"ending_equity_inr":87972.14,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-03 04:15","exit_time":"06-03 06:15","entry_price":1.2002,"exit_price":1.2159,"quantity":779.980847,"notional":936.13,"leverage":0.89,"net_pnl_inr":926.5,"ending_equity_inr":88898.63,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-03 07:15","exit_time":"06-03 09:15","entry_price":1.2229,"exit_price":1.2152,"quantity":801.607562,"notional":980.29,"leverage":0.92,"net_pnl_inr":-612.72,"ending_equity_inr":88285.91,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-03 11:15","exit_time":"06-03 13:15","entry_price":1.2316,"exit_price":1.2481,"quantity":741.850556,"notional":913.66,"leverage":0.86,"net_pnl_inr":932.7,"ending_equity_inr":89218.61,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-04 04:15","exit_time":"06-04 05:15","entry_price":1.2058,"exit_price":1.198,"quantity":791.265659,"notional":954.11,"leverage":0.89,"net_pnl_inr":-612.89,"ending_equity_inr":88605.73,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-04 10:15","exit_time":"06-04 11:15","entry_price":1.201,"exit_price":1.1912,"quantity":628.312652,"notional":754.6,"leverage":0.71,"net_pnl_inr":-589.13,"ending_equity_inr":88016.6,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-04 19:15","exit_time":"06-04 20:15","entry_price":1.1787,"exit_price":1.1687,"quantity":610.096015,"notional":719.12,"leverage":0.68,"net_pnl_inr":-582.21,"ending_equity_inr":87434.38,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-05 14:15","exit_time":"06-05 15:15","entry_price":1.1187,"exit_price":1.1393,"quantity":590.995617,"notional":661.15,"leverage":0.63,"net_pnl_inr":947.58,"ending_equity_inr":88381.97,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-06 00:15","exit_time":"06-06 01:15","entry_price":1.083,"exit_price":1.0716,"quantity":536.299281,"notional":580.81,"leverage":0.55,"net_pnl_inr":-570.46,"ending_equity_inr":87811.51,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-06 03:15","exit_time":"06-06 04:15","entry_price":1.1111,"exit_price":1.0994,"quantity":522.716588,"notional":580.79,"leverage":0.55,"net_pnl_inr":-567.15,"ending_equity_inr":87244.36,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-06 13:15","exit_time":"06-06 16:15","entry_price":1.0919,"exit_price":1.0805,"quantity":530.693654,"notional":579.46,"leverage":0.55,"net_pnl_inr":-563.52,"ending_equity_inr":86680.84,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-07 08:15","exit_time":"06-07 10:15","entry_price":1.1184,"exit_price":1.1103,"quantity":745.528662,"notional":833.8,"leverage":0.8,"net_pnl_inr":-585.58,"ending_equity_inr":86095.26,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-10 19:15","exit_time":"06-10 20:15","entry_price":1.1294,"exit_price":1.1234,"quantity":989.220431,"notional":1117.23,"leverage":1.08,"net_pnl_inr":-611.04,"ending_equity_inr":85484.22,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-18 14:15","exit_time":"06-18 16:15","entry_price":1.1778,"exit_price":1.1723,"quantity":1501.214045,"notional":1768.13,"leverage":1.89,"net_pnl_inr":-863.51,"ending_equity_inr":77229.74,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-19 03:15","exit_time":"06-19 09:15","entry_price":1.1444,"exit_price":1.1385,"quantity":1378.846034,"notional":1577.95,"leverage":1.71,"net_pnl_inr":-838.24,"ending_equity_inr":76391.5,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-19 20:15","exit_time":"06-19 22:15","entry_price":1.136,"exit_price":1.131,"quantity":1602.181808,"notional":1820.08,"leverage":1.99,"net_pnl_inr":-854.11,"ending_equity_inr":75537.39,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-20 07:15","exit_time":"06-20 08:15","entry_price":1.1411,"exit_price":1.1369,"quantity":1904.118687,"notional":2172.79,"leverage":2.4,"net_pnl_inr":-881.82,"ending_equity_inr":74655.57,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-23 17:15","exit_time":"06-23 18:15","entry_price":1.1087,"exit_price":1.1044,"quantity":1827.980673,"notional":2026.68,"leverage":2.27,"net_pnl_inr":-859.54,"ending_equity_inr":73796.03,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-24 00:15","exit_time":"06-24 04:15","entry_price":1.0981,"exit_price":1.1066,"quantity":1825.748444,"notional":2004.85,"leverage":2.27,"net_pnl_inr":1098.8,"ending_equity_inr":74894.83,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-24 12:15","exit_time":"06-24 13:15","entry_price":1.102,"exit_price":1.0984,"quantity":2216.182499,"notional":2442.23,"leverage":2.72,"net_pnl_inr":-903.43,"ending_equity_inr":73991.39,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-24 19:15","exit_time":"06-24 21:15","entry_price":1.0753,"exit_price":1.0709,"quantity":1778.187401,"notional":1912.08,"leverage":2.16,"net_pnl_inr":-842.65,"ending_equity_inr":73148.74,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-25 01:15","exit_time":"06-25 02:15","entry_price":1.0567,"exit_price":1.0677,"quantity":1397.952587,"notional":1477.22,"leverage":1.69,"net_pnl_inr":1138.93,"ending_equity_inr":74287.67,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-25 03:15","exit_time":"06-25 04:15","entry_price":1.0756,"exit_price":1.0697,"quantity":1319.087161,"notional":1418.81,"leverage":1.59,"net_pnl_inr":-795.22,"ending_equity_inr":73492.45,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-25 21:15","exit_time":"06-25 22:15","entry_price":1.0342,"exit_price":1.0269,"quantity":1068.130174,"notional":1104.66,"leverage":1.26,"net_pnl_inr":-756.68,"ending_equity_inr":72735.77,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-26 00:15","exit_time":"06-26 08:15","entry_price":1.0339,"exit_price":1.0265,"quantity":1033.900783,"notional":1068.95,"leverage":1.23,"net_pnl_inr":-744.29,"ending_equity_inr":71991.47,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-26 11:15","exit_time":"06-26 13:15","entry_price":1.0328,"exit_price":1.0462,"quantity":1128.872763,"notional":1165.9,"leverage":1.35,"net_pnl_inr":1150.06,"ending_equity_inr":73141.53,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-26 21:15","exit_time":"06-27 04:15","entry_price":1.0444,"exit_price":1.0373,"quantity":1085.681479,"notional":1133.89,"leverage":1.29,"net_pnl_inr":-753.72,"ending_equity_inr":72387.82,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"short","entry_time":"06-28 17:15","exit_time":"06-28 18:15","entry_price":71.88,"exit_price":72.1982,"quantity":25.581993,"notional":1838.83,"leverage":1.81,"net_pnl_inr":-864.29,"ending_equity_inr":84106.59,"regime":"low_vol_range"},{"symbol":"SOLUSDT","direction":"short","entry_time":"06-28 20:15","exit_time":"06-28 21:15","entry_price":71.6,"exit_price":71.9253,"quantity":24.768144,"notional":1773.4,"leverage":1.76,"net_pnl_inr":-850.82,"ending_equity_inr":83255.77,"regime":"low_vol_range"},{"symbol":"SOLUSDT","direction":"short","entry_time":"06-29 07:15","exit_time":"06-29 08:15","entry_price":71.44,"exit_price":71.8901,"quantity":17.723259,"notional":1266.15,"leverage":1.27,"net_pnl_inr":-793.3,"ending_equity_inr":82462.47,"regime":"low_vol_range"},{"symbol":"SOLUSDT","direction":"short","entry_time":"06-30 23:15","exit_time":"07-01 00:15","entry_price":73.16,"exit_price":73.6087,"quantity":17.608372,"notional":1288.23,"leverage":1.3,"net_pnl_inr":-788.93,"ending_equity_inr":81673.54,"regime":"low_vol_range"},{"symbol":"SOLUSDT","direction":"short","entry_time":"07-06 02:15","exit_time":"07-06 03:15","entry_price":81.03,"exit_price":81.2882,"quantity":30.300333,"notional":2455.24,"leverage":2.51,"net_pnl_inr":-899.55,"ending_equity_inr":80773.99,"regime":"low_vol_range"},{"symbol":"SOLUSDT","direction":"short","entry_time":"07-06 06:15","exit_time":"07-06 08:15","entry_price":82.16,"exit_price":81.1965,"quantity":24.09501,"notional":1979.65,"leverage":2.05,"net_pnl_inr":1742.08,"ending_equity_inr":82516.07,"regime":"low_vol_range"},{"symbol":"SOLUSDT","direction":"short","entry_time":"07-06 09:15","exit_time":"07-06 18:15","entry_price":80.78,"exit_price":79.7701,"quantity":23.483687,"notional":1897.01,"leverage":1.92,"net_pnl_inr":1793.67,"ending_equity_inr":84309.74,"regime":"low_vol_range"},{"symbol":"SOLUSDT","direction":"short","entry_time":"07-11 23:15","exit_time":"07-12 05:15","entry_price":78.06,"exit_price":77.3512,"quantity":34.187811,"notional":2668.7,"leverage":2.64,"net_pnl_inr":1760.54,"ending_equity_inr":86070.28,"regime":"low_vol_range"},{"symbol":"SOLUSDT","direction":"short","entry_time":"07-12 06:15","exit_time":"07-12 07:15","entry_price":76.06,"exit_price":76.3245,"quantity":31.176173,"notional":2371.26,"leverage":2.3,"net_pnl_inr":-926.42,"ending_equity_inr":85143.86,"regime":"low_vol_range"}]},"calibrated":{"name":"Walk-Forward Calibrated","metrics":{"starting_balance_inr":100000.0,"final_balance_inr":82906.1,"net_profit_inr":-17093.9,"net_profit_pct":-17.09,"max_drawdown_pct":18.53,"sharpe_ratio":-5.25,"total_trades":62,"win_rate_pct":22.58,"wins":14,"losses":48},"equity_curve":[{"fold":1,"timestamp":1778733900,"balance_inr":100000.0,"trades_in_fold":0},{"fold":2,"timestamp":1780029900,"balance_inr":92166.28,"trades_in_fold":15},{"fold":3,"timestamp":1781325900,"balance_inr":87625.76,"trades_in_fold":15},{"fold":4,"timestamp":1782621900,"balance_inr":82949.09,"trades_in_fold":24},{"fold":5,"timestamp":1783917900,"balance_inr":82906.1,"trades_in_fold":8}],"trades":[{"symbol":"ETHUSDT","direction":"long","entry_time":"05-14 12:15","exit_time":"05-14 15:15","entry_price":2266.66,"exit_price":2259.3664,"quantity":0.9903,"notional":2244.67,"leverage":1.8,"net_pnl_inr":-828.66,"ending_equity_inr":103155.6,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-14 22:15","exit_time":"05-14 23:15","entry_price":2315.14,"exit_price":2306.6893,"quantity":0.847896,"notional":1963.0,"leverage":1.59,"net_pnl_inr":-794.84,"ending_equity_inr":102360.77,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-15 14:15","exit_time":"05-15 19:15","entry_price":2256.35,"exit_price":2247.998,"quantity":0.851299,"notional":1920.83,"leverage":1.57,"net_pnl_inr":-785.9,"ending_equity_inr":101574.86,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-15 23:15","exit_time":"05-16 02:15","entry_price":2228.41,"exit_price":2220.341,"quantity":0.874394,"notional":1948.51,"leverage":1.6,"net_pnl_inr":-784.23,"ending_equity_inr":100790.63,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-16 20:15","exit_time":"05-16 22:15","entry_price":2178.97,"exit_price":2172.6216,"quantity":1.1028,"notional":2402.97,"leverage":1.99,"net_pnl_inr":-825.7,"ending_equity_inr":99964.93,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-17 10:15","exit_time":"05-17 12:15","entry_price":2186.3,"exit_price":2181.4329,"quantity":1.426664,"notional":3119.11,"leverage":2.61,"net_pnl_inr":-893.15,"ending_equity_inr":99071.78,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-17 17:15","exit_time":"05-17 19:15","entry_price":2191.13,"exit_price":2186.8285,"quantity":1.599808,"notional":3505.39,"leverage":2.95,"net_pnl_inr":-926.4,"ending_equity_inr":98145.38,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-18 07:15","exit_time":"05-18 12:15","entry_price":2116.67,"exit_price":2108.5942,"quantity":0.84416,"notional":1786.81,"leverage":1.52,"net_pnl_inr":-748.39,"ending_equity_inr":97396.99,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-18 18:15","exit_time":"05-18 19:15","entry_price":2149.99,"exit_price":2142.7128,"quantity":0.929655,"notional":1998.75,"leverage":1.71,"net_pnl_inr":-764.87,"ending_equity_inr":96632.12,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-19 02:15","exit_time":"05-19 06:15","entry_price":2116.56,"exit_price":2142.0563,"quantity":0.658152,"notional":1393.02,"leverage":1.2,"net_pnl_inr":1259.82,"ending_equity_inr":97891.94,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-19 23:15","exit_time":"05-20 04:15","entry_price":2114.86,"exit_price":2106.6743,"quantity":0.830674,"notional":1756.76,"leverage":1.5,"net_pnl_inr":-744.28,"ending_equity_inr":97147.65,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-23 04:15","exit_time":"05-23 05:15","entry_price":2071.91,"exit_price":2064.5294,"quantity":0.914288,"notional":1894.32,"leverage":1.63,"net_pnl_inr":-753.22,"ending_equity_inr":96394.43,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-23 15:15","exit_time":"05-23 19:15","entry_price":2026.46,"exit_price":2043.9812,"quantity":0.955365,"notional":1936.01,"leverage":1.68,"net_pnl_inr":1201.99,"ending_equity_inr":97596.42,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-28 14:15","exit_time":"05-28 19:15","entry_price":1987.33,"exit_price":1979.064,"quantity":0.82012,"notional":1629.85,"leverage":1.39,"net_pnl_inr":-729.57,"ending_equity_inr":96866.85,"regime":"trending_bear"},{"symbol":"ETHUSDT","direction":"long","entry_time":"05-28 22:15","exit_time":"05-29 08:15","entry_price":2012.5,"exit_price":2003.6296,"quantity":0.758534,"notional":1526.55,"leverage":1.32,"net_pnl_inr":-716.3,"ending_equity_inr":96150.55,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-01 23:15","exit_time":"06-02 00:15","entry_price":1.2997,"exit_price":1.2946,"quantity":1233.67213,"notional":1603.4,"leverage":1.49,"net_pnl_inr":-689.91,"ending_equity_inr":89098.31,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-02 10:15","exit_time":"06-02 11:15","entry_price":1.2796,"exit_price":1.2746,"quantity":1248.141581,"notional":1597.12,"leverage":1.5,"net_pnl_inr":-685.58,"ending_equity_inr":88412.73,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-02 23:15","exit_time":"06-03 00:15","entry_price":1.2357,"exit_price":1.2292,"quantity":959.175524,"notional":1185.25,"leverage":1.12,"net_pnl_inr":-640.02,"ending_equity_inr":87772.7,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-03 04:15","exit_time":"06-03 06:15","entry_price":1.2002,"exit_price":1.2159,"quantity":791.630092,"notional":950.11,"leverage":0.9,"net_pnl_inr":940.33,"ending_equity_inr":88713.04,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-03 07:15","exit_time":"06-03 09:15","entry_price":1.2229,"exit_price":1.2152,"quantity":813.725999,"notional":995.11,"leverage":0.94,"net_pnl_inr":-621.98,"ending_equity_inr":88091.05,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-03 11:15","exit_time":"06-03 13:15","entry_price":1.2316,"exit_price":1.2481,"quantity":752.975496,"notional":927.36,"leverage":0.88,"net_pnl_inr":946.69,"ending_equity_inr":89037.74,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-04 04:15","exit_time":"06-04 05:15","entry_price":1.2058,"exit_price":1.198,"quantity":803.276397,"notional":968.59,"leverage":0.91,"net_pnl_inr":-622.19,"ending_equity_inr":88415.55,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-04 10:15","exit_time":"06-04 11:15","entry_price":1.201,"exit_price":1.1912,"quantity":637.773833,"notional":765.97,"leverage":0.72,"net_pnl_inr":-598.0,"ending_equity_inr":87817.55,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-04 19:15","exit_time":"06-04 20:15","entry_price":1.1787,"exit_price":1.1687,"quantity":619.211421,"notional":729.86,"leverage":0.69,"net_pnl_inr":-590.91,"ending_equity_inr":87226.64,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-05 14:15","exit_time":"06-05 15:15","entry_price":1.1187,"exit_price":1.1393,"quantity":599.75678,"notional":670.95,"leverage":0.64,"net_pnl_inr":961.63,"ending_equity_inr":88188.27,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-06 00:15","exit_time":"06-06 01:15","entry_price":1.083,"exit_price":1.0716,"quantity":544.350209,"notional":589.53,"leverage":0.56,"net_pnl_inr":-579.02,"ending_equity_inr":87609.25,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-06 03:15","exit_time":"06-06 04:15","entry_price":1.1111,"exit_price":1.0994,"quantity":530.504186,"notional":589.44,"leverage":0.56,"net_pnl_inr":-575.6,"ending_equity_inr":87033.65,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-06 13:15","exit_time":"06-06 16:15","entry_price":1.0919,"exit_price":1.0805,"quantity":538.539731,"notional":588.03,"leverage":0.56,"net_pnl_inr":-571.85,"ending_equity_inr":86461.8,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-07 08:15","exit_time":"06-07 10:15","entry_price":1.1184,"exit_price":1.1103,"quantity":756.46618,"notional":846.03,"leverage":0.82,"net_pnl_inr":-594.17,"ending_equity_inr":85867.63,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-10 19:15","exit_time":"06-10 20:15","entry_price":1.1294,"exit_price":1.1234,"quantity":1003.615403,"notional":1133.48,"leverage":1.1,"net_pnl_inr":-619.93,"ending_equity_inr":85247.7,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-15 01:15","exit_time":"06-15 03:15","entry_price":1.1324,"exit_price":1.1447,"quantity":1005.490742,"notional":1138.62,"leverage":1.68,"net_pnl_inr":917.71,"ending_equity_inr":57619.11,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"06-18 16:15","exit_time":"06-18 21:15","entry_price":71.36,"exit_price":70.6031,"quantity":11.487222,"notional":819.73,"leverage":1.19,"net_pnl_inr":-807.26,"ending_equity_inr":56219.25,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-18 16:15","exit_time":"06-18 19:15","entry_price":1.1686,"exit_price":1.1579,"quantity":587.975745,"notional":687.11,"leverage":1.0,"net_pnl_inr":-592.59,"ending_equity_inr":57026.51,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-19 05:15","exit_time":"06-19 10:15","entry_price":1.146,"exit_price":1.1351,"quantity":559.643188,"notional":641.35,"leverage":0.95,"net_pnl_inr":-576.08,"ending_equity_inr":55643.17,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"06-19 05:15","exit_time":"06-19 09:15","entry_price":69.69,"exit_price":68.8841,"quantity":10.527219,"notional":733.64,"leverage":1.09,"net_pnl_inr":-782.21,"ending_equity_inr":54860.95,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"06-19 22:15","exit_time":"06-20 10:15","entry_price":68.67,"exit_price":70.8449,"quantity":11.419244,"notional":784.16,"leverage":1.19,"net_pnl_inr":1994.76,"ending_equity_inr":56855.71,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-19 22:15","exit_time":"06-20 11:15","entry_price":1.1296,"exit_price":1.1491,"quantity":612.695538,"notional":692.1,"leverage":1.05,"net_pnl_inr":929.81,"ending_equity_inr":57785.53,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-23 19:15","exit_time":"06-23 21:15","entry_price":1.1022,"exit_price":1.0934,"quantity":715.136722,"notional":788.22,"leverage":1.14,"net_pnl_inr":-604.43,"ending_equity_inr":57181.09,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"06-23 20:15","exit_time":"06-23 21:15","entry_price":69.14,"exit_price":68.3965,"quantity":11.727867,"notional":810.86,"leverage":1.17,"net_pnl_inr":-808.71,"ending_equity_inr":56372.39,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-24 02:15","exit_time":"06-24 10:15","entry_price":1.1037,"exit_price":1.0956,"quantity":755.369358,"notional":833.7,"leverage":1.23,"net_pnl_inr":-595.78,"ending_equity_inr":55776.61,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"06-24 06:15","exit_time":"06-24 09:15","entry_price":69.94,"exit_price":69.326,"quantity":13.853194,"notional":968.89,"leverage":1.44,"net_pnl_inr":-806.28,"ending_equity_inr":54970.33,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-24 14:15","exit_time":"06-24 16:15","entry_price":1.1017,"exit_price":1.0947,"quantity":861.468059,"notional":949.08,"leverage":1.44,"net_pnl_inr":-595.19,"ending_equity_inr":54375.14,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"06-24 14:15","exit_time":"06-24 17:15","entry_price":69.42,"exit_price":68.8181,"quantity":13.78097,"notional":956.67,"leverage":1.45,"net_pnl_inr":-787.53,"ending_equity_inr":53587.61,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"06-24 21:15","exit_time":"06-24 22:15","entry_price":67.29,"exit_price":66.5315,"quantity":10.66134,"notional":717.4,"leverage":1.12,"net_pnl_inr":-746.66,"ending_equity_inr":52840.96,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-24 21:15","exit_time":"06-24 23:15","entry_price":1.0578,"exit_price":1.0483,"quantity":611.908855,"notional":647.28,"leverage":1.01,"net_pnl_inr":-551.95,"ending_equity_inr":52289.0,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"06-24 23:15","exit_time":"06-25 02:15","entry_price":64.93,"exit_price":67.7223,"quantity":8.477192,"notional":550.42,"leverage":0.88,"net_pnl_inr":1920.24,"ending_equity_inr":54209.25,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"06-25 03:15","exit_time":"06-25 19:15","entry_price":68.02,"exit_price":66.9762,"quantity":7.836994,"notional":533.07,"leverage":0.82,"net_pnl_inr":-734.35,"ending_equity_inr":52930.45,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-25 03:15","exit_time":"06-25 19:15","entry_price":1.0756,"exit_price":1.0637,"quantity":497.689926,"notional":535.32,"leverage":0.82,"net_pnl_inr":-544.45,"ending_equity_inr":53664.8,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-25 05:15","exit_time":"06-25 19:15","entry_price":1.0729,"exit_price":1.0615,"quantity":518.134483,"notional":555.91,"leverage":0.86,"net_pnl_inr":-546.65,"ending_equity_inr":52383.8,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"06-25 23:15","exit_time":"06-26 01:15","entry_price":67.1,"exit_price":65.8743,"quantity":6.449218,"notional":432.74,"leverage":0.69,"net_pnl_inr":-702.89,"ending_equity_inr":51680.91,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-25 23:15","exit_time":"06-26 01:15","entry_price":1.0454,"exit_price":1.0305,"quantity":384.142524,"notional":401.58,"leverage":0.64,"net_pnl_inr":-516.39,"ending_equity_inr":51164.52,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"06-26 01:15","exit_time":"06-26 12:15","entry_price":66.17,"exit_price":69.7094,"quantity":6.544086,"notional":433.02,"leverage":0.71,"net_pnl_inr":1889.44,"ending_equity_inr":52547.76,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-26 02:15","exit_time":"06-26 08:15","entry_price":1.0327,"exit_price":1.0188,"quantity":401.947872,"notional":415.09,"leverage":0.68,"net_pnl_inr":-506.2,"ending_equity_inr":50658.32,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-26 13:15","exit_time":"06-26 15:15","entry_price":1.0492,"exit_price":1.0359,"quantity":429.925617,"notional":451.08,"leverage":0.72,"net_pnl_inr":-523.03,"ending_equity_inr":52024.73,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"07-05 20:15","exit_time":"07-06 01:15","entry_price":81.41,"exit_price":80.8241,"quantity":17.502276,"notional":1424.86,"leverage":2.03,"net_pnl_inr":-999.3,"ending_equity_inr":57648.81,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"07-09 02:15","exit_time":"07-09 22:15","entry_price":77.15,"exit_price":77.64,"quantity":14.258835,"notional":1100.07,"leverage":1.59,"net_pnl_inr":471.01,"ending_equity_inr":57167.27,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"07-09 13:15","exit_time":"07-09 17:15","entry_price":78.18,"exit_price":77.4678,"quantity":14.153456,"notional":1106.52,"leverage":1.6,"net_pnl_inr":-952.55,"ending_equity_inr":56696.26,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"07-09 22:15","exit_time":"07-10 18:15","entry_price":77.64,"exit_price":78.88,"quantity":14.106088,"notional":1095.2,"leverage":1.6,"net_pnl_inr":1348.72,"ending_equity_inr":58515.98,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"07-10 03:15","exit_time":"07-10 20:15","entry_price":78.0,"exit_price":77.3821,"quantity":16.175995,"notional":1261.73,"leverage":1.84,"net_pnl_inr":-962.01,"ending_equity_inr":57553.97,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"07-11 00:15","exit_time":"07-11 20:15","entry_price":77.48,"exit_price":78.44,"quantity":15.915328,"notional":1233.12,"leverage":1.79,"net_pnl_inr":1149.07,"ending_equity_inr":58703.04,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"07-11 07:15","exit_time":"07-12 03:15","entry_price":77.5,"exit_price":78.19,"quantity":18.660377,"notional":1446.18,"leverage":2.1,"net_pnl_inr":927.37,"ending_equity_inr":59630.42,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"07-12 10:15","exit_time":"07-12 12:15","entry_price":76.66,"exit_price":76.1433,"quantity":20.180488,"notional":1547.04,"leverage":2.17,"net_pnl_inr":-1025.3,"ending_equity_inr":58605.12,"regime":"trending_bear"}]},"calibrated_mtf":{"name":"Calibrated + 4h MTF Align","metrics":{"starting_balance_inr":100000.0,"final_balance_inr":91335.76,"net_profit_inr":-8664.24,"net_profit_pct":-8.66,"max_drawdown_pct":10.86,"sharpe_ratio":-4.21,"total_trades":26,"win_rate_pct":26.92,"wins":7,"losses":19},"equity_curve":[{"fold":1,"timestamp":1778733900,"balance_inr":100000.0,"trades_in_fold":0},{"fold":2,"timestamp":1780029900,"balance_inr":100000.0,"trades_in_fold":0},{"fold":3,"timestamp":1781325900,"balance_inr":98504.53,"trades_in_fold":2},{"fold":4,"timestamp":1782621900,"balance_inr":91397.56,"trades_in_fold":16},{"fold":5,"timestamp":1783917900,"balance_inr":91335.76,"trades_in_fold":8}],"trades":[{"symbol":"XRPUSDT","direction":"long","entry_time":"06-01 23:15","exit_time":"06-02 00:15","entry_price":1.2997,"exit_price":1.2946,"quantity":1341.278154,"notional":1743.26,"leverage":1.49,"net_pnl_inr":-750.09,"ending_equity_inr":96869.84,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-02 10:15","exit_time":"06-02 11:15","entry_price":1.2796,"exit_price":1.2746,"quantity":1357.00969,"notional":1736.43,"leverage":1.5,"net_pnl_inr":-745.38,"ending_equity_inr":96124.46,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-15 01:15","exit_time":"06-15 03:15","entry_price":1.1324,"exit_price":1.1447,"quantity":1516.595417,"notional":1717.39,"leverage":1.68,"net_pnl_inr":1384.19,"ending_equity_inr":86907.68,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-18 16:15","exit_time":"06-18 19:15","entry_price":1.1686,"exit_price":1.1579,"quantity":886.851846,"notional":1036.38,"leverage":1.0,"net_pnl_inr":-893.82,"ending_equity_inr":86013.87,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"06-18 16:15","exit_time":"06-18 21:15","entry_price":71.36,"exit_price":70.6031,"quantity":17.326334,"notional":1236.41,"leverage":1.19,"net_pnl_inr":-1217.6,"ending_equity_inr":84796.26,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-19 05:15","exit_time":"06-19 10:15","entry_price":1.146,"exit_price":1.1351,"quantity":844.117463,"notional":967.36,"leverage":0.95,"net_pnl_inr":-868.91,"ending_equity_inr":83927.35,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"06-19 05:15","exit_time":"06-19 09:15","entry_price":69.69,"exit_price":68.8841,"quantity":15.878348,"notional":1106.56,"leverage":1.09,"net_pnl_inr":-1179.82,"ending_equity_inr":82747.53,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"06-19 22:15","exit_time":"06-20 10:15","entry_price":68.67,"exit_price":70.8449,"quantity":17.223802,"notional":1182.76,"leverage":1.19,"net_pnl_inr":3008.73,"ending_equity_inr":85756.25,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-19 22:15","exit_time":"06-20 11:15","entry_price":1.1296,"exit_price":1.1491,"quantity":924.137047,"notional":1043.91,"leverage":1.05,"net_pnl_inr":1402.45,"ending_equity_inr":87158.7,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-23 19:15","exit_time":"06-23 21:15","entry_price":1.1022,"exit_price":1.0934,"quantity":1078.650484,"notional":1188.89,"leverage":1.14,"net_pnl_inr":-911.67,"ending_equity_inr":86247.03,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"06-23 20:15","exit_time":"06-23 21:15","entry_price":69.14,"exit_price":68.3965,"quantity":17.689303,"notional":1223.04,"leverage":1.17,"net_pnl_inr":-1219.78,"ending_equity_inr":85027.24,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-24 02:15","exit_time":"06-24 10:15","entry_price":1.1037,"exit_price":1.0956,"quantity":1139.333918,"notional":1257.48,"leverage":1.23,"net_pnl_inr":-898.62,"ending_equity_inr":84128.63,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"06-24 06:15","exit_time":"06-24 09:15","entry_price":69.94,"exit_price":69.326,"quantity":20.894961,"notional":1461.39,"leverage":1.44,"net_pnl_inr":-1216.13,"ending_equity_inr":82912.5,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-24 14:15","exit_time":"06-24 16:15","entry_price":1.1017,"exit_price":1.0947,"quantity":1299.364038,"notional":1431.51,"leverage":1.44,"net_pnl_inr":-897.73,"ending_equity_inr":82014.77,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"06-24 21:15","exit_time":"06-24 22:15","entry_price":67.29,"exit_price":66.5315,"quantity":16.316966,"notional":1097.97,"leverage":1.12,"net_pnl_inr":-1142.74,"ending_equity_inr":80872.02,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-24 21:15","exit_time":"06-24 23:15","entry_price":1.0578,"exit_price":1.0483,"quantity":936.514235,"notional":990.64,"leverage":1.01,"net_pnl_inr":-844.75,"ending_equity_inr":80027.27,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-25 03:15","exit_time":"06-25 19:15","entry_price":1.0756,"exit_price":1.0637,"quantity":734.722765,"notional":790.27,"leverage":0.82,"net_pnl_inr":-803.75,"ending_equity_inr":79223.52,"regime":"trending_bear"},{"symbol":"XRPUSDT","direction":"long","entry_time":"06-25 05:15","exit_time":"06-25 19:15","entry_price":1.0729,"exit_price":1.0615,"quantity":764.904371,"notional":820.67,"leverage":0.86,"net_pnl_inr":-807.0,"ending_equity_inr":78416.52,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"07-05 20:15","exit_time":"07-06 01:15","entry_price":81.41,"exit_price":80.8241,"quantity":25.158057,"notional":2048.12,"leverage":2.03,"net_pnl_inr":-1436.41,"ending_equity_inr":82865.34,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"07-09 02:15","exit_time":"07-09 22:15","entry_price":77.15,"exit_price":77.64,"quantity":20.495881,"notional":1581.26,"leverage":1.59,"net_pnl_inr":677.03,"ending_equity_inr":82173.16,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"07-09 13:15","exit_time":"07-09 17:15","entry_price":78.18,"exit_price":77.4678,"quantity":20.344408,"notional":1590.53,"leverage":1.6,"net_pnl_inr":-1369.21,"ending_equity_inr":81496.13,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"07-09 22:15","exit_time":"07-10 18:15","entry_price":77.64,"exit_price":78.88,"quantity":20.276321,"notional":1574.25,"leverage":1.6,"net_pnl_inr":1938.67,"ending_equity_inr":84111.83,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"07-10 03:15","exit_time":"07-10 20:15","entry_price":78.0,"exit_price":77.3821,"quantity":23.251639,"notional":1813.63,"leverage":1.84,"net_pnl_inr":-1382.81,"ending_equity_inr":82729.02,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"07-11 00:15","exit_time":"07-11 20:15","entry_price":77.48,"exit_price":78.44,"quantity":22.876953,"notional":1772.51,"leverage":1.79,"net_pnl_inr":1651.7,"ending_equity_inr":84380.71,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"07-11 07:15","exit_time":"07-12 03:15","entry_price":77.5,"exit_price":78.19,"quantity":26.822731,"notional":2078.76,"leverage":2.1,"net_pnl_inr":1333.02,"ending_equity_inr":85713.73,"regime":"trending_bear"},{"symbol":"SOLUSDT","direction":"long","entry_time":"07-12 10:15","exit_time":"07-12 12:15","entry_price":76.66,"exit_price":76.1433,"quantity":29.007763,"notional":2223.74,"leverage":2.17,"net_pnl_inr":-1473.78,"ending_equity_inr":84239.95,"regime":"trending_bear"}]}};
+        let selectedStrategy = 'calibrated_mtf';
+
+        function initializeUI() {
+            if (!window.backtestData) {
+                console.error("backtestData is missing.");
+                return;
+            }
+
+            // Update Strategy Card indicators
+            Object.keys(backtestData).forEach(strategy => {
+                const info = backtestData[strategy];
+                const metrics = info.metrics;
+                
+                const profitEl = document.getElementById(`profit-${strategy}`);
+                const wrEl = document.getElementById(`wr-${strategy}`);
+                const tradesEl = document.getElementById(`trades-${strategy}`);
+                
+                const profitVal = metrics.net_profit_inr;
+                profitEl.textContent = `${profitVal > 0 ? '+' : ''}${profitVal.toLocaleString()} INR`;
+                profitEl.className = `card-profit ${profitVal > 0 ? 'positive' : 'negative'}`;
+                
+                wrEl.textContent = `WR: ${metrics.win_rate_pct}%`;
+                tradesEl.textContent = `${metrics.total_trades} Trades`;
+            });
+
+            // Set up clicks on cards
+            document.querySelectorAll('.strategy-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    document.querySelectorAll('.strategy-card').forEach(c => c.classList.remove('active'));
+                    card.classList.add('active');
+                    selectedStrategy = card.getAttribute('data-strategy');
+                    renderStrategy();
+                });
+            });
+
+            // Set up filter change listeners
+            document.getElementById('search-input').addEventListener('input', renderStrategy);
+            document.getElementById('symbol-select').addEventListener('change', renderStrategy);
+            document.getElementById('result-select').addEventListener('change', renderStrategy);
+
+            renderStrategy();
+            drawChart();
+        }
+
+        function renderStrategy() {
+            const data = backtestData[selectedStrategy];
+            const metrics = data.metrics;
+
+            // Render Metrics Bar
+            document.getElementById('m-profit').textContent = `${metrics.net_profit_pct > 0 ? '+' : ''}${metrics.net_profit_pct}%`;
+            document.getElementById('m-profit').className = metrics.net_profit_pct > 0 ? 'positive' : 'negative';
+            document.getElementById('m-drawdown').textContent = `${metrics.max_drawdown_pct}%`;
+            document.getElementById('m-winrate').textContent = `${metrics.win_rate_pct}%`;
+            document.getElementById('m-sharpe').textContent = metrics.sharpe_ratio;
+
+            // Filter and Render Table
+            const searchValue = document.getElementById('search-input').value.toLowerCase();
+            const symbolValue = document.getElementById('symbol-select').value;
+            const resultValue = document.getElementById('result-select').value;
+
+            const filteredTrades = data.trades.filter(t => {
+                const matchSearch = t.symbol.toLowerCase().includes(searchValue) || t.regime.toLowerCase().includes(searchValue);
+                const matchSymbol = symbolValue === 'all' || t.symbol === symbolValue;
+                const matchResult = resultValue === 'all' || 
+                    (resultValue === 'profit' && t.net_pnl_inr > 0) || 
+                    (resultValue === 'loss' && t.net_pnl_inr <= 0);
+                
+                return matchSearch && matchSymbol && matchResult;
+            });
+
+            document.getElementById('trade-count-badge').textContent = `Showing ${filteredTrades.length} of ${data.trades.length} trades`;
+
+            const tbody = document.getElementById('trade-table-body');
+            tbody.innerHTML = '';
+
+            filteredTrades.forEach(t => {
+                const tr = document.createElement('tr');
+                const badgeClass = t.net_pnl_inr > 0 ? 'badge-profit' : 'badge-loss';
+                
+                tr.innerHTML = `
+                    <td class="mono" style="font-weight:600">${t.symbol}</td>
+                    <td style="color:${t.direction === 'long' ? 'var(--success)' : 'var(--danger)'}; font-weight:600">${t.direction.toUpperCase()}</td>
+                    <td class="mono" style="color:var(--text-secondary)">${t.entry_time}</td>
+                    <td class="mono" style="color:var(--text-secondary)">${t.exit_time}</td>
+                    <td class="mono">${t.leverage}x</td>
+                    <td class="mono">${t.entry_price}</td>
+                    <td class="mono">${t.exit_price}</td>
+                    <td><span class="${badgeClass}">${t.net_pnl_inr > 0 ? '+' : ''}${t.net_pnl_inr.toLocaleString()}</span></td>
+                    <td class="mono" style="font-size:0.8rem; color:var(--text-secondary)">${t.regime}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function drawChart() {
+            const svg = document.querySelector('svg.equity-chart');
+            svg.innerHTML = ''; // clear
+
+            const margin = { top: 20, right: 30, bottom: 30, left: 60 };
+            const width = 1000;
+            const height = 300;
+
+            // Injected dynamic lines grid
+            for (let i = 0; i <= 5; i++) {
+                const y = margin.top + (i * (height - margin.top - margin.bottom) / 5);
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', margin.left);
+                line.setAttribute('y1', y);
+                line.setAttribute('x2', width - margin.right);
+                line.setAttribute('y2', y);
+                line.setAttribute('class', 'grid-line');
+                svg.appendChild(line);
+            }
+
+            // Find global Y min and max across all series
+            let minVal = 100000;
+            let maxVal = 100000;
+            
+            Object.keys(backtestData).forEach(strategy => {
+                backtestData[strategy].equity_curve.forEach(pt => {
+                    minVal = Math.min(minVal, pt.balance_inr);
+                    maxVal = Math.max(maxVal, pt.balance_inr);
+                });
+            });
+
+            // Padding Y-axis
+            const delta = maxVal - minVal;
+            minVal = Math.max(0, minVal - delta * 0.1);
+            maxVal = maxVal + delta * 0.1;
+
+            const xMax = backtestData.baseline.equity_curve.length;
+
+            const scaleX = (x) => margin.left + (x * (width - margin.left - margin.right) / Math.max(1, xMax));
+            const scaleY = (y) => height - margin.bottom - ((y - minVal) * (height - margin.top - margin.bottom) / (maxVal - minVal));
+
+            // Axes Labels
+            const yLabelsCount = 5;
+            for (let i = 0; i <= yLabelsCount; i++) {
+                const val = minVal + (i * (maxVal - minVal) / yLabelsCount);
+                const y = scaleY(val);
+                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                text.setAttribute('x', margin.left - 10);
+                text.setAttribute('y', y + 3);
+                text.setAttribute('text-anchor', 'end');
+                text.setAttribute('class', 'axis-text');
+                text.textContent = `${Math.round(val / 1000)}k`;
+                svg.appendChild(text);
+            }
+
+            // Draw series paths
+            const colors = {
+                baseline: 'var(--color-baseline)',
+                calibrated: 'var(--color-calibrated)',
+                calibrated_mtf: 'var(--color-mtf)'
+            };
+
+            Object.keys(backtestData).forEach(strategy => {
+                const curve = backtestData[strategy].equity_curve;
+                let d = `M ${scaleX(0)} ${scaleY(100000)}`;
+                
+                curve.forEach((pt, idx) => {
+                    d += ` L ${scaleX(idx + 1)} ${scaleY(pt.balance_inr)}`;
+                });
+
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('d', d);
+                path.setAttribute('class', 'series');
+                path.setAttribute('stroke', colors[strategy]);
+                svg.appendChild(path);
+            });
+        }
+
+        window.onload = initializeUI;
+    </script>
+</body>
+</html>

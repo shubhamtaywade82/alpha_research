@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Perp Futures Backtest Analytics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0b0f19;
+            --bg-card: rgba(17, 24, 39, 0.75);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            
+            --color-baseline: #6b7280;
+            --color-calibrated: #14b8a6;
+            --color-mtf: #6366f1;
+            
+            --glow-calibrated: rgba(20, 184, 166, 0.15);
+            --glow-mtf: rgba(99, 102, 241, 0.15);
+            
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            padding: 2rem;
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        header {
+            margin-bottom: 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #a5b4fc, #6366f1, #14b8a6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-top: 0.25rem;
+        }
+
+        .starting-balance-badge {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            color: #818cf8;
+            font-size: 0.9rem;
+        }
+
+        /* Dashboard Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: 280px 1fr;
+            }
+        }
+
+        /* Sidebar Strategy Cards */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .strategy-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(12px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .strategy-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: transparent;
+            transition: background 0.3s;
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .strategy-card.active[data-strategy="baseline"] {
+            border-color: var(--color-baseline);
+            box-shadow: 0 4px 20px rgba(107, 114, 128, 0.1);
+        }
+        .strategy-card.active[data-strategy="baseline"]::before {
+            background: var(--color-baseline);
+        }
+
+        .strategy-card.active[data-strategy="calibrated"] {
+            border-color: var(--color-calibrated);
+            box-shadow: 0 4px 20px var(--glow-calibrated);
+        }
+        .strategy-card.active[data-strategy="calibrated"]::before {
+            background: var(--color-calibrated);
+        }
+
+        .strategy-card.active[data-strategy="calibrated_mtf"] {
+            border-color: var(--color-mtf);
+            box-shadow: 0 4px 20px var(--glow-mtf);
+        }
+        .strategy-card.active[data-strategy="calibrated_mtf"]::before {
+            background: var(--color-mtf);
+        }
+
+        .strategy-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .strategy-card .card-profit {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .strategy-card .card-profit.positive { color: var(--success); }
+        .strategy-card .card-profit.negative { color: var(--danger); }
+
+        .strategy-card .card-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Main Panel styling */
+        .main-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* Metrics Bar */
+        .metrics-bar {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .metrics-bar {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .metric-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.25rem;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s;
+        }
+
+        .metric-item:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .metric-item span {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .metric-item div {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-top: 0.25rem;
+        }
+
+        /* Chart container */
+        .chart-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(12px);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--text-secondary);
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        /* SVG Chart */
+        svg.equity-chart {
+            width: 100%;
+            height: 300px;
+            overflow: visible;
+        }
+
+        svg.equity-chart .grid-line {
+            stroke: rgba(255, 255, 255, 0.03);
+            stroke-width: 1;
+        }
+
+        svg.equity-chart .axis-line {
+            stroke: rgba(255, 255, 255, 0.1);
+            stroke-width: 1;
+        }
+
+        svg.equity-chart .axis-text {
+            fill: var(--text-secondary);
+            font-size: 10px;
+        }
+
+        svg.equity-chart path.series {
+            fill: none;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: d 0.5s ease;
+        }
+
+        /* Table & Filters container */
+        .data-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(12px);
+        }
+
+        .filters-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .filters-left {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .filter-input {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .filter-input:focus {
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        /* Custom select styling */
+        select.filter-input {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239ca3af'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1rem;
+            padding-right: 2.25rem;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-secondary);
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .badge-profit {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+        }
+
+        .badge-loss {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <h1>Crypto perp futures backtest analytics</h1>
+            <p>Walk-forward calibration & multi-timeframe strategy evaluation</p>
+        </div>
+        <div class="starting-balance-badge">
+            Initial Capital: 100,000 INR
+        </div>
+    </header>
+
+    <div class="dashboard-grid">
+        <!-- Sidebar Strategies Selector -->
+        <div class="sidebar">
+            <h2 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text-secondary);">Select Strategy</h2>
+            
+            <div class="strategy-card active" data-strategy="calibrated_mtf">
+                <h3>Calibrated + 1h MTF Align</h3>
+                <div class="card-profit positive" id="profit-calibrated_mtf">-- INR</div>
+                <div class="card-meta">
+                    <span id="wr-calibrated_mtf">WR: --%</span>
+                    <span id="trades-calibrated_mtf">-- Trades</span>
+                </div>
+            </div>
+
+            <div class="strategy-card" data-strategy="calibrated">
+                <h3>Walk-Forward Calibrated</h3>
+                <div class="card-profit positive" id="profit-calibrated">-- INR</div>
+                <div class="card-meta">
+                    <span id="wr-calibrated">WR: --%</span>
+                    <span id="trades-calibrated">-- Trades</span>
+                </div>
+            </div>
+
+            <div class="strategy-card" data-strategy="baseline">
+                <h3>Baseline Prior (Fixed)</h3>
+                <div class="card-profit positive" id="profit-baseline">-- INR</div>
+                <div class="card-meta">
+                    <span id="wr-baseline">WR: --%</span>
+                    <span id="trades-baseline">-- Trades</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Panel contents -->
+        <div class="main-panel">
+            <!-- Metrics Bar -->
+            <div class="metrics-bar">
+                <div class="metric-item">
+                    <span>Net Profit %</span>
+                    <div id="m-profit">--%</div>
+                </div>
+                <div class="metric-item">
+                    <span>Max Drawdown</span>
+                    <div id="m-drawdown" style="color: var(--danger);">--%</div>
+                </div>
+                <div class="metric-item">
+                    <span>Win Rate</span>
+                    <div id="m-winrate">--%</div>
+                </div>
+                <div class="metric-item">
+                    <span>Sharpe Ratio</span>
+                    <div id="m-sharpe">--</div>
+                </div>
+            </div>
+
+            <!-- Equity Curve Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2>Equity Curve (Compounding)</h2>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: var(--color-mtf);"></div>
+                            <span>MTF Gated</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: var(--color-calibrated);"></div>
+                            <span>Calibrated</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: var(--color-baseline);"></div>
+                            <span>Baseline</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- SVG Equity Chart -->
+                <svg class="equity-chart" viewBox="0 0 1000 300" preserveAspectRatio="none">
+                    <!-- Grid & axes will be dynamically injected -->
+                </svg>
+            </div>
+
+            <!-- Trade History Log -->
+            <div class="data-container">
+                <div class="chart-header" style="margin-bottom: 1rem;">
+                    <h2>OOS Trades Execution log</h2>
+                </div>
+                
+                <div class="filters-bar">
+                    <div class="filters-left">
+                        <input type="text" id="search-input" placeholder="Search symbol/regime..." class="filter-input">
+                        
+                        <select id="symbol-select" class="filter-input">
+                            <option value="all">All Symbols</option>
+                            <option value="SOLUSDT">SOLUSDT</option>
+                            <option value="ETHUSDT">ETHUSDT</option>
+                            <option value="XRPUSDT">XRPUSDT</option>
+                        </select>
+                        
+                        <select id="result-select" class="filter-input">
+                            <option value="all">All Results</option>
+                            <option value="profit">Profits</option>
+                            <option value="loss">Losses</option>
+                        </select>
+                    </div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary);" id="trade-count-badge">
+                        Showing -- trades
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Symbol</th>
+                                <th>Direction</th>
+                                <th>Entry Time</th>
+                                <th>Exit Time</th>
+                                <th>Lev</th>
+                                <th>Entry Price</th>
+                                <th>Exit Price</th>
+                                <th>Net P&L (INR)</th>
+                                <th>Regime / Context</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trade-table-body">
+                            <!-- Injected dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // INSERT_BACKTEST_DATA_HERE
+        let selectedStrategy = 'calibrated_mtf';
+
+        function initializeUI() {
+            if (!window.backtestData) {
+                console.error("backtestData is missing.");
+                return;
+            }
+
+            // Update Strategy Card indicators
+            Object.keys(backtestData).forEach(strategy => {
+                const info = backtestData[strategy];
+                const metrics = info.metrics;
+                
+                const profitEl = document.getElementById(`profit-${strategy}`);
+                const wrEl = document.getElementById(`wr-${strategy}`);
+                const tradesEl = document.getElementById(`trades-${strategy}`);
+                
+                const profitVal = metrics.net_profit_inr;
+                profitEl.textContent = `${profitVal > 0 ? '+' : ''}${profitVal.toLocaleString()} INR`;
+                profitEl.className = `card-profit ${profitVal > 0 ? 'positive' : 'negative'}`;
+                
+                wrEl.textContent = `WR: ${metrics.win_rate_pct}%`;
+                tradesEl.textContent = `${metrics.total_trades} Trades`;
+            });
+
+            // Set up clicks on cards
+            document.querySelectorAll('.strategy-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    document.querySelectorAll('.strategy-card').forEach(c => c.classList.remove('active'));
+                    card.classList.add('active');
+                    selectedStrategy = card.getAttribute('data-strategy');
+                    renderStrategy();
+                });
+            });
+
+            // Set up filter change listeners
+            document.getElementById('search-input').addEventListener('input', renderStrategy);
+            document.getElementById('symbol-select').addEventListener('change', renderStrategy);
+            document.getElementById('result-select').addEventListener('change', renderStrategy);
+
+            renderStrategy();
+            drawChart();
+        }
+
+        function renderStrategy() {
+            const data = backtestData[selectedStrategy];
+            const metrics = data.metrics;
+
+            // Render Metrics Bar
+            document.getElementById('m-profit').textContent = `${metrics.net_profit_pct > 0 ? '+' : ''}${metrics.net_profit_pct}%`;
+            document.getElementById('m-profit').className = metrics.net_profit_pct > 0 ? 'positive' : 'negative';
+            document.getElementById('m-drawdown').textContent = `${metrics.max_drawdown_pct}%`;
+            document.getElementById('m-winrate').textContent = `${metrics.win_rate_pct}%`;
+            document.getElementById('m-sharpe').textContent = metrics.sharpe_ratio;
+
+            // Filter and Render Table
+            const searchValue = document.getElementById('search-input').value.toLowerCase();
+            const symbolValue = document.getElementById('symbol-select').value;
+            const resultValue = document.getElementById('result-select').value;
+
+            const filteredTrades = data.trades.filter(t => {
+                const matchSearch = t.symbol.toLowerCase().includes(searchValue) || t.regime.toLowerCase().includes(searchValue);
+                const matchSymbol = symbolValue === 'all' || t.symbol === symbolValue;
+                const matchResult = resultValue === 'all' || 
+                    (resultValue === 'profit' && t.net_pnl_inr > 0) || 
+                    (resultValue === 'loss' && t.net_pnl_inr <= 0);
+                
+                return matchSearch && matchSymbol && matchResult;
+            });
+
+            document.getElementById('trade-count-badge').textContent = `Showing ${filteredTrades.length} of ${data.trades.length} trades`;
+
+            const tbody = document.getElementById('trade-table-body');
+            tbody.innerHTML = '';
+
+            filteredTrades.forEach(t => {
+                const tr = document.createElement('tr');
+                const badgeClass = t.net_pnl_inr > 0 ? 'badge-profit' : 'badge-loss';
+                
+                tr.innerHTML = `
+                    <td class="mono" style="font-weight:600">${t.symbol}</td>
+                    <td style="color:${t.direction === 'long' ? 'var(--success)' : 'var(--danger)'}; font-weight:600">${t.direction.toUpperCase()}</td>
+                    <td class="mono" style="color:var(--text-secondary)">${t.entry_time}</td>
+                    <td class="mono" style="color:var(--text-secondary)">${t.exit_time}</td>
+                    <td class="mono">${t.leverage}x</td>
+                    <td class="mono">${t.entry_price}</td>
+                    <td class="mono">${t.exit_price}</td>
+                    <td><span class="${badgeClass}">${t.net_pnl_inr > 0 ? '+' : ''}${t.net_pnl_inr.toLocaleString()}</span></td>
+                    <td class="mono" style="font-size:0.8rem; color:var(--text-secondary)">${t.regime}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function drawChart() {
+            const svg = document.querySelector('svg.equity-chart');
+            svg.innerHTML = ''; // clear
+
+            const margin = { top: 20, right: 30, bottom: 30, left: 60 };
+            const width = 1000;
+            const height = 300;
+
+            // Injected dynamic lines grid
+            for (let i = 0; i <= 5; i++) {
+                const y = margin.top + (i * (height - margin.top - margin.bottom) / 5);
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', margin.left);
+                line.setAttribute('y1', y);
+                line.setAttribute('x2', width - margin.right);
+                line.setAttribute('y2', y);
+                line.setAttribute('class', 'grid-line');
+                svg.appendChild(line);
+            }
+
+            // Find global Y min and max across all series
+            let minVal = 100000;
+            let maxVal = 100000;
+            
+            Object.keys(backtestData).forEach(strategy => {
+                backtestData[strategy].equity_curve.forEach(pt => {
+                    minVal = Math.min(minVal, pt.balance_inr);
+                    maxVal = Math.max(maxVal, pt.balance_inr);
+                });
+            });
+
+            // Padding Y-axis
+            const delta = maxVal - minVal;
+            minVal = Math.max(0, minVal - delta * 0.1);
+            maxVal = maxVal + delta * 0.1;
+
+            const xMax = backtestData.baseline.equity_curve.length;
+
+            const scaleX = (x) => margin.left + (x * (width - margin.left - margin.right) / Math.max(1, xMax));
+            const scaleY = (y) => height - margin.bottom - ((y - minVal) * (height - margin.top - margin.bottom) / (maxVal - minVal));
+
+            // Axes Labels
+            const yLabelsCount = 5;
+            for (let i = 0; i <= yLabelsCount; i++) {
+                const val = minVal + (i * (maxVal - minVal) / yLabelsCount);
+                const y = scaleY(val);
+                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                text.setAttribute('x', margin.left - 10);
+                text.setAttribute('y', y + 3);
+                text.setAttribute('text-anchor', 'end');
+                text.setAttribute('class', 'axis-text');
+                text.textContent = `${Math.round(val / 1000)}k`;
+                svg.appendChild(text);
+            }
+
+            // Draw series paths
+            const colors = {
+                baseline: 'var(--color-baseline)',
+                calibrated: 'var(--color-calibrated)',
+                calibrated_mtf: 'var(--color-mtf)'
+            };
+
+            Object.keys(backtestData).forEach(strategy => {
+                const curve = backtestData[strategy].equity_curve;
+                let d = `M ${scaleX(0)} ${scaleY(100000)}`;
+                
+                curve.forEach((pt, idx) => {
+                    d += ` L ${scaleX(idx + 1)} ${scaleY(pt.balance_inr)}`;
+                });
+
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('d', d);
+                path.setAttribute('class', 'series');
+                path.setAttribute('stroke', colors[strategy]);
+                svg.appendChild(path);
+            });
+        }
+
+        window.onload = initializeUI;
+    </script>
+</body>
+</html>

@@ -22,7 +22,15 @@ class BacktestSimulator
     @slippage_pct_per_side = slippage_bps_per_side / 10_000.0
   end
 
-  def run(candles_by_symbol:, funding_series_by_symbol:, swings_by_symbol:, regimes_by_symbol:, feature_extractor_by_symbol:, tradeable_buckets_by_symbol:, entry_delay_bars:, forward_horizon_bars:)
+  def run(candles_by_symbol:, funding_series_by_symbol:, swings_by_symbol:, regimes_by_symbol:, feature_extractor_by_symbol:, tradeable_buckets_by_symbol:, entry_delay_bars: nil, forward_horizon_bars: nil, params_by_symbol: nil, htf_regimes_by_symbol: nil)
+    params_by_symbol ||= candles_by_symbol.keys.each_with_object({}) do |sym, h|
+      h[sym] = {
+        stop_atr_buffer: 0.5,
+        entry_delay_bars: entry_delay_bars || 1,
+        forward_horizon_bars: forward_horizon_bars || 20
+      }
+    end
+
     # 1. Generate all swing signal events chronologically across all symbols
     all_events = []
     
@@ -33,11 +41,17 @@ class BacktestSimulator
       funding_series = funding_series_by_symbol[symbol]
       extractor = feature_extractor_by_symbol[symbol]
       
-      labeler = MoveLabeler.new(r_multiple_target: profile.r_multiple_target)
+      sym_params = params_by_symbol[symbol] || { stop_atr_buffer: 0.5, entry_delay_bars: 1, forward_horizon_bars: 20 }
+      
+      labeler = MoveLabeler.new(r_multiple_target: profile.r_multiple_target, stop_atr_buffer: sym_params[:stop_atr_buffer])
+      
+      htf_regimes = htf_regimes_by_symbol ? htf_regimes_by_symbol[symbol] : nil
+      
       events = labeler.label_signal_events(
         candles: candles, swings: swings, regimes: regimes,
         funding_series: funding_series, feature_extractor: extractor,
-        entry_delay_bars: entry_delay_bars, forward_horizon_bars: forward_horizon_bars
+        entry_delay_bars: sym_params[:entry_delay_bars], forward_horizon_bars: sym_params[:forward_horizon_bars],
+        htf_regimes: htf_regimes
       )
       
       events.each do |event|
@@ -103,6 +117,18 @@ class BacktestSimulator
         end
       end
       
+      # If htf_regimes_by_symbol is provided, enforce macro-trend alignment
+      if htf_regimes_by_symbol && htf_regimes_by_symbol[symbol]
+        htf_reg = htf_regimes_by_symbol[symbol][event.entry_index]
+        if htf_reg
+          if htf_reg.state == :trending_bull && event.direction != :long
+            next
+          elsif htf_reg.state == :trending_bear && event.direction != :short
+            next
+          end
+        end
+      end
+
       # Check if the bucket for this event is tradeable for this symbol
       bucket_key = event.context[:regime_state]
       tradeable_info = tradeable_buckets_by_symbol[symbol][bucket_key]
