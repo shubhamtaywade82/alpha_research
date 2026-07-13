@@ -14,7 +14,16 @@ class ExperimentStore
     entry[:id] = @experiments.size + 1
     entry[:timestamp] = Time.now.utc.iso8601
     @experiments << entry
-    File.open(@path, "a") { |f| f.puts(JSON.generate(deep_plain(entry))) }
+    line = JSON.generate(deep_plain(entry))
+    # flock so concurrent sweep processes (e.g. SYMBOL=X ruby ... & for each
+    # symbol) can never interleave partial writes of the same large JSON
+    # line into each other — this corrupted the file once before this fix.
+    File.open(@path, "a") do |f|
+      f.flock(File::LOCK_EX)
+      f.puts(line)
+      f.flush
+      f.flock(File::LOCK_UN)
+    end
     entry[:id]
   end
 

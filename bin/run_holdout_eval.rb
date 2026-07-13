@@ -26,6 +26,23 @@ require_relative "../lib/signals/trend_following_signal"
 require_relative "../lib/signals/smc_structure_signal"
 require_relative "../lib/signals/funding_carry_signal"
 require_relative "../lib/confluence_scorer"
+require_relative "../lib/supertrend_calculator"
+require_relative "../lib/supertrend_flip_detector"
+
+SUPERTREND_BUILDERS = {
+  "supertrend_percentile" => ->(candles, p) { SupertrendCalculator.percentile_scaled(candles, atr_period: p["atr_period"], min_mult: p["min_mult"], max_mult: p["max_mult"], pct_lookback: 100) },
+  "supertrend_kmeans" => ->(candles, p) { SupertrendCalculator.kmeans_clustered(candles, atr_period: p["atr_period"], cluster_lookback: 100, mult_low: p["mult_low"], mult_mid: p["mult_mid"], mult_high: p["mult_high"]) },
+  "supertrend_adaptive" => ->(candles, p) { SupertrendCalculator.fully_adaptive(candles, base_period: p["base_period"], min_period: p["min_period"], max_period: p["max_period"], min_mult: p["min_mult"], max_mult: p["max_mult"], er_lookback: p["er_lookback"], pct_lookback: 100) }
+}.freeze
+
+def events_for(family, entry_candles, params)
+  if SUPERTREND_BUILDERS.key?(family)
+    series = SUPERTREND_BUILDERS[family].call(entry_candles, params)
+    SupertrendFlipDetector.detect(series, entry_candles)
+  else
+    SwingPointDetector.new(min_move_atr_multiple: 1.5).detect(entry_candles)
+  end
+end
 
 CACHE_DIR = File.join(root, "data", "cache")
 FINALISTS_PATH = File.join(root, "data", "finalists.json")
@@ -88,7 +105,7 @@ def discovery_holdout_trades(finalist, cache_dir, base_cache)
   htf_regimes = RegimeClassifier.new(profile).classify(htf_candles)
   aligned_htf = CandleResampler.align_higher_regimes(lower_candles: entry_candles, higher_candles: htf_candles, higher_regimes: htf_regimes)
   entry_regimes = RegimeClassifier.new(profile).classify(entry_candles)
-  swings = SwingPointDetector.new(min_move_atr_multiple: 1.5).detect(entry_candles)
+  swings = events_for(finalist["family"], entry_candles, p)
   closes = entry_candles.map { |c| c[:close] }
   extractor = ContextFeatureExtractor.new(profile)
   extractor.ema_cache_fast = Indicators.ema(closes, profile.ema_fast)
@@ -226,7 +243,7 @@ puts "Running FROZEN finalists once against the untouched holdout slice (never s
 puts
 
 report = finalists.map do |finalist|
-  trades = finalist["family"] == "discovery" ? discovery_holdout_trades(finalist, CACHE_DIR, base_cache) : confluence_holdout_trades(finalist, CACHE_DIR, base_cache)
+  trades = finalist["family"] == "confluence" ? confluence_holdout_trades(finalist, CACHE_DIR, base_cache) : discovery_holdout_trades(finalist, CACHE_DIR, base_cache)
   net_rs = trades.map { |t| t[:net_r] }
   holdout_expectancy = mean(net_rs)
   holdout_win_rate = net_rs.empty? ? nil : net_rs.count(&:positive?) / net_rs.size.to_f

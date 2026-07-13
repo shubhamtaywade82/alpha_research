@@ -1,15 +1,16 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Paper-trading bot for the 3 holdout-confirmed strategies from the alpha
+# Paper-trading bot for the 5 holdout-confirmed strategies from the alpha
 # research campaign (see data/CAMPAIGN_REPORT.md). No real orders are ever
 # placed — this only reads public Binance market data and simulates fills
 # against a persisted virtual $10k account (data/paper_trading_state.json).
 #
 # Reuses the EXACT same signal/regime/cost classes the backtest validated
 # (RegimeClassifier, TrendFollowingSignal, SmcStructureSignal,
-# FundingCarrySignal, ConfluenceScorer, SwingPointDetector, TradeCostModel)
-# — no reimplementation of strategy logic, only a live polling shell around it.
+# FundingCarrySignal, ConfluenceScorer, SwingPointDetector,
+# SupertrendCalculator, SupertrendFlipDetector, TradeCostModel) — no
+# reimplementation of strategy logic, only a live polling shell around it.
 #
 # Usage (run this on a schedule — e.g. cron every 15 min, or a loop):
 #   ruby bin/paper_trading_bot.rb
@@ -32,13 +33,15 @@ require_relative "../lib/signals/trend_following_signal"
 require_relative "../lib/signals/smc_structure_signal"
 require_relative "../lib/signals/funding_carry_signal"
 require_relative "../lib/confluence_scorer"
+require_relative "../lib/supertrend_calculator"
+require_relative "../lib/supertrend_flip_detector"
 require_relative "../lib/paper_broker"
 
 STATE_PATH = File.join(root, "data", "paper_trading_state.json")
 DAYS_BACK = 30
 BASE_INTERVAL_SECONDS = 3600 # native fetch is always 1h; resampled for 2h/4h below
 
-# The 3 strategies recommended in data/CAMPAIGN_REPORT.md, exact params from
+# The 5 strategies recommended in data/CAMPAIGN_REPORT.md, exact params from
 # data/finalists_deduped.json. Each has a stable strategy_id used for dedup
 # and position tracking in PaperBroker's persisted state.
 STRATEGIES = [
@@ -62,8 +65,32 @@ STRATEGIES = [
       "high_vol_range|4h_aligned=false" => "short",
       "trending_bear|4h_aligned=false" => "long"
     }
+  },
+  {
+    id: "xrp_supertrend_kmeans_1h4h", symbol: "XRPUSDT", family: "supertrend_kmeans",
+    entry_factor: 1, htf_factor: 4, htf_label: "4h",
+    atr_period: 14, mult_low: 1.0, mult_mid: 2.0, mult_high: 3.0,
+    stop_atr_buffer: 1.0, r_multiple_target: 3.0, forward_horizon_bars: 20, entry_delay_bars: 1,
+    tradeable_buckets: {
+      "trending_bear|4h_aligned=true" => "long",
+      "low_vol_range|4h_aligned=false" => "long"
+    }
+  },
+  {
+    id: "xrp_supertrend_adaptive_1h4h", symbol: "XRPUSDT", family: "supertrend_adaptive",
+    entry_factor: 1, htf_factor: 4, htf_label: "4h",
+    base_period: 14, min_period: 7, max_period: 21, min_mult: 1.5, max_mult: 3.0, er_lookback: 10,
+    stop_atr_buffer: 1.0, r_multiple_target: 3.0, forward_horizon_bars: 20, entry_delay_bars: 3,
+    tradeable_buckets: {
+      "trending_bear|4h_aligned=true" => "long"
+    }
   }
 ].freeze
+
+SUPERTREND_BUILDERS = {
+  "supertrend_kmeans" => ->(candles, s) { SupertrendCalculator.kmeans_clustered(candles, atr_period: s[:atr_period], cluster_lookback: 100, mult_low: s[:mult_low], mult_mid: s[:mult_mid], mult_high: s[:mult_high]) },
+  "supertrend_adaptive" => ->(candles, s) { SupertrendCalculator.fully_adaptive(candles, base_period: s[:base_period], min_period: s[:min_period], max_period: s[:max_period], min_mult: s[:min_mult], max_mult: s[:max_mult], er_lookback: s[:er_lookback], pct_lookback: 100) }
+}.freeze
 
 def fetch_closed_candles(symbol, days_back)
   raw_klines = BinanceDataLoader.fetch_klines(symbol: symbol, interval: "1h", days_back: days_back)
@@ -201,6 +228,10 @@ STRATEGIES.each do |strategy|
       closes = entry_candles.map { |c| c[:close] }
       ema_fast_series = Indicators.ema(closes, profile.ema_fast)
       evaluate_confluence_entry(strategy, entry_candles, entry_regimes, ema_fast_series, entry_funding, atr_series, aligned_htf, engine)
+    elsif SUPERTREND_BUILDERS.key?(strategy[:family])
+      series = SUPERTREND_BUILDERS[strategy[:family]].call(entry_candles, strategy)
+      swings = SupertrendFlipDetector.detect(series, entry_candles)
+      evaluate_discovery_entry(strategy, entry_candles, entry_regimes, aligned_htf, swings, atr_series)
     else
       swings = SwingPointDetector.new(min_move_atr_multiple: 1.5).detect(entry_candles)
       evaluate_discovery_entry(strategy, entry_candles, entry_regimes, aligned_htf, swings, atr_series)

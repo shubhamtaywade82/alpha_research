@@ -1,26 +1,26 @@
 {
   "starting_balance_usdt": 10000.0,
-  "ending_balance_usdt": 66380.97,
-  "total_return_pct": 563.81,
-  "max_drawdown_pct": 38.75,
-  "sharpe": 2.71,
-  "win_rate": 0.424,
-  "total_trades": 1079,
+  "ending_balance_usdt": 158422.62,
+  "total_return_pct": 1484.23,
+  "max_drawdown_pct": 57.34,
+  "sharpe": 2.268,
+  "win_rate": 0.393,
+  "total_trades": 2247,
   "per_symbol": {
     "XRPUSDT": {
-      "pnl": 24578.69,
-      "trades": 439,
-      "wins": 196
+      "pnl": 82500.69,
+      "trades": 1464,
+      "wins": 571
     },
     "SOLUSDT": {
-      "pnl": 24347.53,
+      "pnl": 41523.54,
       "trades": 478,
       "wins": 197
     },
     "ETHUSDT": {
-      "pnl": 7454.75,
-      "trades": 162,
-      "wins": 65
+      "pnl": 24398.39,
+      "trades": 305,
+      "wins": 116
     }
   },
   "equity_curve": [
@@ -46,7 +46,7 @@
     },
     {
       "entry_ts": 1757401200,
-      "equity": 9915.19
+      "equity": 9912.18
     },
     {
       "entry_ts": 1757401200,
@@ -170,11 +170,11 @@
     },
     {
       "entry_ts": 1758646800,
-      "equity": 10247.25
+      "equity": 9944.45
     },
     {
       "entry_ts": 1758646800,
-      "equity": 10136.38
+      "equity": 9836.85
     },
     {
       "entry_ts": 1758646800,
@@ -206,7 +206,7 @@
     },
     {
       "entry_ts": 1758704400,
-      "equity": 10798.64
+      "equity": 10481.66
     },
     {
       "entry_ts": 1758704400,
@@ -282,11 +282,11 @@
     },
     {
       "entry_ts": 1758826800,
-      "equity": 12337.35
+      "equity": 12191.1
     },
     {
       "entry_ts": 1758826800,
-      "equity": 12207.07
+      "equity": 12066.26
     },
     {
       "entry_ts": 1758826800,
@@ -298,15 +298,15 @@
     },
     {
       "entry_ts": 1758834000,
-      "equity": 12237.1
+      "equity": 12124.24
     },
     {
       "entry_ts": 1758834000,
-      "equity": 12107.99
+      "equity": 11991.84
     },
     {
       "entry_ts": 1758834000,
-      "equity": 12275.08
+      "equity": 12157.33
     },
     {
       "entry_ts": 1758834000,
@@ -314,15 +314,15 @@
     },
     {
       "entry_ts": 1758841200,
-      "equity": 12015.87
+      "equity": 12013.32
     },
     {
       "entry_ts": 1758841200,
-      "equity": 11885.49
+      "equity": 11983.64
     },
     {
       "entry_ts": 1758841200,
-      "equity": 11760.46
+      "equity": 11860.09
     },
     {
       "entry_ts": 1758841200,
@@ -370,11 +370,11 @@
     },
     {
       "entry_ts": 1758906000,
-      "equity": 11354.01
+      "equity": 11514.85
     },
     {
       "entry_ts": 1758906000,
-      "equity": 11364.23
+      "equity": 11525.21
     },
     {
       "entry_ts": 1758906000,
@@ -386,15 +386,15 @@
     },
     {
       "entry_ts": 1758913200,
-      "equity": 11554.0
+      "equity": 11364.98
     },
     {
       "entry_ts": 1758913200,
-      "equity": 11538.05
+      "equity": 11244.86
     },
     {
       "entry_ts": 1758913200,
-      "equity": 11416.1
+      "equity": 11369.11
     },
     {
       "entry_ts": 1758913200,
@@ -534,7 +534,7 @@
     },
     {
       "entry_ts": 1760094000,
-      "equity": 10680.22
+      "equity": 10627.78
     },
     {
       "entry_ts": 1760094000,
@@ -554,7 +554,7 @@
     },
     {
       "entry_ts": 1760115600,
-      "equity": 10915.98
+      "equity": 10922.94
     },
     {
       "entry_ts": 1760115600,
@@ -590,11 +590,11 @@
     },
     {
       "entry_ts": 1760144400,
-      "equity": 10687.13
+      "equity": 10773.67
     },
     {
       "entry_ts": 1760144400,
-      "equity": 10830.87
+      "equity": 10879.68
     },
     {
       "entry_ts": 1760144400,
@@ -670,7 +670,7 @@
     },
     {
       "entry_ts": 1760529600,
-      "equity": 9937.28
+      "equity": 9888.43
     },
     {
       "entry_ts": 1760529600,
@@ -698,11 +698,11 @@
     },
     {
       "entry_ts": 1760619600,
-      "equity": 10275.51
+      "equity": 10269.9
     },
     {
       "entry_ts": 1760619600,
-      "equity": 10162.68
+      "equity": 10157.14
     },
     {
       "entry_ts": 1760619600,
@@ -714,7 +714,7 @@
     },
     {
       "entry_ts": 1760634000,
-      "equity": 10394.34
+      "equity": 10445.58
     },
     {
       "entry_ts": 1760634000,
@@ -762,7 +762,7 @@
     },
     {
       "entry_ts": 1760709600,
-      "equity": 10158.93
+      "equity": 10195.52
     },
     {
       "entry_ts": 1760709600,
@@ -782,7 +782,7 @@
     },
     {
       "entry_ts": 1760727600,
-      "equity": 10370.96
+      "equity": 10432.88
     },
     {
       "entry_ts": 1760727600,
@@ -802,11 +802,11 @@
     },
     {
       "entry_ts": 1761850800,
-      "equity": 10072.15
+      "equity": 10072.35
     },
     {
       "entry_ts": 1761850800,
-      "equity": 9965.68
+      "equity": 9965.89
     },
     {
       "entry_ts": 1761850800,
@@ -817,3528 +817,8200 @@
       "equity": 9756.91
     },
     {
-      "entry_ts": 1761930000,
-      "equity": 9647.93
+      "entry_ts": 1761912000,
+      "equity": 9643.15
+    },
+    {
+      "entry_ts": 1761912000,
+      "equity": 9655.78
+    },
+    {
+      "entry_ts": 1761912000,
+      "equity": 9668.43
+    },
+    {
+      "entry_ts": 1761912000,
+      "equity": 9555.69
+    },
+    {
+      "entry_ts": 1761919200,
+      "equity": 9543.46
+    },
+    {
+      "entry_ts": 1761919200,
+      "equity": 9432.09
+    },
+    {
+      "entry_ts": 1761919200,
+      "equity": 9420.02
+    },
+    {
+      "entry_ts": 1761919200,
+      "equity": 9407.96
+    },
+    {
+      "entry_ts": 1761926400,
+      "equity": 9586.05
     },
     {
       "entry_ts": 1761930000,
-      "equity": 9540.16
+      "equity": 9478.98
+    },
+    {
+      "entry_ts": 1761930000,
+      "equity": 9373.1
+    },
+    {
+      "entry_ts": 1761930000,
+      "equity": 9265.49
+    },
+    {
+      "entry_ts": 1761930000,
+      "equity": 9162.0
     },
     {
       "entry_ts": 1761937200,
-      "equity": 9727.43
+      "equity": 9341.85
+    },
+    {
+      "entry_ts": 1761937200,
+      "equity": 9238.34
     },
     {
       "entry_ts": 1761944400,
-      "equity": 9624.81
+      "equity": 9140.88
     },
     {
       "entry_ts": 1761948000,
-      "equity": 9549.35
+      "equity": 9039.96
     },
     {
       "entry_ts": 1761948000,
-      "equity": 9474.48
+      "equity": 8969.09
+    },
+    {
+      "entry_ts": 1761948000,
+      "equity": 8898.77
     },
     {
       "entry_ts": 1761966000,
-      "equity": 9659.99
+      "equity": 9073.01
     },
     {
       "entry_ts": 1761987600,
-      "equity": 9657.68
+      "equity": 9070.83
     },
     {
       "entry_ts": 1761987600,
-      "equity": 9655.36
+      "equity": 9068.65
+    },
+    {
+      "entry_ts": 1761987600,
+      "equity": 9145.1
     },
     {
       "entry_ts": 1762020000,
-      "equity": 9540.94
+      "equity": 9036.73
     },
     {
       "entry_ts": 1762020000,
-      "equity": 9427.88
+      "equity": 8929.65
+    },
+    {
+      "entry_ts": 1762020000,
+      "equity": 8823.83
     },
     {
       "entry_ts": 1762059600,
-      "equity": 9310.13
+      "equity": 8713.62
     },
     {
       "entry_ts": 1762059600,
-      "equity": 9193.84
+      "equity": 8604.79
+    },
+    {
+      "entry_ts": 1762059600,
+      "equity": 8497.31
     },
     {
       "entry_ts": 1762077600,
-      "equity": 9081.95
+      "equity": 8393.9
     },
     {
       "entry_ts": 1762077600,
-      "equity": 8971.43
+      "equity": 8291.75
+    },
+    {
+      "entry_ts": 1762077600,
+      "equity": 8190.84
     },
     {
       "entry_ts": 1762084800,
-      "equity": 8862.78
+      "equity": 8091.65
     },
     {
       "entry_ts": 1762084800,
-      "equity": 8755.45
+      "equity": 7993.66
+    },
+    {
+      "entry_ts": 1762084800,
+      "equity": 7896.85
     },
     {
       "entry_ts": 1762092000,
-      "equity": 8651.09
+      "equity": 7802.72
     },
     {
       "entry_ts": 1762092000,
-      "equity": 8547.97
+      "equity": 7709.71
+    },
+    {
+      "entry_ts": 1762092000,
+      "equity": 7617.81
+    },
+    {
+      "entry_ts": 1762142400,
+      "equity": 7760.72
+    },
+    {
+      "entry_ts": 1762142400,
+      "equity": 7906.32
+    },
+    {
+      "entry_ts": 1762142400,
+      "equity": 8054.64
+    },
+    {
+      "entry_ts": 1762142400,
+      "equity": 8281.94
     },
     {
       "entry_ts": 1762153200,
-      "equity": 8708.33
+      "equity": 8520.13
     },
     {
       "entry_ts": 1762153200,
-      "equity": 8958.78
+      "equity": 8679.97
+    },
+    {
+      "entry_ts": 1762153200,
+      "equity": 8929.6
     },
     {
       "entry_ts": 1762156800,
-      "equity": 8857.73
+      "equity": 8828.88
     },
     {
       "entry_ts": 1762156800,
-      "equity": 8757.81
+      "equity": 8729.29
+    },
+    {
+      "entry_ts": 1762156800,
+      "equity": 8630.82
     },
     {
       "entry_ts": 1762196400,
-      "equity": 8666.55
+      "equity": 8540.89
     },
     {
       "entry_ts": 1762203600,
-      "equity": 8836.68
+      "equity": 8708.54
     },
     {
       "entry_ts": 1762225200,
-      "equity": 8744.6
+      "equity": 8617.8
     },
     {
       "entry_ts": 1762232400,
-      "equity": 8652.78
+      "equity": 8527.31
     },
     {
       "entry_ts": 1762239600,
-      "equity": 8562.1
+      "equity": 8437.95
     },
     {
       "entry_ts": 1762239600,
-      "equity": 8472.46
+      "equity": 8349.6
     },
     {
       "entry_ts": 1762239600,
-      "equity": 8383.75
+      "equity": 8262.18
     },
     {
       "entry_ts": 1762246800,
-      "equity": 8295.72
+      "equity": 8175.43
     },
     {
       "entry_ts": 1762246800,
-      "equity": 8458.9
+      "equity": 8336.24
     },
     {
       "entry_ts": 1762254000,
-      "equity": 8623.76
+      "equity": 8498.71
     },
     {
       "entry_ts": 1762261200,
-      "equity": 8533.12
+      "equity": 8409.39
     },
     {
       "entry_ts": 1762268400,
-      "equity": 8699.69
+      "equity": 8573.54
     },
     {
       "entry_ts": 1762275600,
-      "equity": 8609.91
+      "equity": 8485.06
     },
     {
       "entry_ts": 1762282800,
-      "equity": 8521.14
+      "equity": 8396.31
     },
     {
       "entry_ts": 1762282800,
-      "equity": 8432.01
+      "equity": 8309.74
     },
     {
       "entry_ts": 1762282800,
-      "equity": 8343.81
+      "equity": 8222.82
     },
     {
       "entry_ts": 1762290000,
-      "equity": 8257.29
+      "equity": 8137.55
     },
     {
       "entry_ts": 1762297200,
-      "equity": 8171.74
+      "equity": 8053.25
     },
     {
       "entry_ts": 1762304400,
-      "equity": 8087.16
+      "equity": 8212.22
     },
     {
       "entry_ts": 1762304400,
-      "equity": 8246.8
+      "equity": 8127.22
     },
     {
       "entry_ts": 1762311600,
-      "equity": 8161.37
+      "equity": 8043.03
     },
     {
       "entry_ts": 1762311600,
-      "equity": 8077.63
+      "equity": 7960.5
     },
     {
       "entry_ts": 1762318800,
-      "equity": 8105.42
+      "equity": 7987.89
     },
     {
       "entry_ts": 1762318800,
-      "equity": 8021.37
+      "equity": 7905.05
     },
     {
       "entry_ts": 1762326000,
-      "equity": 7938.02
+      "equity": 7822.92
     },
     {
       "entry_ts": 1762333200,
-      "equity": 7855.47
+      "equity": 7741.56
     },
     {
       "entry_ts": 1762340400,
-      "equity": 7773.61
+      "equity": 7660.9
     },
     {
       "entry_ts": 1762347600,
-      "equity": 7692.38
+      "equity": 7580.84
     },
     {
       "entry_ts": 1762354800,
-      "equity": 7735.23
+      "equity": 7623.06
     },
     {
       "entry_ts": 1762362000,
-      "equity": 7860.61
+      "equity": 7844.36
+    },
+    {
+      "entry_ts": 1762362000,
+      "equity": 7995.91
+    },
+    {
+      "entry_ts": 1762362000,
+      "equity": 8125.53
+    },
+    {
+      "entry_ts": 1762362000,
+      "equity": 8363.93
     },
     {
       "entry_ts": 1762369200,
-      "equity": 8013.66
+      "equity": 8526.78
     },
     {
       "entry_ts": 1762390800,
-      "equity": 7926.47
+      "equity": 8434.01
     },
     {
       "entry_ts": 1762390800,
-      "equity": 7840.23
+      "equity": 8342.24
+    },
+    {
+      "entry_ts": 1762390800,
+      "equity": 8251.48
     },
     {
       "entry_ts": 1762401600,
-      "equity": 7754.22
+      "equity": 8160.96
     },
     {
       "entry_ts": 1762401600,
-      "equity": 7669.16
+      "equity": 8071.44
+    },
+    {
+      "entry_ts": 1762401600,
+      "equity": 7982.89
     },
     {
       "entry_ts": 1762408800,
-      "equity": 7892.41
+      "equity": 8135.45
     },
     {
       "entry_ts": 1762408800,
-      "equity": 8043.23
+      "equity": 8372.27
+    },
+    {
+      "entry_ts": 1762408800,
+      "equity": 8615.98
     },
     {
       "entry_ts": 1762412400,
-      "equity": 8200.96
+      "equity": 8784.94
+    },
+    {
+      "entry_ts": 1762452000,
+      "equity": 8690.24
     },
     {
       "entry_ts": 1762509600,
-      "equity": 8111.41
+      "equity": 8855.88
     },
     {
       "entry_ts": 1762509600,
-      "equity": 8266.01
+      "equity": 8759.17
+    },
+    {
+      "entry_ts": 1762509600,
+      "equity": 8663.52
+    },
+    {
+      "entry_ts": 1762527600,
+      "equity": 8912.94
+    },
+    {
+      "entry_ts": 1762531200,
+      "equity": 9173.29
+    },
+    {
+      "entry_ts": 1762531200,
+      "equity": 9438.22
+    },
+    {
+      "entry_ts": 1762531200,
+      "equity": 9619.62
+    },
+    {
+      "entry_ts": 1762531200,
+      "equity": 9804.51
+    },
+    {
+      "entry_ts": 1762534800,
+      "equity": 9717.93
+    },
+    {
+      "entry_ts": 1762534800,
+      "equity": 9632.13
+    },
+    {
+      "entry_ts": 1762534800,
+      "equity": 9524.34
     },
     {
       "entry_ts": 1762542000,
-      "equity": 8179.88
+      "equity": 9425.1
     },
     {
       "entry_ts": 1762581600,
-      "equity": 8322.54
+      "equity": 9605.12
     },
     {
       "entry_ts": 1762581600,
-      "equity": 8481.5
+      "equity": 9772.63
+    },
+    {
+      "entry_ts": 1762581600,
+      "equity": 9944.24
     },
     {
       "entry_ts": 1762628400,
-      "equity": 8510.16
+      "equity": 9977.85
     },
     {
       "entry_ts": 1762628400,
-      "equity": 8538.93
+      "equity": 10264.91
+    },
+    {
+      "entry_ts": 1762628400,
+      "equity": 10299.61
+    },
+    {
+      "entry_ts": 1762639200,
+      "equity": 10179.1
+    },
+    {
+      "entry_ts": 1762642800,
+      "equity": 10064.59
+    },
+    {
+      "entry_ts": 1762642800,
+      "equity": 9945.93
+    },
+    {
+      "entry_ts": 1762642800,
+      "equity": 9834.03
+    },
+    {
+      "entry_ts": 1762642800,
+      "equity": 9723.4
+    },
+    {
+      "entry_ts": 1762646400,
+      "equity": 9608.57
+    },
+    {
+      "entry_ts": 1762646400,
+      "equity": 9500.38
+    },
+    {
+      "entry_ts": 1762646400,
+      "equity": 9393.4
+    },
+    {
+      "entry_ts": 1762650000,
+      "equity": 9287.26
     },
     {
       "entry_ts": 1762657200,
-      "equity": 8442.18
+      "equity": 9178.04
     },
     {
       "entry_ts": 1762657200,
-      "equity": 8346.53
+      "equity": 9074.05
+    },
+    {
+      "entry_ts": 1762657200,
+      "equity": 8972.06
+    },
+    {
+      "entry_ts": 1762657200,
+      "equity": 8871.21
+    },
+    {
+      "entry_ts": 1762657200,
+      "equity": 8770.7
+    },
+    {
+      "entry_ts": 1762657200,
+      "equity": 8672.12
+    },
+    {
+      "entry_ts": 1762657200,
+      "equity": 8570.13
+    },
+    {
+      "entry_ts": 1762657200,
+      "equity": 8473.04
+    },
+    {
+      "entry_ts": 1762664400,
+      "equity": 8377.37
+    },
+    {
+      "entry_ts": 1762664400,
+      "equity": 8278.27
+    },
+    {
+      "entry_ts": 1762664400,
+      "equity": 8184.81
+    },
+    {
+      "entry_ts": 1762664400,
+      "equity": 8092.4
     },
     {
       "entry_ts": 1762668000,
-      "equity": 8584.74
+      "equity": 8323.36
     },
     {
       "entry_ts": 1762668000,
-      "equity": 8744.08
+      "equity": 8560.91
+    },
+    {
+      "entry_ts": 1762668000,
+      "equity": 8719.8
+    },
+    {
+      "entry_ts": 1762671600,
+      "equity": 8616.38
+    },
+    {
+      "entry_ts": 1762671600,
+      "equity": 8519.02
+    },
+    {
+      "entry_ts": 1762671600,
+      "equity": 8417.98
+    },
+    {
+      "entry_ts": 1762671600,
+      "equity": 8322.86
+    },
+    {
+      "entry_ts": 1762671600,
+      "equity": 8228.81
+    },
+    {
+      "entry_ts": 1762678800,
+      "equity": 8131.46
+    },
+    {
+      "entry_ts": 1762678800,
+      "equity": 8283.6
+    },
+    {
+      "entry_ts": 1762678800,
+      "equity": 8438.59
+    },
+    {
+      "entry_ts": 1762678800,
+      "equity": 8596.47
     },
     {
       "entry_ts": 1762686000,
-      "equity": 8644.04
+      "equity": 8498.13
     },
     {
       "entry_ts": 1762686000,
-      "equity": 8545.16
+      "equity": 8400.91
+    },
+    {
+      "entry_ts": 1762686000,
+      "equity": 8304.81
     },
     {
       "entry_ts": 1762689600,
-      "equity": 8789.29
+      "equity": 8542.07
     },
     {
       "entry_ts": 1762689600,
-      "equity": 8952.51
+      "equity": 8700.7
+    },
+    {
+      "entry_ts": 1762689600,
+      "equity": 8949.28
     },
     {
       "entry_ts": 1762704000,
-      "equity": 8852.24
+      "equity": 8849.05
     },
     {
       "entry_ts": 1762704000,
-      "equity": 8753.09
+      "equity": 8749.94
+    },
+    {
+      "entry_ts": 1762704000,
+      "equity": 8651.94
+    },
+    {
+      "entry_ts": 1762830000,
+      "equity": 8902.5
+    },
+    {
+      "entry_ts": 1762833600,
+      "equity": 8804.3
+    },
+    {
+      "entry_ts": 1762840800,
+      "equity": 9059.1
+    },
+    {
+      "entry_ts": 1762869600,
+      "equity": 9321.27
+    },
+    {
+      "entry_ts": 1762999200,
+      "equity": 9218.55
     },
     {
       "entry_ts": 1763060400,
-      "equity": 8923.08
+      "equity": 9397.58
     },
     {
       "entry_ts": 1763110800,
-      "equity": 8830.9
+      "equity": 9300.5
     },
     {
       "entry_ts": 1763118000,
-      "equity": 8738.36
+      "equity": 9203.03
     },
     {
       "entry_ts": 1763132400,
-      "equity": 8909.89
+      "equity": 9198.43
     },
     {
       "entry_ts": 1763132400,
-      "equity": 8905.43
+      "equity": 9378.99
     },
     {
       "entry_ts": 1763139600,
-      "equity": 8813.35
+      "equity": 9329.94
     },
     {
       "entry_ts": 1763139600,
-      "equity": 8767.26
+      "equity": 9233.47
     },
     {
       "entry_ts": 1763146800,
-      "equity": 8839.41
+      "equity": 9309.46
     },
     {
       "entry_ts": 1763154000,
-      "equity": 8747.66
+      "equity": 9212.83
     },
     {
       "entry_ts": 1763161200,
-      "equity": 8830.59
+      "equity": 9300.17
     },
     {
       "entry_ts": 1763161200,
-      "equity": 8738.57
+      "equity": 9203.26
     },
     {
       "entry_ts": 1763168400,
-      "equity": 8910.2
+      "equity": 9384.01
     },
     {
       "entry_ts": 1763175600,
-      "equity": 9084.93
+      "equity": 9568.03
     },
     {
       "entry_ts": 1763182800,
-      "equity": 9262.81
+      "equity": 9755.37
     },
     {
       "entry_ts": 1763190000,
-      "equity": 9443.9
+      "equity": 9946.09
     },
     {
       "entry_ts": 1763240400,
-      "equity": 9340.02
+      "equity": 9836.68
     },
     {
       "entry_ts": 1763240400,
-      "equity": 9237.28
+      "equity": 9728.48
+    },
+    {
+      "entry_ts": 1763240400,
+      "equity": 9621.47
     },
     {
       "entry_ts": 1763262000,
-      "equity": 9133.45
+      "equity": 9515.92
     },
     {
       "entry_ts": 1763262000,
-      "equity": 9030.79
+      "equity": 9411.53
+    },
+    {
+      "entry_ts": 1763262000,
+      "equity": 9308.28
+    },
+    {
+      "entry_ts": 1763262000,
+      "equity": 9203.66
+    },
+    {
+      "entry_ts": 1763262000,
+      "equity": 9099.01
+    },
+    {
+      "entry_ts": 1763262000,
+      "equity": 8996.74
+    },
+    {
+      "entry_ts": 1763262000,
+      "equity": 8895.62
+    },
+    {
+      "entry_ts": 1763262000,
+      "equity": 8794.47
     },
     {
       "entry_ts": 1763269200,
-      "equity": 8936.51
+      "equity": 8697.47
+    },
+    {
+      "entry_ts": 1763269200,
+      "equity": 8601.54
+    },
+    {
+      "entry_ts": 1763269200,
+      "equity": 8511.74
+    },
+    {
+      "entry_ts": 1763269200,
+      "equity": 8417.85
+    },
+    {
+      "entry_ts": 1763269200,
+      "equity": 8321.3
     },
     {
       "entry_ts": 1763294400,
-      "equity": 9105.23
+      "equity": 8558.04
     },
     {
       "entry_ts": 1763294400,
-      "equity": 9368.28
+      "equity": 8801.52
+    },
+    {
+      "entry_ts": 1763294400,
+      "equity": 9055.79
+    },
+    {
+      "entry_ts": 1763294400,
+      "equity": 9317.51
+    },
+    {
+      "entry_ts": 1763294400,
+      "equity": 9493.42
+    },
+    {
+      "entry_ts": 1763294400,
+      "equity": 9767.69
+    },
+    {
+      "entry_ts": 1763294400,
+      "equity": 9952.39
+    },
+    {
+      "entry_ts": 1763294400,
+      "equity": 10140.59
+    },
+    {
+      "entry_ts": 1763301600,
+      "equity": 10332.45
+    },
+    {
+      "entry_ts": 1763301600,
+      "equity": 10626.41
+    },
+    {
+      "entry_ts": 1763301600,
+      "equity": 10827.46
+    },
+    {
+      "entry_ts": 1763301600,
+      "equity": 11032.32
     },
     {
       "entry_ts": 1763305200,
-      "equity": 9270.19
+      "equity": 10916.81
     },
     {
       "entry_ts": 1763319600,
-      "equity": 9169.7
+      "equity": 10798.47
     },
     {
       "entry_ts": 1763319600,
-      "equity": 9070.3
+      "equity": 10681.42
+    },
+    {
+      "entry_ts": 1763319600,
+      "equity": 10565.63
     },
     {
       "entry_ts": 1763323200,
-      "equity": 8972.25
+      "equity": 10451.42
     },
     {
       "entry_ts": 1763323200,
-      "equity": 8875.26
+      "equity": 10337.81
+    },
+    {
+      "entry_ts": 1763323200,
+      "equity": 10225.44
+    },
+    {
+      "entry_ts": 1763323200,
+      "equity": 10110.3
+    },
+    {
+      "entry_ts": 1763323200,
+      "equity": 10001.01
+    },
+    {
+      "entry_ts": 1763323200,
+      "equity": 9892.89
+    },
+    {
+      "entry_ts": 1763323200,
+      "equity": 9785.36
+    },
+    {
+      "entry_ts": 1763323200,
+      "equity": 9675.18
     },
     {
       "entry_ts": 1763326800,
-      "equity": 8782.7
+      "equity": 9574.26
+    },
+    {
+      "entry_ts": 1763330400,
+      "equity": 9470.48
+    },
+    {
+      "entry_ts": 1763330400,
+      "equity": 9367.82
+    },
+    {
+      "entry_ts": 1763330400,
+      "equity": 9262.99
+    },
+    {
+      "entry_ts": 1763330400,
+      "equity": 9162.58
     },
     {
       "entry_ts": 1763341200,
-      "equity": 8691.62
+      "equity": 9067.57
     },
     {
       "entry_ts": 1763348400,
-      "equity": 8600.97
+      "equity": 8972.99
     },
     {
       "entry_ts": 1763388000,
-      "equity": 8766.1
+      "equity": 9235.09
     },
     {
       "entry_ts": 1763388000,
-      "equity": 9022.16
+      "equity": 9412.41
+    },
+    {
+      "entry_ts": 1763388000,
+      "equity": 9687.34
     },
     {
       "entry_ts": 1763391600,
-      "equity": 9199.36
+      "equity": 9877.6
     },
     {
       "entry_ts": 1763391600,
-      "equity": 9100.0
+      "equity": 9770.92
     },
     {
       "entry_ts": 1763391600,
-      "equity": 9001.72
+      "equity": 9665.4
+    },
+    {
+      "entry_ts": 1763391600,
+      "equity": 9561.01
     },
     {
       "entry_ts": 1763395200,
-      "equity": 9175.01
+      "equity": 9745.06
     },
     {
       "entry_ts": 1763395200,
-      "equity": 9443.38
+      "equity": 10030.1
+    },
+    {
+      "entry_ts": 1763395200,
+      "equity": 10323.48
     },
     {
       "entry_ts": 1763398800,
-      "equity": 9345.35
+      "equity": 10216.33
     },
     {
       "entry_ts": 1763406000,
-      "equity": 9248.35
+      "equity": 10110.28
     },
     {
       "entry_ts": 1763449200,
-      "equity": 9152.07
+      "equity": 10005.03
+    },
+    {
+      "entry_ts": 1763485200,
+      "equity": 9894.18
+    },
+    {
+      "entry_ts": 1763485200,
+      "equity": 9787.52
+    },
+    {
+      "entry_ts": 1763485200,
+      "equity": 9682.01
+    },
+    {
+      "entry_ts": 1763485200,
+      "equity": 9577.64
     },
     {
       "entry_ts": 1763503200,
-      "equity": 9327.98
+      "equity": 9857.5
     },
     {
       "entry_ts": 1763503200,
-      "equity": 9600.54
+      "equity": 10046.96
+    },
+    {
+      "entry_ts": 1763503200,
+      "equity": 10340.53
+    },
+    {
+      "entry_ts": 1763528400,
+      "equity": 10224.71
+    },
+    {
+      "entry_ts": 1763532000,
+      "equity": 10419.9
+    },
+    {
+      "entry_ts": 1763532000,
+      "equity": 10723.02
+    },
+    {
+      "entry_ts": 1763532000,
+      "equity": 10602.39
+    },
+    {
+      "entry_ts": 1763532000,
+      "equity": 10804.78
     },
     {
       "entry_ts": 1763535600,
-      "equity": 9788.52
+      "equity": 11114.56
+    },
+    {
+      "entry_ts": 1763535600,
+      "equity": 11326.51
+    },
+    {
+      "entry_ts": 1763535600,
+      "equity": 11542.51
+    },
+    {
+      "entry_ts": 1763535600,
+      "equity": 11768.51
     },
     {
       "entry_ts": 1763539200,
-      "equity": 9681.53
+      "equity": 11639.88
     },
     {
       "entry_ts": 1763539200,
-      "equity": 9575.71
+      "equity": 11512.66
+    },
+    {
+      "entry_ts": 1763539200,
+      "equity": 11732.09
+    },
+    {
+      "entry_ts": 1763539200,
+      "equity": 11603.86
+    },
+    {
+      "entry_ts": 1763564400,
+      "equity": 11479.23
+    },
+    {
+      "entry_ts": 1763596800,
+      "equity": 11354.57
+    },
+    {
+      "entry_ts": 1763596800,
+      "equity": 11227.17
+    },
+    {
+      "entry_ts": 1763596800,
+      "equity": 11105.24
+    },
+    {
+      "entry_ts": 1763596800,
+      "equity": 10984.64
+    },
+    {
+      "entry_ts": 1763596800,
+      "equity": 10861.39
     },
     {
       "entry_ts": 1763600400,
-      "equity": 9476.03
+      "equity": 10748.32
+    },
+    {
+      "entry_ts": 1763604000,
+      "equity": 10631.06
+    },
+    {
+      "entry_ts": 1763604000,
+      "equity": 10515.08
+    },
+    {
+      "entry_ts": 1763604000,
+      "equity": 10396.78
+    },
+    {
+      "entry_ts": 1763604000,
+      "equity": 10283.35
     },
     {
       "entry_ts": 1763632800,
-      "equity": 9657.3
+      "equity": 10582.91
     },
     {
       "entry_ts": 1763632800,
-      "equity": 9938.62
+      "equity": 10891.19
+    },
+    {
+      "entry_ts": 1763632800,
+      "equity": 11099.53
+    },
+    {
+      "entry_ts": 1763654400,
+      "equity": 10980.55
+    },
+    {
+      "entry_ts": 1763654400,
+      "equity": 10862.84
+    },
+    {
+      "entry_ts": 1763654400,
+      "equity": 10746.39
+    },
+    {
+      "entry_ts": 1763654400,
+      "equity": 10627.64
     },
     {
       "entry_ts": 1763658000,
-      "equity": 10133.82
+      "equity": 10836.37
+    },
+    {
+      "entry_ts": 1763661600,
+      "equity": 10719.98
     },
     {
       "entry_ts": 1763686800,
-      "equity": 10029.03
+      "equity": 10609.14
     },
     {
       "entry_ts": 1763701200,
-      "equity": 10226.0
+      "equity": 10817.5
     },
     {
       "entry_ts": 1763722800,
-      "equity": 10426.94
+      "equity": 11030.07
     },
     {
       "entry_ts": 1763730000,
-      "equity": 10320.28
+      "equity": 10917.23
     },
     {
       "entry_ts": 1763744400,
-      "equity": 10524.0
+      "equity": 11132.73
     },
     {
       "entry_ts": 1763773200,
-      "equity": 10416.02
+      "equity": 11018.51
+    },
+    {
+      "entry_ts": 1763852400,
+      "equity": 11335.18
+    },
+    {
+      "entry_ts": 1763852400,
+      "equity": 11551.91
+    },
+    {
+      "entry_ts": 1763852400,
+      "equity": 11772.79
+    },
+    {
+      "entry_ts": 1763852400,
+      "equity": 12115.61
+    },
+    {
+      "entry_ts": 1763852400,
+      "equity": 12463.81
     },
     {
       "entry_ts": 1763859600,
-      "equity": 10621.01
+      "equity": 12709.1
     },
     {
       "entry_ts": 1763928000,
-      "equity": 10502.05
+      "equity": 12566.76
     },
     {
       "entry_ts": 1763928000,
-      "equity": 10384.43
+      "equity": 12426.01
+    },
+    {
+      "entry_ts": 1763928000,
+      "equity": 12286.84
     },
     {
       "entry_ts": 1763942400,
-      "equity": 10269.06
+      "equity": 12150.33
     },
     {
       "entry_ts": 1763942400,
-      "equity": 10154.97
+      "equity": 12015.34
+    },
+    {
+      "entry_ts": 1763942400,
+      "equity": 11881.85
     },
     {
       "entry_ts": 1763953200,
-      "equity": 10042.66
+      "equity": 11750.44
     },
     {
       "entry_ts": 1763953200,
-      "equity": 9931.58
+      "equity": 11620.48
+    },
+    {
+      "entry_ts": 1763953200,
+      "equity": 11491.96
     },
     {
       "entry_ts": 1763967600,
-      "equity": 9823.63
+      "equity": 11367.04
     },
     {
       "entry_ts": 1763967600,
-      "equity": 9716.85
+      "equity": 11243.48
+    },
+    {
+      "entry_ts": 1763967600,
+      "equity": 11121.26
     },
     {
       "entry_ts": 1764000000,
-      "equity": 9901.76
+      "equity": 11444.0
     },
     {
       "entry_ts": 1764000000,
-      "equity": 10189.11
+      "equity": 11661.78
+    },
+    {
+      "entry_ts": 1764000000,
+      "equity": 12000.21
+    },
+    {
+      "entry_ts": 1764090000,
+      "equity": 11868.44
+    },
+    {
+      "entry_ts": 1764100800,
+      "equity": 11738.48
+    },
+    {
+      "entry_ts": 1764104400,
+      "equity": 11609.13
     },
     {
       "entry_ts": 1764406800,
-      "equity": 10072.44
+      "equity": 11476.2
     },
     {
       "entry_ts": 1764442800,
-      "equity": 10357.19
+      "equity": 11800.63
     },
     {
       "entry_ts": 1764450000,
-      "equity": 10238.6
+      "equity": 11665.52
     },
     {
       "entry_ts": 1764453600,
-      "equity": 10527.74
+      "equity": 11994.95
     },
     {
       "entry_ts": 1764482400,
-      "equity": 10405.3
+      "equity": 11855.45
     },
     {
       "entry_ts": 1764486000,
-      "equity": 10698.42
+      "equity": 12189.42
     },
     {
       "entry_ts": 1764493200,
-      "equity": 10572.71
+      "equity": 12046.19
     },
     {
       "entry_ts": 1764500400,
-      "equity": 10869.7
+      "equity": 12384.57
     },
     {
       "entry_ts": 1764522000,
-      "equity": 11180.57
+      "equity": 12738.77
     },
     {
       "entry_ts": 1764529200,
-      "equity": 11051.66
+      "equity": 12591.89
     },
     {
       "entry_ts": 1764536400,
-      "equity": 11366.85
+      "equity": 12951.01
     },
     {
       "entry_ts": 1764601200,
-      "equity": 11244.89
+      "equity": 12812.05
     },
     {
       "entry_ts": 1764630000,
-      "equity": 11464.16
+      "equity": 13061.88
     },
     {
       "entry_ts": 1764673200,
-      "equity": 11677.74
+      "equity": 13305.22
     },
     {
       "entry_ts": 1764673200,
-      "equity": 11554.66
+      "equity": 13164.99
     },
     {
       "entry_ts": 1764673200,
-      "equity": 11885.47
+      "equity": 13541.9
+    },
+    {
+      "entry_ts": 1764673200,
+      "equity": 13929.6
     },
     {
       "entry_ts": 1764680400,
-      "equity": 12116.52
+      "equity": 14200.4
     },
     {
       "entry_ts": 1764795600,
-      "equity": 11986.39
+      "equity": 14047.88
     },
     {
       "entry_ts": 1764925200,
-      "equity": 11853.82
+      "equity": 13892.51
     },
     {
       "entry_ts": 1764925200,
-      "equity": 11722.71
+      "equity": 13738.86
+    },
+    {
+      "entry_ts": 1764925200,
+      "equity": 13586.91
+    },
+    {
+      "entry_ts": 1765033200,
+      "equity": 13838.54
+    },
+    {
+      "entry_ts": 1765033200,
+      "equity": 14224.5
+    },
+    {
+      "entry_ts": 1765033200,
+      "equity": 14487.94
+    },
+    {
+      "entry_ts": 1765033200,
+      "equity": 14892.0
+    },
+    {
+      "entry_ts": 1765033200,
+      "equity": 14909.73
+    },
+    {
+      "entry_ts": 1765040400,
+      "equity": 14724.99
+    },
+    {
+      "entry_ts": 1765040400,
+      "equity": 14996.38
+    },
+    {
+      "entry_ts": 1765040400,
+      "equity": 15272.76
+    },
+    {
+      "entry_ts": 1765040400,
+      "equity": 15554.24
+    },
+    {
+      "entry_ts": 1765076400,
+      "equity": 15370.23
+    },
+    {
+      "entry_ts": 1765076400,
+      "equity": 15188.4
     },
     {
       "entry_ts": 1765083600,
-      "equity": 11597.87
+      "equity": 15026.64
+    },
+    {
+      "entry_ts": 1765083600,
+      "equity": 14850.08
+    },
+    {
+      "entry_ts": 1765087200,
+      "equity": 15253.41
+    },
+    {
+      "entry_ts": 1765087200,
+      "equity": 15528.12
+    },
+    {
+      "entry_ts": 1765087200,
+      "equity": 15807.78
+    },
+    {
+      "entry_ts": 1765087200,
+      "equity": 16250.56
+    },
+    {
+      "entry_ts": 1765087200,
+      "equity": 16691.92
     },
     {
       "entry_ts": 1765094400,
-      "equity": 11460.43
+      "equity": 16494.13
     },
     {
       "entry_ts": 1765094400,
-      "equity": 11324.63
+      "equity": 16298.67
     },
     {
       "entry_ts": 1765098000,
-      "equity": 11202.32
+      "equity": 16122.64
+    },
+    {
+      "entry_ts": 1765112400,
+      "equity": 15933.36
+    },
+    {
+      "entry_ts": 1765112400,
+      "equity": 15734.52
+    },
+    {
+      "entry_ts": 1765112400,
+      "equity": 15549.79
+    },
+    {
+      "entry_ts": 1765112400,
+      "equity": 15367.24
     },
     {
       "entry_ts": 1765119600,
-      "equity": 11412.14
+      "equity": 15655.07
     },
     {
       "entry_ts": 1765119600,
-      "equity": 11568.83
+      "equity": 15477.85
+    },
+    {
+      "entry_ts": 1765119600,
+      "equity": 15293.82
+    },
+    {
+      "entry_ts": 1765119600,
+      "equity": 15120.69
+    },
+    {
+      "entry_ts": 1765119600,
+      "equity": 14949.53
+    },
+    {
+      "entry_ts": 1765119600,
+      "equity": 15154.78
     },
     {
       "entry_ts": 1765123200,
-      "equity": 11438.1
+      "equity": 14983.54
     },
     {
       "entry_ts": 1765123200,
-      "equity": 11308.85
+      "equity": 14815.27
+    },
+    {
+      "entry_ts": 1765123200,
+      "equity": 15092.76
+    },
+    {
+      "entry_ts": 1765123200,
+      "equity": 15518.23
+    },
+    {
+      "entry_ts": 1765123200,
+      "equity": 15808.88
+    },
+    {
+      "entry_ts": 1765123200,
+      "equity": 15630.24
     },
     {
       "entry_ts": 1765134000,
-      "equity": 11188.86
+      "equity": 15464.4
+    },
+    {
+      "entry_ts": 1765144800,
+      "equity": 15295.84
     },
     {
       "entry_ts": 1765148400,
-      "equity": 11070.82
+      "equity": 15134.47
     },
     {
       "entry_ts": 1765162800,
-      "equity": 11285.15
+      "equity": 15427.47
     },
     {
       "entry_ts": 1765213200,
-      "equity": 11161.47
+      "equity": 15258.39
     },
     {
       "entry_ts": 1765296000,
-      "equity": 11039.92
+      "equity": 15092.23
     },
     {
       "entry_ts": 1765346400,
-      "equity": 11112.45
+      "equity": 15191.38
     },
     {
       "entry_ts": 1765346400,
-      "equity": 11185.46
+      "equity": 15291.19
+    },
+    {
+      "entry_ts": 1765346400,
+      "equity": 15729.59
     },
     {
       "entry_ts": 1765400400,
-      "equity": 11064.54
+      "equity": 15559.55
     },
     {
       "entry_ts": 1765411200,
-      "equity": 10944.16
+      "equity": 15390.26
     },
     {
       "entry_ts": 1765465200,
-      "equity": 11261.87
+      "equity": 15837.04
     },
     {
       "entry_ts": 1765472400,
-      "equity": 11137.99
+      "equity": 15662.83
     },
     {
       "entry_ts": 1765476000,
-      "equity": 11461.44
+      "equity": 16117.68
     },
     {
       "entry_ts": 1765580400,
-      "equity": 11485.62
+      "equity": 16151.69
     },
     {
       "entry_ts": 1765587600,
-      "equity": 11359.74
+      "equity": 15974.67
     },
     {
       "entry_ts": 1765630800,
-      "equity": 11427.22
+      "equity": 16069.56
     },
     {
       "entry_ts": 1765638000,
-      "equity": 11751.06
+      "equity": 16524.97
     },
     {
       "entry_ts": 1765666800,
-      "equity": 11613.69
+      "equity": 16331.79
     },
     {
       "entry_ts": 1765692000,
-      "equity": 11939.23
+      "equity": 16789.57
     },
     {
       "entry_ts": 1765706400,
-      "equity": 11797.75
+      "equity": 16590.62
     },
     {
       "entry_ts": 1765710000,
-      "equity": 12129.73
+      "equity": 17057.48
     },
     {
       "entry_ts": 1765717200,
-      "equity": 12471.06
+      "equity": 17537.47
     },
     {
       "entry_ts": 1765717200,
-      "equity": 12324.9
+      "equity": 17331.93
     },
     {
       "entry_ts": 1765724400,
-      "equity": 12672.47
+      "equity": 17130.19
     },
     {
       "entry_ts": 1765724400,
-      "equity": 12524.96
+      "equity": 17613.26
     },
     {
       "entry_ts": 1765731600,
-      "equity": 12379.04
+      "equity": 17408.07
     },
     {
       "entry_ts": 1765760400,
-      "equity": 12239.04
+      "equity": 17211.18
     },
     {
       "entry_ts": 1765767600,
-      "equity": 12100.86
+      "equity": 17026.51
     },
     {
       "entry_ts": 1765767600,
-      "equity": 11971.02
+      "equity": 16834.28
     },
     {
       "entry_ts": 1765771200,
-      "equity": 11835.02
+      "equity": 16640.35
+    },
+    {
+      "entry_ts": 1765771200,
+      "equity": 16451.31
+    },
+    {
+      "entry_ts": 1765774800,
+      "equity": 16260.31
+    },
+    {
+      "entry_ts": 1765774800,
+      "equity": 16059.82
+    },
+    {
+      "entry_ts": 1765774800,
+      "equity": 15873.37
+    },
+    {
+      "entry_ts": 1765774800,
+      "equity": 15689.08
+    },
+    {
+      "entry_ts": 1765774800,
+      "equity": 15495.63
     },
     {
       "entry_ts": 1765778400,
-      "equity": 11700.22
+      "equity": 15319.14
     },
     {
       "entry_ts": 1765782000,
-      "equity": 11566.26
+      "equity": 15143.73
+    },
+    {
+      "entry_ts": 1765782000,
+      "equity": 14966.4
+    },
+    {
+      "entry_ts": 1765782000,
+      "equity": 14779.92
+    },
+    {
+      "entry_ts": 1765782000,
+      "equity": 14606.85
+    },
+    {
+      "entry_ts": 1765782000,
+      "equity": 14435.8
     },
     {
       "entry_ts": 1765789200,
-      "equity": 11433.13
+      "equity": 14269.64
     },
     {
       "entry_ts": 1765803600,
-      "equity": 11652.19
+      "equity": 14543.05
+    },
+    {
+      "entry_ts": 1765807200,
+      "equity": 14957.82
+    },
+    {
+      "entry_ts": 1765807200,
+      "equity": 15235.14
+    },
+    {
+      "entry_ts": 1765807200,
+      "equity": 15669.64
+    },
+    {
+      "entry_ts": 1765807200,
+      "equity": 16106.98
+    },
+    {
+      "entry_ts": 1765807200,
+      "equity": 16571.67
+    },
+    {
+      "entry_ts": 1765807200,
+      "equity": 16878.91
+    },
+    {
+      "entry_ts": 1765807200,
+      "equity": 17191.84
+    },
+    {
+      "entry_ts": 1765807200,
+      "equity": 17671.67
     },
     {
       "entry_ts": 1765814400,
-      "equity": 11523.66
+      "equity": 18001.6
+    },
+    {
+      "entry_ts": 1765814400,
+      "equity": 18337.68
+    },
+    {
+      "entry_ts": 1765814400,
+      "equity": 18859.76
+    },
+    {
+      "entry_ts": 1765814400,
+      "equity": 19211.87
+    },
+    {
+      "entry_ts": 1765814400,
+      "equity": 19751.72
+    },
+    {
+      "entry_ts": 1765814400,
+      "equity": 19533.86
     },
     {
       "entry_ts": 1765821600,
-      "equity": 11398.29
+      "equity": 19321.33
     },
     {
       "entry_ts": 1765836000,
-      "equity": 11511.24
+      "equity": 19512.81
     },
     {
       "entry_ts": 1765843200,
-      "equity": 11846.11
+      "equity": 20080.44
     },
     {
       "entry_ts": 1765857600,
-      "equity": 11716.03
+      "equity": 19859.95
     },
     {
       "entry_ts": 1765875600,
-      "equity": 12054.63
+      "equity": 20245.04
     },
     {
       "entry_ts": 1765875600,
-      "equity": 12288.37
+      "equity": 20830.12
+    },
+    {
+      "entry_ts": 1765886400,
+      "equity": 20596.41
+    },
+    {
+      "entry_ts": 1765886400,
+      "equity": 20354.6
+    },
+    {
+      "entry_ts": 1765886400,
+      "equity": 20126.22
+    },
+    {
+      "entry_ts": 1765890000,
+      "equity": 20039.28
+    },
+    {
+      "entry_ts": 1765890000,
+      "equity": 19915.64
+    },
+    {
+      "entry_ts": 1765890000,
+      "equity": 19829.6
+    },
+    {
+      "entry_ts": 1765893600,
+      "equity": 19610.48
+    },
+    {
+      "entry_ts": 1765897200,
+      "equity": 19393.98
+    },
+    {
+      "entry_ts": 1765897200,
+      "equity": 19179.87
+    },
+    {
+      "entry_ts": 1765897200,
+      "equity": 18959.5
+    },
+    {
+      "entry_ts": 1765900800,
+      "equity": 18750.56
     },
     {
       "entry_ts": 1765904400,
-      "equity": 12155.65
+      "equity": 18548.06
     },
     {
       "entry_ts": 1765904400,
-      "equity": 12027.9
+      "equity": 18353.12
     },
     {
       "entry_ts": 1765908000,
-      "equity": 11896.79
+      "equity": 18150.87
+    },
+    {
+      "entry_ts": 1765908000,
+      "equity": 17953.02
     },
     {
       "entry_ts": 1765911600,
-      "equity": 11770.93
+      "equity": 17763.08
     },
     {
       "entry_ts": 1765915200,
-      "equity": 11643.68
+      "equity": 17571.06
     },
     {
       "entry_ts": 1765936800,
-      "equity": 11515.02
+      "equity": 17376.9
     },
     {
       "entry_ts": 1765965600,
-      "equity": 11670.93
+      "equity": 17612.18
     },
     {
       "entry_ts": 1765965600,
-      "equity": 11887.31
+      "equity": 17938.71
     },
     {
       "entry_ts": 1765969200,
-      "equity": 11751.56
+      "equity": 17733.85
     },
     {
       "entry_ts": 1765969200,
-      "equity": 11626.87
+      "equity": 17545.7
     },
     {
       "entry_ts": 1765969200,
-      "equity": 11494.1
+      "equity": 17345.33
     },
     {
       "entry_ts": 1765980000,
-      "equity": 11367.78
+      "equity": 17152.79
+    },
+    {
+      "entry_ts": 1765980000,
+      "equity": 16964.28
     },
     {
       "entry_ts": 1765990800,
-      "equity": 11249.44
+      "equity": 16787.68
+    },
+    {
+      "entry_ts": 1765990800,
+      "equity": 16606.21
     },
     {
       "entry_ts": 1765998000,
-      "equity": 11129.97
+      "equity": 16429.85
     },
     {
       "entry_ts": 1765998000,
-      "equity": 11009.99
+      "equity": 16252.74
     },
     {
       "entry_ts": 1766026800,
-      "equity": 11219.07
+      "equity": 16561.38
     },
     {
       "entry_ts": 1766026800,
-      "equity": 11544.31
+      "equity": 17041.49
+    },
+    {
+      "entry_ts": 1766026800,
+      "equity": 17535.52
     },
     {
       "entry_ts": 1766034000,
-      "equity": 11880.48
+      "equity": 18046.16
+    },
+    {
+      "entry_ts": 1766055600,
+      "equity": 18557.23
+    },
+    {
+      "entry_ts": 1766055600,
+      "equity": 19092.97
+    },
+    {
+      "entry_ts": 1766055600,
+      "equity": 19452.3
+    },
+    {
+      "entry_ts": 1766055600,
+      "equity": 19818.4
     },
     {
       "entry_ts": 1766059200,
-      "equity": 12103.71
+      "equity": 20091.69
     },
     {
       "entry_ts": 1766059200,
-      "equity": 12270.62
+      "equity": 20469.21
     },
     {
       "entry_ts": 1766077200,
-      "equity": 12629.91
+      "equity": 20249.58
+    },
+    {
+      "entry_ts": 1766077200,
+      "equity": 20842.49
+    },
+    {
+      "entry_ts": 1766080800,
+      "equity": 20615.3
+    },
+    {
+      "entry_ts": 1766080800,
+      "equity": 21010.09
     },
     {
       "entry_ts": 1766084400,
-      "equity": 12495.65
+      "equity": 20775.61
     },
     {
       "entry_ts": 1766084400,
-      "equity": 12862.65
+      "equity": 20551.03
+    },
+    {
+      "entry_ts": 1766084400,
+      "equity": 20328.87
+    },
+    {
+      "entry_ts": 1766084400,
+      "equity": 20109.12
+    },
+    {
+      "entry_ts": 1766084400,
+      "equity": 19895.36
+    },
+    {
+      "entry_ts": 1766084400,
+      "equity": 20479.69
+    },
+    {
+      "entry_ts": 1766084400,
+      "equity": 21078.31
+    },
+    {
+      "entry_ts": 1766084400,
+      "equity": 20843.07
     },
     {
       "entry_ts": 1766088000,
-      "equity": 12725.92
+      "equity": 20617.76
+    },
+    {
+      "entry_ts": 1766088000,
+      "equity": 20398.59
+    },
+    {
+      "entry_ts": 1766088000,
+      "equity": 20179.51
     },
     {
       "entry_ts": 1766091600,
-      "equity": 12590.64
+      "equity": 19960.97
+    },
+    {
+      "entry_ts": 1766091600,
+      "equity": 19748.78
+    },
+    {
+      "entry_ts": 1766091600,
+      "equity": 19534.9
+    },
+    {
+      "entry_ts": 1766091600,
+      "equity": 19323.34
+    },
+    {
+      "entry_ts": 1766091600,
+      "equity": 19107.11
     },
     {
       "entry_ts": 1766095200,
-      "equity": 12456.42
+      "equity": 18903.43
     },
     {
       "entry_ts": 1766098800,
-      "equity": 12821.52
+      "equity": 19457.49
     },
     {
       "entry_ts": 1766106000,
-      "equity": 13197.32
+      "equity": 20027.79
+    },
+    {
+      "entry_ts": 1766106000,
+      "equity": 20611.0
+    },
+    {
+      "entry_ts": 1766131200,
+      "equity": 20902.85
+    },
+    {
+      "entry_ts": 1766131200,
+      "equity": 21501.72
+    },
+    {
+      "entry_ts": 1766131200,
+      "equity": 21911.54
+    },
+    {
+      "entry_ts": 1766131200,
+      "equity": 22221.81
+    },
+    {
+      "entry_ts": 1766131200,
+      "equity": 22858.46
+    },
+    {
+      "entry_ts": 1766131200,
+      "equity": 23294.14
     },
     {
       "entry_ts": 1766163600,
-      "equity": 13054.92
+      "equity": 23042.8
     },
     {
       "entry_ts": 1766170800,
-      "equity": 13104.53
+      "equity": 23130.36
     },
     {
       "entry_ts": 1766174400,
-      "equity": 12961.95
+      "equity": 22878.7
     },
     {
       "entry_ts": 1766181600,
-      "equity": 12818.08
+      "equity": 22624.75
     },
     {
       "entry_ts": 1766196000,
-      "equity": 12789.11
+      "equity": 22573.62
     },
     {
       "entry_ts": 1766203200,
-      "equity": 12864.95
+      "equity": 22707.48
     },
     {
       "entry_ts": 1766325600,
-      "equity": 12714.43
+      "equity": 22441.8
     },
     {
       "entry_ts": 1766329200,
-      "equity": 13074.88
+      "equity": 23078.03
+    },
+    {
+      "entry_ts": 1766332800,
+      "equity": 22792.55
+    },
+    {
+      "entry_ts": 1766332800,
+      "equity": 22526.56
+    },
+    {
+      "entry_ts": 1766332800,
+      "equity": 22263.68
+    },
+    {
+      "entry_ts": 1766332800,
+      "equity": 22003.86
+    },
+    {
+      "entry_ts": 1766332800,
+      "equity": 21747.08
     },
     {
       "entry_ts": 1766336400,
-      "equity": 12922.43
+      "equity": 21493.5
+    },
+    {
+      "entry_ts": 1766347200,
+      "equity": 22083.72
+    },
+    {
+      "entry_ts": 1766347200,
+      "equity": 22486.08
+    },
+    {
+      "entry_ts": 1766347200,
+      "equity": 22895.78
+    },
+    {
+      "entry_ts": 1766347200,
+      "equity": 23346.83
+    },
+    {
+      "entry_ts": 1766347200,
+      "equity": 23987.93
+    },
+    {
+      "entry_ts": 1766368800,
+      "equity": 23709.43
+    },
+    {
+      "entry_ts": 1766368800,
+      "equity": 23417.57
+    },
+    {
+      "entry_ts": 1766368800,
+      "equity": 23145.69
+    },
+    {
+      "entry_ts": 1766368800,
+      "equity": 22876.97
     },
     {
       "entry_ts": 1766376000,
-      "equity": 12772.14
+      "equity": 22610.91
     },
     {
       "entry_ts": 1766376000,
-      "equity": 12623.6
+      "equity": 22347.94
     },
     {
       "entry_ts": 1766383200,
-      "equity": 12853.47
+      "equity": 22754.9
     },
     {
       "entry_ts": 1766383200,
-      "equity": 13023.4
+      "equity": 23055.72
+    },
+    {
+      "entry_ts": 1766390400,
+      "equity": 22782.51
+    },
+    {
+      "entry_ts": 1766390400,
+      "equity": 23198.29
+    },
+    {
+      "entry_ts": 1766390400,
+      "equity": 23836.24
+    },
+    {
+      "entry_ts": 1766390400,
+      "equity": 24271.25
     },
     {
       "entry_ts": 1766404800,
-      "equity": 13262.51
+      "equity": 24595.52
     },
     {
       "entry_ts": 1766404800,
-      "equity": 13439.69
+      "equity": 25047.09
+    },
+    {
+      "entry_ts": 1766415600,
+      "equity": 25763.19
     },
     {
       "entry_ts": 1766430000,
-      "equity": 13285.41
+      "equity": 25467.43
     },
     {
       "entry_ts": 1766430000,
-      "equity": 13132.89
+      "equity": 25175.06
+    },
+    {
+      "entry_ts": 1766444400,
+      "equity": 24888.06
+    },
+    {
+      "entry_ts": 1766458800,
+      "equity": 25603.6
+    },
+    {
+      "entry_ts": 1766487600,
+      "equity": 25279.97
+    },
+    {
+      "entry_ts": 1766487600,
+      "equity": 24960.43
+    },
+    {
+      "entry_ts": 1766487600,
+      "equity": 24664.65
+    },
+    {
+      "entry_ts": 1766487600,
+      "equity": 24372.37
+    },
+    {
+      "entry_ts": 1766487600,
+      "equity": 24083.56
+    },
+    {
+      "entry_ts": 1766491200,
+      "equity": 23797.2
+    },
+    {
+      "entry_ts": 1766491200,
+      "equity": 23514.26
+    },
+    {
+      "entry_ts": 1766494800,
+      "equity": 23238.43
+    },
+    {
+      "entry_ts": 1766494800,
+      "equity": 22948.65
+    },
+    {
+      "entry_ts": 1766494800,
+      "equity": 22679.46
+    },
+    {
+      "entry_ts": 1766494800,
+      "equity": 22413.43
     },
     {
       "entry_ts": 1766498400,
-      "equity": 12983.83
+      "equity": 22152.99
     },
     {
       "entry_ts": 1766498400,
-      "equity": 12836.98
+      "equity": 21895.57
+    },
+    {
+      "entry_ts": 1766498400,
+      "equity": 21625.82
+    },
+    {
+      "entry_ts": 1766498400,
+      "equity": 21359.39
+    },
+    {
+      "entry_ts": 1766498400,
+      "equity": 21111.19
+    },
+    {
+      "entry_ts": 1766498400,
+      "equity": 20865.88
+    },
+    {
+      "entry_ts": 1766498400,
+      "equity": 20623.42
+    },
+    {
+      "entry_ts": 1766498400,
+      "equity": 20390.17
+    },
+    {
+      "entry_ts": 1766498400,
+      "equity": 20158.74
+    },
+    {
+      "entry_ts": 1766498400,
+      "equity": 19924.29
     },
     {
       "entry_ts": 1766505600,
-      "equity": 13205.28
+      "equity": 20478.39
+    },
+    {
+      "entry_ts": 1766505600,
+      "equity": 20856.62
+    },
+    {
+      "entry_ts": 1766505600,
+      "equity": 21450.62
+    },
+    {
+      "entry_ts": 1766505600,
+      "equity": 22066.04
+    },
+    {
+      "entry_ts": 1766505600,
+      "equity": 22473.6
+    },
+    {
+      "entry_ts": 1766505600,
+      "equity": 22888.68
     },
     {
       "entry_ts": 1766509200,
-      "equity": 13057.51
+      "equity": 22632.56
+    },
+    {
+      "entry_ts": 1766509200,
+      "equity": 22373.19
+    },
+    {
+      "entry_ts": 1766509200,
+      "equity": 22116.79
+    },
+    {
+      "entry_ts": 1766509200,
+      "equity": 21863.34
+    },
+    {
+      "entry_ts": 1766509200,
+      "equity": 21599.23
     },
     {
       "entry_ts": 1766512800,
-      "equity": 12910.87
+      "equity": 22000.32
+    },
+    {
+      "entry_ts": 1766512800,
+      "equity": 21753.26
+    },
+    {
+      "entry_ts": 1766512800,
+      "equity": 21490.7
+    },
+    {
+      "entry_ts": 1766512800,
+      "equity": 21779.1
+    },
+    {
+      "entry_ts": 1766512800,
+      "equity": 22183.54
     },
     {
       "entry_ts": 1766516400,
-      "equity": 12766.27
+      "equity": 21935.09
     },
     {
       "entry_ts": 1766520000,
-      "equity": 13134.96
+      "equity": 22568.57
     },
     {
       "entry_ts": 1766530800,
-      "equity": 12986.93
+      "equity": 22314.22
     },
     {
       "entry_ts": 1766538000,
-      "equity": 12844.6
+      "equity": 22069.66
+    },
+    {
+      "entry_ts": 1766545200,
+      "equity": 22031.7
     },
     {
       "entry_ts": 1766574000,
-      "equity": 12697.4
+      "equity": 21779.22
     },
     {
       "entry_ts": 1766581200,
-      "equity": 12551.0
+      "equity": 21528.1
     },
     {
       "entry_ts": 1766588400,
-      "equity": 12664.83
+      "equity": 21723.36
     },
     {
       "entry_ts": 1766592000,
-      "equity": 12518.43
+      "equity": 21472.24
     },
     {
       "entry_ts": 1766595600,
-      "equity": 12375.97
+      "equity": 21227.89
     },
     {
       "entry_ts": 1766599200,
-      "equity": 12232.53
+      "equity": 20981.86
     },
     {
       "entry_ts": 1766602800,
-      "equity": 12095.89
+      "equity": 20747.49
     },
     {
       "entry_ts": 1766671200,
-      "equity": 12432.76
+      "equity": 21325.31
     },
     {
       "entry_ts": 1766678400,
-      "equity": 12285.81
+      "equity": 21073.24
     },
     {
       "entry_ts": 1766685600,
-      "equity": 12633.25
+      "equity": 21669.19
     },
     {
       "entry_ts": 1766689200,
-      "equity": 12484.56
+      "equity": 21414.14
     },
     {
       "entry_ts": 1766692800,
-      "equity": 12836.87
+      "equity": 22018.45
     },
     {
       "entry_ts": 1766696400,
-      "equity": 12684.5
+      "equity": 22638.27
     },
     {
       "entry_ts": 1766696400,
-      "equity": 13041.57
+      "equity": 22369.56
     },
     {
       "entry_ts": 1766703600,
-      "equity": 12892.76
+      "equity": 22114.32
     },
     {
       "entry_ts": 1766714400,
-      "equity": 12747.59
+      "equity": 21865.31
     },
     {
       "entry_ts": 1766721600,
-      "equity": 12603.54
+      "equity": 21620.86
     },
     {
       "entry_ts": 1766721600,
-      "equity": 12462.63
+      "equity": 21376.54
     },
     {
       "entry_ts": 1766728800,
-      "equity": 12322.31
+      "equity": 21135.84
     },
     {
       "entry_ts": 1766732400,
-      "equity": 12182.69
+      "equity": 20896.37
     },
     {
       "entry_ts": 1766739600,
-      "equity": 12045.03
+      "equity": 20660.24
     },
     {
       "entry_ts": 1766768400,
-      "equity": 11911.09
+      "equity": 20430.5
     },
     {
       "entry_ts": 1766779200,
-      "equity": 11831.16
+      "equity": 20704.68
     },
     {
       "entry_ts": 1766779200,
-      "equity": 11989.94
+      "equity": 20565.75
     },
     {
       "entry_ts": 1766804400,
-      "equity": 12027.47
+      "equity": 20318.34
     },
     {
       "entry_ts": 1766804400,
-      "equity": 11882.78
+      "equity": 20381.94
     },
     {
       "entry_ts": 1766836800,
-      "equity": 12087.64
+      "equity": 20631.42
     },
     {
       "entry_ts": 1766836800,
-      "equity": 12235.59
+      "equity": 20987.1
     },
     {
       "entry_ts": 1766854800,
-      "equity": 12077.87
+      "equity": 20716.58
     },
     {
       "entry_ts": 1766854800,
-      "equity": 11922.19
+      "equity": 20449.54
+    },
+    {
+      "entry_ts": 1766865600,
+      "equity": 20798.41
+    },
+    {
+      "entry_ts": 1766865600,
+      "equity": 21335.22
+    },
+    {
+      "entry_ts": 1766865600,
+      "equity": 21912.55
+    },
+    {
+      "entry_ts": 1766865600,
+      "equity": 22286.38
     },
     {
       "entry_ts": 1766872800,
-      "equity": 12067.76
+      "equity": 22669.92
     },
     {
       "entry_ts": 1766872800,
-      "equity": 12275.44
+      "equity": 22946.72
+    },
+    {
+      "entry_ts": 1767024000,
+      "equity": 22684.9
+    },
+    {
+      "entry_ts": 1767067200,
+      "equity": 23326.43
+    },
+    {
+      "entry_ts": 1767088800,
+      "equity": 23053.75
+    },
+    {
+      "entry_ts": 1767110400,
+      "equity": 22784.94
+    },
+    {
+      "entry_ts": 1767117600,
+      "equity": 22523.6
     },
     {
       "entry_ts": 1767124800,
-      "equity": 12134.52
+      "equity": 22265.02
+    },
+    {
+      "entry_ts": 1767196800,
+      "equity": 22104.94
     },
     {
       "entry_ts": 1767409200,
-      "equity": 12000.68
+      "equity": 21861.12
     },
     {
       "entry_ts": 1767409200,
-      "equity": 11868.31
+      "equity": 21619.99
     },
     {
       "entry_ts": 1767495600,
-      "equity": 12093.33
+      "equity": 22029.91
     },
     {
       "entry_ts": 1767495600,
-      "equity": 12322.62
+      "equity": 22447.6
     },
     {
       "entry_ts": 1767502800,
-      "equity": 12556.38
+      "equity": 22873.43
     },
     {
       "entry_ts": 1767502800,
-      "equity": 12794.58
+      "equity": 23307.34
     },
     {
       "entry_ts": 1767517200,
-      "equity": 13036.91
+      "equity": 23748.78
     },
     {
       "entry_ts": 1767517200,
-      "equity": 13283.83
+      "equity": 24198.58
     },
     {
       "entry_ts": 1767524400,
-      "equity": 13535.02
+      "equity": 24656.17
     },
     {
       "entry_ts": 1767524400,
-      "equity": 13790.97
+      "equity": 25122.42
     },
     {
       "entry_ts": 1767531600,
-      "equity": 13638.58
+      "equity": 24844.82
     },
     {
       "entry_ts": 1767531600,
-      "equity": 13487.87
+      "equity": 24570.28
     },
     {
       "entry_ts": 1767560400,
-      "equity": 13856.36
+      "equity": 25241.54
     },
     {
       "entry_ts": 1767560400,
-      "equity": 14096.63
+      "equity": 25931.14
+    },
+    {
+      "entry_ts": 1767560400,
+      "equity": 26380.79
     },
     {
       "entry_ts": 1767574800,
-      "equity": 13942.13
+      "equity": 26091.66
     },
     {
       "entry_ts": 1767574800,
-      "equity": 13789.33
+      "equity": 25805.69
+    },
+    {
+      "entry_ts": 1767600000,
+      "equity": 25497.05
+    },
+    {
+      "entry_ts": 1767621600,
+      "equity": 25197.97
+    },
+    {
+      "entry_ts": 1767628800,
+      "equity": 24906.94
     },
     {
       "entry_ts": 1767632400,
-      "equity": 14052.98
+      "equity": 25383.16
     },
     {
       "entry_ts": 1767632400,
-      "equity": 14321.67
+      "equity": 25868.48
     },
     {
       "entry_ts": 1767636000,
-      "equity": 14732.85
+      "equity": 26611.17
     },
     {
       "entry_ts": 1767639600,
-      "equity": 15015.57
+      "equity": 27121.84
     },
     {
       "entry_ts": 1767639600,
-      "equity": 15303.72
+      "equity": 27642.3
+    },
+    {
+      "entry_ts": 1767639600,
+      "equity": 27328.29
+    },
+    {
+      "entry_ts": 1767643200,
+      "equity": 27018.39
     },
     {
       "entry_ts": 1767646800,
-      "equity": 15597.7
+      "equity": 27537.41
     },
     {
       "entry_ts": 1767646800,
-      "equity": 15897.34
+      "equity": 28066.4
     },
     {
       "entry_ts": 1767661200,
-      "equity": 15726.76
+      "equity": 27765.25
     },
     {
       "entry_ts": 1767661200,
-      "equity": 15558.01
+      "equity": 27467.33
+    },
+    {
+      "entry_ts": 1767664800,
+      "equity": 28248.22
     },
     {
       "entry_ts": 1767668400,
-      "equity": 15383.14
+      "equity": 27930.71
     },
     {
       "entry_ts": 1767693600,
-      "equity": 15208.85
+      "equity": 27614.26
+    },
+    {
+      "entry_ts": 1767729600,
+      "equity": 27299.73
+    },
+    {
+      "entry_ts": 1767751200,
+      "equity": 28089.24
+    },
+    {
+      "entry_ts": 1767970800,
+      "equity": 27772.11
     },
     {
       "entry_ts": 1767974400,
-      "equity": 15041.7
+      "equity": 27466.9
     },
     {
       "entry_ts": 1767978000,
-      "equity": 15194.53
+      "equity": 27745.96
+    },
+    {
+      "entry_ts": 1767978000,
+      "equity": 27432.99
     },
     {
       "entry_ts": 1767985200,
-      "equity": 15245.88
+      "equity": 27507.61
+    },
+    {
+      "entry_ts": 1767985200,
+      "equity": 27600.58
+    },
+    {
+      "entry_ts": 1767985200,
+      "equity": 27675.65
+    },
+    {
+      "entry_ts": 1767985200,
+      "equity": 27509.88
     },
     {
       "entry_ts": 1767988800,
-      "equity": 15103.03
+      "equity": 27197.64
+    },
+    {
+      "entry_ts": 1767988800,
+      "equity": 27068.45
+    },
+    {
+      "entry_ts": 1767988800,
+      "equity": 26814.82
+    },
+    {
+      "entry_ts": 1767988800,
+      "equity": 26687.45
+    },
+    {
+      "entry_ts": 1767996000,
+      "equity": 26666.1
+    },
+    {
+      "entry_ts": 1767996000,
+      "equity": 26644.77
+    },
+    {
+      "entry_ts": 1767996000,
+      "equity": 26614.39
+    },
+    {
+      "entry_ts": 1767996000,
+      "equity": 26593.1
     },
     {
       "entry_ts": 1768032000,
-      "equity": 15090.49
+      "equity": 26571.03
     },
     {
       "entry_ts": 1768032000,
-      "equity": 15077.97
+      "equity": 26622.58
+    },
+    {
+      "entry_ts": 1768032000,
+      "equity": 26600.48
     },
     {
       "entry_ts": 1768042800,
-      "equity": 14943.32
+      "equity": 26362.94
     },
     {
       "entry_ts": 1768042800,
-      "equity": 14770.88
+      "equity": 26058.71
     },
     {
       "entry_ts": 1768064400,
-      "equity": 14593.33
+      "equity": 25915.13
     },
     {
       "entry_ts": 1768064400,
-      "equity": 14512.92
+      "equity": 25603.63
+    },
+    {
+      "entry_ts": 1768086000,
+      "equity": 25289.47
+    },
+    {
+      "entry_ts": 1768086000,
+      "equity": 24955.14
+    },
+    {
+      "entry_ts": 1768086000,
+      "equity": 24648.94
+    },
+    {
+      "entry_ts": 1768086000,
+      "equity": 24346.5
     },
     {
       "entry_ts": 1768125600,
-      "equity": 14690.99
+      "equity": 24645.23
     },
     {
       "entry_ts": 1768125600,
-      "equity": 14503.98
+      "equity": 24331.5
+    },
+    {
+      "entry_ts": 1768136400,
+      "equity": 23993.05
+    },
+    {
+      "entry_ts": 1768136400,
+      "equity": 23687.38
+    },
+    {
+      "entry_ts": 1768136400,
+      "equity": 23385.6
+    },
+    {
+      "entry_ts": 1768136400,
+      "equity": 23087.67
+    },
+    {
+      "entry_ts": 1768518000,
+      "equity": 22826.78
     },
     {
       "entry_ts": 1768539600,
-      "equity": 14714.29
+      "equity": 23157.76
     },
     {
       "entry_ts": 1768539600,
-      "equity": 14927.64
+      "equity": 23493.55
+    },
+    {
+      "entry_ts": 1768539600,
+      "equity": 23616.19
     },
     {
       "entry_ts": 1768546800,
-      "equity": 14755.08
+      "equity": 23343.18
     },
     {
       "entry_ts": 1768546800,
-      "equity": 14584.51
+      "equity": 23073.34
+    },
+    {
+      "entry_ts": 1768546800,
+      "equity": 22806.61
     },
     {
       "entry_ts": 1768579200,
-      "equity": 14485.77
+      "equity": 22652.21
     },
     {
       "entry_ts": 1768579200,
-      "equity": 14387.71
+      "equity": 22394.2
+    },
+    {
+      "entry_ts": 1768579200,
+      "equity": 22242.59
     },
     {
       "entry_ts": 1768734000,
-      "equity": 14200.66
+      "equity": 21953.44
     },
     {
       "entry_ts": 1768759200,
-      "equity": 14020.17
+      "equity": 21674.41
     },
     {
       "entry_ts": 1768766400,
-      "equity": 13844.22
+      "equity": 21402.4
     },
     {
       "entry_ts": 1768770000,
-      "equity": 14222.72
+      "equity": 21987.54
     },
     {
       "entry_ts": 1768777200,
-      "equity": 14624.94
+      "equity": 22609.34
     },
     {
       "entry_ts": 1768777200,
-      "equity": 14453.68
+      "equity": 22344.59
     },
     {
       "entry_ts": 1768780800,
-      "equity": 14350.05
+      "equity": 22184.38
     },
     {
       "entry_ts": 1768784400,
-      "equity": 14188.76
+      "equity": 21935.03
     },
     {
       "entry_ts": 1768788000,
-      "equity": 14082.34
+      "equity": 21770.51
     },
     {
       "entry_ts": 1768788000,
-      "equity": 14490.45
+      "equity": 22401.42
     },
     {
       "entry_ts": 1768795200,
-      "equity": 14325.11
+      "equity": 22145.82
+    },
+    {
+      "entry_ts": 1768813200,
+      "equity": 21899.34
+    },
+    {
+      "entry_ts": 1768813200,
+      "equity": 22312.58
+    },
+    {
+      "entry_ts": 1768820400,
+      "equity": 22954.74
     },
     {
       "entry_ts": 1768827600,
-      "equity": 14166.67
+      "equity": 22700.86
     },
     {
       "entry_ts": 1768834800,
-      "equity": 14009.42
+      "equity": 22448.88
     },
     {
       "entry_ts": 1768842000,
-      "equity": 14274.2
+      "equity": 22195.88
+    },
+    {
+      "entry_ts": 1768842000,
+      "equity": 21945.73
+    },
+    {
+      "entry_ts": 1768842000,
+      "equity": 22360.5
+    },
+    {
+      "entry_ts": 1768842000,
+      "equity": 22096.2
+    },
+    {
+      "entry_ts": 1768842000,
+      "equity": 21847.18
+    },
+    {
+      "entry_ts": 1768842000,
+      "equity": 21588.95
     },
     {
       "entry_ts": 1768849200,
-      "equity": 14543.27
+      "equity": 21332.04
+    },
+    {
+      "entry_ts": 1768849200,
+      "equity": 21090.56
+    },
+    {
+      "entry_ts": 1768849200,
+      "equity": 21488.12
+    },
+    {
+      "entry_ts": 1768849200,
+      "equity": 21244.87
+    },
+    {
+      "entry_ts": 1768849200,
+      "equity": 21004.38
     },
     {
       "entry_ts": 1768856400,
-      "equity": 14816.83
+      "equity": 21399.47
     },
     {
       "entry_ts": 1768863600,
-      "equity": 15095.39
+      "equity": 21801.78
     },
     {
       "entry_ts": 1768863600,
-      "equity": 14917.41
+      "equity": 21544.74
     },
     {
       "entry_ts": 1768870800,
-      "equity": 15197.71
+      "equity": 22152.95
     },
     {
       "entry_ts": 1768870800,
-      "equity": 15493.0
+      "equity": 22569.2
     },
     {
       "entry_ts": 1768870800,
-      "equity": 15930.37
+      "equity": 23007.72
     },
     {
       "entry_ts": 1768874400,
-      "equity": 15742.23
+      "equity": 22736.0
+    },
+    {
+      "entry_ts": 1768874400,
+      "equity": 23374.42
     },
     {
       "entry_ts": 1768878000,
-      "equity": 16037.87
+      "equity": 23813.4
     },
     {
       "entry_ts": 1768881600,
-      "equity": 15849.59
+      "equity": 24256.56
+    },
+    {
+      "entry_ts": 1768881600,
+      "equity": 23971.79
+    },
+    {
+      "entry_ts": 1768881600,
+      "equity": 24643.24
+    },
+    {
+      "entry_ts": 1768881600,
+      "equity": 25101.85
+    },
+    {
+      "entry_ts": 1768881600,
+      "equity": 25821.27
+    },
+    {
+      "entry_ts": 1768881600,
+      "equity": 26301.81
     },
     {
       "entry_ts": 1768885200,
-      "equity": 16148.19
+      "equity": 26797.33
     },
     {
       "entry_ts": 1768885200,
-      "equity": 16605.51
+      "equity": 27556.23
+    },
+    {
+      "entry_ts": 1768888800,
+      "equity": 28347.65
     },
     {
       "entry_ts": 1768892400,
-      "equity": 17080.09
+      "equity": 29160.37
     },
     {
       "entry_ts": 1768892400,
-      "equity": 17404.27
+      "equity": 29703.92
+    },
+    {
+      "entry_ts": 1768892400,
+      "equity": 30552.86
+    },
+    {
+      "entry_ts": 1768892400,
+      "equity": 31132.75
+    },
+    {
+      "entry_ts": 1768892400,
+      "equity": 32006.96
     },
     {
       "entry_ts": 1768899600,
-      "equity": 17737.04
+      "equity": 32607.09
     },
     {
       "entry_ts": 1768899600,
-      "equity": 18076.18
+      "equity": 33225.65
     },
     {
       "entry_ts": 1768899600,
-      "equity": 18419.08
+      "equity": 33848.63
+    },
+    {
+      "entry_ts": 1768899600,
+      "equity": 34495.82
+    },
+    {
+      "entry_ts": 1768899600,
+      "equity": 35155.38
     },
     {
       "entry_ts": 1768906800,
-      "equity": 18767.39
+      "equity": 35820.16
     },
     {
       "entry_ts": 1768914000,
-      "equity": 19125.28
+      "equity": 36496.45
     },
     {
       "entry_ts": 1768914000,
-      "equity": 19486.37
+      "equity": 37192.44
     },
     {
       "entry_ts": 1768914000,
-      "equity": 19857.97
+      "equity": 37901.7
     },
     {
       "entry_ts": 1768921200,
-      "equity": 20233.88
+      "equity": 38619.18
     },
     {
       "entry_ts": 1768928400,
-      "equity": 20011.71
+      "equity": 38193.98
     },
     {
       "entry_ts": 1768928400,
-      "equity": 19791.99
+      "equity": 37774.61
     },
     {
       "entry_ts": 1768928400,
-      "equity": 19574.08
+      "equity": 37359.84
     },
     {
       "entry_ts": 1768935600,
-      "equity": 19357.98
+      "equity": 36947.39
     },
     {
       "entry_ts": 1768942800,
-      "equity": 19146.39
+      "equity": 36543.56
     },
     {
       "entry_ts": 1768942800,
-      "equity": 18937.12
+      "equity": 36144.13
     },
     {
       "entry_ts": 1768942800,
-      "equity": 18728.44
+      "equity": 35745.83
     },
     {
       "entry_ts": 1768950000,
-      "equity": 18523.74
+      "equity": 35355.12
     },
     {
       "entry_ts": 1768957200,
-      "equity": 18321.09
+      "equity": 34968.34
     },
     {
       "entry_ts": 1768964400,
-      "equity": 18676.52
+      "equity": 34585.09
     },
     {
       "entry_ts": 1768964400,
-      "equity": 18471.82
+      "equity": 35256.04
     },
     {
       "entry_ts": 1768971600,
-      "equity": 18268.82
+      "equity": 34868.57
     },
     {
       "entry_ts": 1768978800,
-      "equity": 18067.86
+      "equity": 34485.02
     },
     {
       "entry_ts": 1768986000,
-      "equity": 17868.57
+      "equity": 34104.65
     },
     {
       "entry_ts": 1768993200,
-      "equity": 17671.66
+      "equity": 33728.82
     },
     {
       "entry_ts": 1769000400,
-      "equity": 17476.92
+      "equity": 33369.6
     },
     {
       "entry_ts": 1769000400,
-      "equity": 17290.79
+      "equity": 33001.87
     },
     {
       "entry_ts": 1769007600,
-      "equity": 17620.7
+      "equity": 32632.25
+    },
+    {
+      "entry_ts": 1769007600,
+      "equity": 33254.87
+    },
+    {
+      "entry_ts": 1769007600,
+      "equity": 32865.13
+    },
+    {
+      "entry_ts": 1769007600,
+      "equity": 32497.04
+    },
+    {
+      "entry_ts": 1769007600,
+      "equity": 32133.07
+    },
+    {
+      "entry_ts": 1769007600,
+      "equity": 31773.18
+    },
+    {
+      "entry_ts": 1769007600,
+      "equity": 31417.32
+    },
+    {
+      "entry_ts": 1769007600,
+      "equity": 31049.11
     },
     {
       "entry_ts": 1769014800,
-      "equity": 17964.3
+      "equity": 31951.09
     },
     {
       "entry_ts": 1769014800,
-      "equity": 17770.64
+      "equity": 31589.4
+    },
+    {
+      "entry_ts": 1769014800,
+      "equity": 32191.18
+    },
+    {
+      "entry_ts": 1769014800,
+      "equity": 31826.77
+    },
+    {
+      "entry_ts": 1769014800,
+      "equity": 32433.07
+    },
+    {
+      "entry_ts": 1769014800,
+      "equity": 32078.9
+    },
+    {
+      "entry_ts": 1769014800,
+      "equity": 31728.6
+    },
+    {
+      "entry_ts": 1769014800,
+      "equity": 31382.13
+    },
+    {
+      "entry_ts": 1769014800,
+      "equity": 32281.22
+    },
+    {
+      "entry_ts": 1769014800,
+      "equity": 32910.71
+    },
+    {
+      "entry_ts": 1769014800,
+      "equity": 32551.32
+    },
+    {
+      "entry_ts": 1769014800,
+      "equity": 33171.43
+    },
+    {
+      "entry_ts": 1769014800,
+      "equity": 32813.84
+    },
+    {
+      "entry_ts": 1769014800,
+      "equity": 32455.51
     },
     {
       "entry_ts": 1769022000,
-      "equity": 18000.77
+      "equity": 33081.25
+    },
+    {
+      "entry_ts": 1769022000,
+      "equity": 33724.02
+    },
+    {
+      "entry_ts": 1769022000,
+      "equity": 34160.75
+    },
+    {
+      "entry_ts": 1769022000,
+      "equity": 34819.37
+    },
+    {
+      "entry_ts": 1769022000,
+      "equity": 35828.43
+    },
+    {
+      "entry_ts": 1769022000,
+      "equity": 36519.2
     },
     {
       "entry_ts": 1769029200,
-      "equity": 18334.15
+      "equity": 36136.85
     },
     {
       "entry_ts": 1769029200,
-      "equity": 18142.19
+      "equity": 36806.1
+    },
+    {
+      "entry_ts": 1769083200,
+      "equity": 37519.77
     },
     {
       "entry_ts": 1769086800,
-      "equity": 18496.87
+      "equity": 38253.28
+    },
+    {
+      "entry_ts": 1769101200,
+      "equity": 37831.73
     },
     {
       "entry_ts": 1769151600,
-      "equity": 18842.02
+      "equity": 38537.67
     },
     {
       "entry_ts": 1769151600,
-      "equity": 18628.54
+      "equity": 38101.04
+    },
+    {
+      "entry_ts": 1769151600,
+      "equity": 37669.36
+    },
+    {
+      "entry_ts": 1769180400,
+      "equity": 37232.39
+    },
+    {
+      "entry_ts": 1769180400,
+      "equity": 36800.5
     },
     {
       "entry_ts": 1769184000,
-      "equity": 18419.16
+      "equity": 36376.55
     },
     {
       "entry_ts": 1769184000,
-      "equity": 18212.12
+      "equity": 35957.5
+    },
+    {
+      "entry_ts": 1769184000,
+      "equity": 35520.25
+    },
+    {
+      "entry_ts": 1769184000,
+      "equity": 35121.01
+    },
+    {
+      "entry_ts": 1769184000,
+      "equity": 34726.25
+    },
+    {
+      "entry_ts": 1769184000,
+      "equity": 34303.97
+    },
+    {
+      "entry_ts": 1769184000,
+      "equity": 33918.4
+    },
+    {
+      "entry_ts": 1769184000,
+      "equity": 33527.66
+    },
+    {
+      "entry_ts": 1769184000,
+      "equity": 33141.42
+    },
+    {
+      "entry_ts": 1769184000,
+      "equity": 32759.63
+    },
+    {
+      "entry_ts": 1769187600,
+      "equity": 33264.46
+    },
+    {
+      "entry_ts": 1769191200,
+      "equity": 32886.9
+    },
+    {
+      "entry_ts": 1769191200,
+      "equity": 32513.64
+    },
+    {
+      "entry_ts": 1769191200,
+      "equity": 32125.75
+    },
+    {
+      "entry_ts": 1769191200,
+      "equity": 31761.12
+    },
+    {
+      "entry_ts": 1769191200,
+      "equity": 31400.63
     },
     {
       "entry_ts": 1769194800,
-      "equity": 18018.17
+      "equity": 31066.22
+    },
+    {
+      "entry_ts": 1769198400,
+      "equity": 30716.1
+    },
+    {
+      "entry_ts": 1769198400,
+      "equity": 30509.07
+    },
+    {
+      "entry_ts": 1769198400,
+      "equity": 30165.24
     },
     {
       "entry_ts": 1769202000,
-      "equity": 18016.72
+      "equity": 30145.33
     },
     {
       "entry_ts": 1769202000,
-      "equity": 18366.43
+      "equity": 30125.43
+    },
+    {
+      "entry_ts": 1769202000,
+      "equity": 29768.45
+    },
+    {
+      "entry_ts": 1769202000,
+      "equity": 29748.8
+    },
+    {
+      "entry_ts": 1769202000,
+      "equity": 30326.22
+    },
+    {
+      "entry_ts": 1769202000,
+      "equity": 30323.8
+    },
+    {
+      "entry_ts": 1769202000,
+      "equity": 29964.46
+    },
+    {
+      "entry_ts": 1769205600,
+      "equity": 30009.11
+    },
+    {
+      "entry_ts": 1769209200,
+      "equity": 30021.71
+    },
+    {
+      "entry_ts": 1769209200,
+      "equity": 30040.02
+    },
+    {
+      "entry_ts": 1769209200,
+      "equity": 30052.64
+    },
+    {
+      "entry_ts": 1769209200,
+      "equity": 30065.26
     },
     {
       "entry_ts": 1769227200,
-      "equity": 18308.21
+      "equity": 29964.54
     },
     {
       "entry_ts": 1769227200,
-      "equity": 18250.17
+      "equity": 29869.56
+    },
+    {
+      "entry_ts": 1769227200,
+      "equity": 29774.87
     },
     {
       "entry_ts": 1769263200,
-      "equity": 18213.31
+      "equity": 29984.49
     },
     {
       "entry_ts": 1769263200,
-      "equity": 18176.51
+      "equity": 29923.92
+    },
+    {
+      "entry_ts": 1769263200,
+      "equity": 29863.47
     },
     {
       "entry_ts": 1769270400,
-      "equity": 18067.27
+      "equity": 29683.99
     },
     {
       "entry_ts": 1769270400,
-      "equity": 17958.69
+      "equity": 29505.59
+    },
+    {
+      "entry_ts": 1769270400,
+      "equity": 29138.84
     },
     {
       "entry_ts": 1769292000,
-      "equity": 18448.6
+      "equity": 29933.74
     },
     {
       "entry_ts": 1769292000,
-      "equity": 18766.1
+      "equity": 30750.34
+    },
+    {
+      "entry_ts": 1769292000,
+      "equity": 31279.55
+    },
+    {
+      "entry_ts": 1769338800,
+      "equity": 30882.92
+    },
+    {
+      "entry_ts": 1769338800,
+      "equity": 30456.12
+    },
+    {
+      "entry_ts": 1769338800,
+      "equity": 30069.94
+    },
+    {
+      "entry_ts": 1769338800,
+      "equity": 29688.65
+    },
+    {
+      "entry_ts": 1769338800,
+      "equity": 29312.2
+    },
+    {
+      "entry_ts": 1769338800,
+      "equity": 28940.52
+    },
+    {
+      "entry_ts": 1769338800,
+      "equity": 28540.56
+    },
+    {
+      "entry_ts": 1769346000,
+      "equity": 28144.99
+    },
+    {
+      "entry_ts": 1769346000,
+      "equity": 27787.55
+    },
+    {
+      "entry_ts": 1769346000,
+      "equity": 27434.65
+    },
+    {
+      "entry_ts": 1769346000,
+      "equity": 27086.23
+    },
+    {
+      "entry_ts": 1769346000,
+      "equity": 26742.23
+    },
+    {
+      "entry_ts": 1769353200,
+      "equity": 27450.1
+    },
+    {
+      "entry_ts": 1769353200,
+      "equity": 27931.3
+    },
+    {
+      "entry_ts": 1769353200,
+      "equity": 28420.94
+    },
+    {
+      "entry_ts": 1769353200,
+      "equity": 29203.36
+    },
+    {
+      "entry_ts": 1769353200,
+      "equity": 29976.38
+    },
+    {
+      "entry_ts": 1769353200,
+      "equity": 30801.63
+    },
+    {
+      "entry_ts": 1769353200,
+      "equity": 31341.58
+    },
+    {
+      "entry_ts": 1769360400,
+      "equity": 30970.18
+    },
+    {
+      "entry_ts": 1769360400,
+      "equity": 31534.77
+    },
+    {
+      "entry_ts": 1769360400,
+      "equity": 32109.65
+    },
+    {
+      "entry_ts": 1769360400,
+      "equity": 32991.7
+    },
+    {
+      "entry_ts": 1769360400,
+      "equity": 33593.14
     },
     {
       "entry_ts": 1769367600,
-      "equity": 18560.24
+      "equity": 33224.62
     },
     {
       "entry_ts": 1769382000,
-      "equity": 18918.45
+      "equity": 33865.86
+    },
+    {
+      "entry_ts": 1769389200,
+      "equity": 33484.19
+    },
+    {
+      "entry_ts": 1769389200,
+      "equity": 33106.82
+    },
+    {
+      "entry_ts": 1769389200,
+      "equity": 32714.84
+    },
+    {
+      "entry_ts": 1769389200,
+      "equity": 32346.14
+    },
+    {
+      "entry_ts": 1769392800,
+      "equity": 33258.95
+    },
+    {
+      "entry_ts": 1769392800,
+      "equity": 33882.55
+    },
+    {
+      "entry_ts": 1769392800,
+      "equity": 34856.68
+    },
+    {
+      "entry_ts": 1769396400,
+      "equity": 35509.89
+    },
+    {
+      "entry_ts": 1769400000,
+      "equity": 36512.33
+    },
+    {
+      "entry_ts": 1769400000,
+      "equity": 37197.31
+    },
+    {
+      "entry_ts": 1769400000,
+      "equity": 37895.13
+    },
+    {
+      "entry_ts": 1769400000,
+      "equity": 38984.61
     },
     {
       "entry_ts": 1769454000,
-      "equity": 19287.93
+      "equity": 39745.98
     },
     {
       "entry_ts": 1769533200,
-      "equity": 19549.67
+      "equity": 40285.33
     },
     {
       "entry_ts": 1769533200,
-      "equity": 19912.7
+      "equity": 41033.43
     },
     {
       "entry_ts": 1769544000,
-      "equity": 20186.1
+      "equity": 41596.82
     },
     {
       "entry_ts": 1769544000,
-      "equity": 20180.05
+      "equity": 41584.34
     },
     {
       "entry_ts": 1769547600,
-      "equity": 19950.8
+      "equity": 41111.95
     },
     {
       "entry_ts": 1769547600,
-      "equity": 19724.16
+      "equity": 40644.91
     },
     {
       "entry_ts": 1769619600,
-      "equity": 20092.21
+      "equity": 41199.72
     },
     {
       "entry_ts": 1769619600,
-      "equity": 20366.47
+      "equity": 41968.5
     },
     {
       "entry_ts": 1769734800,
-      "equity": 20147.13
+      "equity": 41516.5
     },
     {
       "entry_ts": 1769749200,
-      "equity": 19930.75
+      "equity": 41070.62
     },
     {
       "entry_ts": 1769749200,
-      "equity": 19724.06
+      "equity": 40644.71
     },
     {
       "entry_ts": 1769756400,
-      "equity": 19513.21
+      "equity": 40210.22
     },
     {
       "entry_ts": 1769763600,
-      "equity": 19304.62
+      "equity": 39780.37
     },
     {
       "entry_ts": 1769770800,
-      "equity": 19676.42
+      "equity": 40546.54
     },
     {
       "entry_ts": 1769778000,
-      "equity": 19466.48
+      "equity": 40113.91
     },
     {
       "entry_ts": 1769785200,
-      "equity": 19259.16
+      "equity": 39686.7
     },
     {
       "entry_ts": 1769792400,
-      "equity": 19054.05
+      "equity": 39264.04
     },
     {
       "entry_ts": 1769799600,
-      "equity": 19422.94
+      "equity": 40024.19
     },
     {
       "entry_ts": 1769806800,
-      "equity": 19797.8
+      "equity": 40796.65
     },
     {
       "entry_ts": 1769814000,
-      "equity": 20180.89
+      "equity": 41591.78
     },
     {
       "entry_ts": 1769814000,
-      "equity": 20574.21
+      "equity": 42396.58
     },
     {
       "entry_ts": 1769821200,
-      "equity": 20971.71
+      "equity": 43215.68
     },
     {
       "entry_ts": 1769828400,
-      "equity": 21376.25
+      "equity": 44049.31
     },
     {
       "entry_ts": 1769835600,
-      "equity": 21787.96
+      "equity": 44897.7
     },
     {
       "entry_ts": 1769842800,
-      "equity": 22207.59
+      "equity": 45762.43
     },
     {
       "entry_ts": 1769850000,
-      "equity": 22635.75
+      "equity": 46645.65
     },
     {
       "entry_ts": 1769850000,
-      "equity": 23072.62
+      "equity": 47544.98
     },
     {
       "entry_ts": 1769850000,
-      "equity": 23517.93
+      "equity": 48462.6
     },
     {
       "entry_ts": 1769857200,
-      "equity": 23971.35
+      "equity": 49396.95
     },
     {
       "entry_ts": 1769864400,
-      "equity": 24434.72
+      "equity": 50351.8
     },
     {
       "entry_ts": 1769864400,
-      "equity": 24907.04
+      "equity": 51325.1
     },
     {
       "entry_ts": 1769864400,
-      "equity": 25388.49
+      "equity": 52317.21
     },
     {
       "entry_ts": 1769871600,
-      "equity": 25882.05
+      "equity": 53333.21
     },
     {
       "entry_ts": 1769871600,
-      "equity": 26384.68
+      "equity": 54370.01
     },
     {
       "entry_ts": 1769871600,
-      "equity": 26897.07
+      "equity": 55425.88
     },
     {
       "entry_ts": 1769878800,
-      "equity": 26615.72
+      "equity": 54846.12
     },
     {
       "entry_ts": 1769878800,
-      "equity": 26337.32
+      "equity": 55918.91
     },
     {
       "entry_ts": 1769878800,
-      "equity": 26852.48
+      "equity": 55334.0
     },
     {
       "entry_ts": 1769893200,
-      "equity": 26566.5
+      "equity": 54744.69
     },
     {
       "entry_ts": 1769900400,
-      "equity": 26294.46
+      "equity": 55801.81
     },
     {
       "entry_ts": 1769900400,
-      "equity": 26802.21
+      "equity": 55230.4
+    },
+    {
+      "entry_ts": 1769904000,
+      "equity": 54651.03
+    },
+    {
+      "entry_ts": 1769904000,
+      "equity": 54077.74
     },
     {
       "entry_ts": 1769907600,
-      "equity": 27320.83
+      "equity": 55124.15
+    },
+    {
+      "entry_ts": 1769907600,
+      "equity": 54544.79
+    },
+    {
+      "entry_ts": 1769907600,
+      "equity": 53958.98
+    },
+    {
+      "entry_ts": 1769907600,
+      "equity": 53391.87
+    },
+    {
+      "entry_ts": 1769911200,
+      "equity": 52828.59
     },
     {
       "entry_ts": 1769914800,
-      "equity": 27850.31
+      "equity": 53852.41
+    },
+    {
+      "entry_ts": 1769914800,
+      "equity": 53282.65
+    },
+    {
+      "entry_ts": 1769914800,
+      "equity": 52706.13
     },
     {
       "entry_ts": 1769922000,
-      "equity": 28391.16
+      "equity": 53729.68
+    },
+    {
+      "entry_ts": 1769922000,
+      "equity": 53142.96
+    },
+    {
+      "entry_ts": 1769922000,
+      "equity": 52578.05
     },
     {
       "entry_ts": 1769929200,
-      "equity": 28943.65
+      "equity": 53601.22
     },
     {
       "entry_ts": 1769936400,
-      "equity": 29507.76
+      "equity": 54645.9
     },
     {
       "entry_ts": 1769943600,
-      "equity": 30082.28
+      "equity": 55709.86
     },
     {
       "entry_ts": 1769950800,
-      "equity": 30668.58
+      "equity": 56795.64
     },
     {
       "entry_ts": 1769958000,
-      "equity": 31267.23
+      "equity": 57904.3
+    },
+    {
+      "entry_ts": 1769961600,
+      "equity": 57286.46
+    },
+    {
+      "entry_ts": 1769961600,
+      "equity": 56659.17
+    },
+    {
+      "entry_ts": 1769961600,
+      "equity": 56038.75
+    },
+    {
+      "entry_ts": 1769961600,
+      "equity": 55440.82
     },
     {
       "entry_ts": 1769965200,
-      "equity": 31877.26
+      "equity": 56531.34
     },
     {
       "entry_ts": 1769965200,
-      "equity": 32504.28
+      "equity": 57634.27
+    },
+    {
+      "entry_ts": 1769968800,
+      "equity": 58747.18
+    },
+    {
+      "entry_ts": 1769968800,
+      "equity": 59881.59
+    },
+    {
+      "entry_ts": 1769968800,
+      "equity": 61619.36
     },
     {
       "entry_ts": 1769972400,
-      "equity": 33138.77
+      "equity": 62822.16
     },
     {
       "entry_ts": 1769979600,
-      "equity": 32790.48
+      "equity": 62161.9
     },
     {
       "entry_ts": 1769986800,
-      "equity": 32446.83
+      "equity": 61510.45
     },
     {
       "entry_ts": 1769994000,
-      "equity": 33082.14
+      "equity": 62714.82
     },
     {
       "entry_ts": 1770001200,
-      "equity": 32738.09
+      "equity": 62062.59
     },
     {
       "entry_ts": 1770001200,
-      "equity": 32400.89
+      "equity": 61423.34
     },
     {
       "entry_ts": 1770008400,
-      "equity": 32065.21
+      "equity": 60787.0
     },
     {
       "entry_ts": 1770008400,
-      "equity": 31735.9
+      "equity": 60162.71
+    },
+    {
+      "entry_ts": 1770012000,
+      "equity": 59530.4
+    },
+    {
+      "entry_ts": 1770012000,
+      "equity": 58904.74
     },
     {
       "entry_ts": 1770015600,
-      "equity": 31406.8
+      "equity": 58293.9
     },
     {
       "entry_ts": 1770015600,
-      "equity": 31083.94
+      "equity": 57694.64
+    },
+    {
+      "entry_ts": 1770019200,
+      "equity": 57085.96
     },
     {
       "entry_ts": 1770022800,
-      "equity": 31696.61
+      "equity": 57683.65
     },
     {
       "entry_ts": 1770022800,
-      "equity": 32028.47
+      "equity": 58820.59
     },
     {
       "entry_ts": 1770030000,
-      "equity": 31699.22
+      "equity": 58215.92
     },
     {
       "entry_ts": 1770030000,
-      "equity": 31369.54
+      "equity": 57610.47
     },
     {
       "entry_ts": 1770037200,
-      "equity": 31980.0
+      "equity": 56996.92
+    },
+    {
+      "entry_ts": 1770037200,
+      "equity": 56373.94
+    },
+    {
+      "entry_ts": 1770037200,
+      "equity": 57470.98
+    },
+    {
+      "entry_ts": 1770037200,
+      "equity": 56858.91
     },
     {
       "entry_ts": 1770044400,
-      "equity": 32602.65
+      "equity": 56236.88
+    },
+    {
+      "entry_ts": 1770044400,
+      "equity": 55637.39
+    },
+    {
+      "entry_ts": 1770044400,
+      "equity": 55044.3
+    },
+    {
+      "entry_ts": 1770044400,
+      "equity": 54457.53
+    },
+    {
+      "entry_ts": 1770044400,
+      "equity": 55517.81
     },
     {
       "entry_ts": 1770051600,
-      "equity": 33236.77
+      "equity": 56597.64
     },
     {
       "entry_ts": 1770058800,
-      "equity": 33882.89
+      "equity": 57697.89
     },
     {
       "entry_ts": 1770066000,
-      "equity": 34541.57
+      "equity": 58819.54
     },
     {
       "entry_ts": 1770073200,
-      "equity": 35212.37
+      "equity": 59961.82
     },
     {
       "entry_ts": 1770080400,
-      "equity": 35895.84
+      "equity": 61125.68
     },
     {
       "entry_ts": 1770087600,
-      "equity": 36592.94
+      "equity": 62880.59
+    },
+    {
+      "entry_ts": 1770087600,
+      "equity": 64101.73
     },
     {
       "entry_ts": 1770094800,
-      "equity": 36202.49
+      "equity": 65323.51
     },
     {
       "entry_ts": 1770094800,
-      "equity": 36904.82
+      "equity": 66568.58
     },
     {
       "entry_ts": 1770094800,
-      "equity": 36511.05
+      "equity": 65818.35
     },
     {
       "entry_ts": 1770094800,
-      "equity": 37227.39
+      "equity": 65116.07
+    },
+    {
+      "entry_ts": 1770094800,
+      "equity": 64421.28
+    },
+    {
+      "entry_ts": 1770094800,
+      "equity": 65685.23
+    },
+    {
+      "entry_ts": 1770094800,
+      "equity": 64984.37
+    },
+    {
+      "entry_ts": 1770094800,
+      "equity": 66245.06
     },
     {
       "entry_ts": 1770102000,
-      "equity": 37950.35
+      "equity": 67531.54
     },
     {
       "entry_ts": 1770109200,
-      "equity": 38687.35
+      "equity": 68843.0
     },
     {
       "entry_ts": 1770116400,
-      "equity": 39438.27
+      "equity": 70179.25
     },
     {
       "entry_ts": 1770123600,
-      "equity": 40202.98
+      "equity": 71540.02
     },
     {
       "entry_ts": 1770130800,
-      "equity": 40984.12
+      "equity": 73620.41
+    },
+    {
+      "entry_ts": 1770130800,
+      "equity": 75025.08
+    },
+    {
+      "entry_ts": 1770130800,
+      "equity": 76482.82
+    },
+    {
+      "entry_ts": 1770134400,
+      "equity": 75625.45
     },
     {
       "entry_ts": 1770138000,
-      "equity": 40550.92
+      "equity": 74829.11
     },
     {
       "entry_ts": 1770138000,
-      "equity": 40122.29
+      "equity": 74038.17
     },
     {
       "entry_ts": 1770138000,
-      "equity": 39699.81
+      "equity": 73255.59
+    },
+    {
+      "entry_ts": 1770138000,
+      "equity": 72462.96
+    },
+    {
+      "entry_ts": 1770141600,
+      "equity": 73856.42
+    },
+    {
+      "entry_ts": 1770141600,
+      "equity": 75990.87
+    },
+    {
+      "entry_ts": 1770141600,
+      "equity": 75147.37
+    },
+    {
+      "entry_ts": 1770141600,
+      "equity": 76592.46
     },
     {
       "entry_ts": 1770145200,
-      "equity": 39282.96
+      "equity": 75788.24
+    },
+    {
+      "entry_ts": 1770148800,
+      "equity": 77257.77
+    },
+    {
+      "entry_ts": 1770148800,
+      "equity": 79508.29
+    },
+    {
+      "entry_ts": 1770148800,
+      "equity": 78639.27
+    },
+    {
+      "entry_ts": 1770148800,
+      "equity": 77801.76
+    },
+    {
+      "entry_ts": 1770148800,
+      "equity": 76973.17
+    },
+    {
+      "entry_ts": 1770148800,
+      "equity": 78465.68
+    },
+    {
+      "entry_ts": 1770148800,
+      "equity": 77630.02
     },
     {
       "entry_ts": 1770152400,
-      "equity": 40043.08
+      "equity": 79132.16
+    },
+    {
+      "entry_ts": 1770152400,
+      "equity": 78289.4
+    },
+    {
+      "entry_ts": 1770152400,
+      "equity": 77455.62
+    },
+    {
+      "entry_ts": 1770152400,
+      "equity": 76609.8
+    },
+    {
+      "entry_ts": 1770156000,
+      "equity": 75789.31
     },
     {
       "entry_ts": 1770159600,
-      "equity": 39628.24
+      "equity": 77252.8
     },
     {
       "entry_ts": 1770159600,
-      "equity": 40393.46
+      "equity": 76424.65
+    },
+    {
+      "entry_ts": 1770159600,
+      "equity": 75605.38
+    },
+    {
+      "entry_ts": 1770159600,
+      "equity": 74771.46
+    },
+    {
+      "entry_ts": 1770159600,
+      "equity": 73969.91
+    },
+    {
+      "entry_ts": 1770159600,
+      "equity": 73203.58
     },
     {
       "entry_ts": 1770166800,
-      "equity": 41188.0
+      "equity": 74617.14
     },
     {
       "entry_ts": 1770166800,
-      "equity": 41983.34
+      "equity": 76084.86
     },
     {
       "entry_ts": 1770174000,
-      "equity": 42794.46
+      "equity": 77554.82
+    },
+    {
+      "entry_ts": 1770177600,
+      "equity": 76737.39
     },
     {
       "entry_ts": 1770188400,
-      "equity": 43622.96
+      "equity": 78223.02
     },
     {
       "entry_ts": 1770195600,
-      "equity": 44468.81
+      "equity": 79739.77
     },
     {
       "entry_ts": 1770202800,
-      "equity": 45331.95
+      "equity": 81287.52
     },
     {
       "entry_ts": 1770206400,
-      "equity": 46661.53
+      "equity": 83671.68
     },
     {
       "entry_ts": 1770206400,
-      "equity": 47563.97
+      "equity": 86125.77
+    },
+    {
+      "entry_ts": 1770206400,
+      "equity": 87791.44
     },
     {
       "entry_ts": 1770210000,
-      "equity": 48485.76
+      "equity": 89492.84
+    },
+    {
+      "entry_ts": 1770213600,
+      "equity": 92098.87
+    },
+    {
+      "entry_ts": 1770213600,
+      "equity": 91065.52
+    },
+    {
+      "entry_ts": 1770213600,
+      "equity": 92807.61
+    },
+    {
+      "entry_ts": 1770213600,
+      "equity": 94583.02
     },
     {
       "entry_ts": 1770217200,
-      "equity": 49428.32
+      "equity": 96421.71
+    },
+    {
+      "entry_ts": 1770220800,
+      "equity": 95381.32
+    },
+    {
+      "entry_ts": 1770220800,
+      "equity": 94319.73
+    },
+    {
+      "entry_ts": 1770220800,
+      "equity": 93302.02
+    },
+    {
+      "entry_ts": 1770220800,
+      "equity": 92295.29
+    },
+    {
+      "entry_ts": 1770224400,
+      "equity": 91302.19
     },
     {
       "entry_ts": 1770231600,
-      "equity": 50393.16
+      "equity": 93084.41
+    },
+    {
+      "entry_ts": 1770235200,
+      "equity": 92087.48
+    },
+    {
+      "entry_ts": 1770235200,
+      "equity": 91073.59
+    },
+    {
+      "entry_ts": 1770235200,
+      "equity": 90098.19
+    },
+    {
+      "entry_ts": 1770235200,
+      "equity": 89133.24
     },
     {
       "entry_ts": 1770238800,
-      "equity": 51379.86
+      "equity": 90878.47
+    },
+    {
+      "entry_ts": 1770242400,
+      "equity": 89912.43
     },
     {
       "entry_ts": 1770253200,
-      "equity": 52387.42
+      "equity": 91653.14
+    },
+    {
+      "entry_ts": 1770253200,
+      "equity": 93450.46
+    },
+    {
+      "entry_ts": 1770253200,
+      "equity": 96195.1
+    },
+    {
+      "entry_ts": 1770253200,
+      "equity": 98057.43
+    },
+    {
+      "entry_ts": 1770253200,
+      "equity": 100909.92
     },
     {
       "entry_ts": 1770260400,
-      "equity": 53412.11
+      "equity": 102883.72
     },
     {
       "entry_ts": 1770260400,
-      "equity": 54456.85
+      "equity": 104901.27
     },
     {
       "entry_ts": 1770260400,
-      "equity": 55524.75
+      "equity": 106953.14
+    },
+    {
+      "entry_ts": 1770260400,
+      "equity": 109028.03
     },
     {
       "entry_ts": 1770267600,
-      "equity": 56613.59
+      "equity": 111166.07
     },
     {
       "entry_ts": 1770274800,
-      "equity": 56024.81
+      "equity": 110009.94
     },
     {
       "entry_ts": 1770282000,
-      "equity": 57121.78
+      "equity": 112163.94
     },
     {
       "entry_ts": 1770282000,
-      "equity": 58241.37
+      "equity": 114362.35
     },
     {
       "entry_ts": 1770282000,
-      "equity": 59381.73
+      "equity": 116601.57
     },
     {
       "entry_ts": 1770289200,
-      "equity": 60546.21
+      "equity": 118888.12
     },
     {
       "entry_ts": 1770289200,
-      "equity": 61733.52
+      "equity": 121219.52
     },
     {
       "entry_ts": 1770296400,
-      "equity": 61092.72
+      "equity": 119961.26
     },
     {
       "entry_ts": 1770303600,
-      "equity": 62295.03
+      "equity": 122322.1
     },
     {
       "entry_ts": 1770303600,
-      "equity": 63519.13
+      "equity": 124725.73
     },
     {
       "entry_ts": 1770303600,
-      "equity": 64767.28
+      "equity": 127176.59
     },
     {
       "entry_ts": 1770310800,
-      "equity": 66042.55
+      "equity": 129680.7
     },
     {
       "entry_ts": 1770310800,
-      "equity": 67342.92
+      "equity": 132234.11
     },
     {
       "entry_ts": 1770310800,
-      "equity": 68668.23
+      "equity": 134836.48
     },
     {
       "entry_ts": 1770318000,
-      "equity": 67961.64
+      "equity": 137490.06
     },
     {
       "entry_ts": 1770318000,
-      "equity": 67262.31
+      "equity": 136075.28
     },
     {
       "entry_ts": 1770318000,
-      "equity": 68586.03
+      "equity": 134675.07
     },
     {
       "entry_ts": 1770325200,
-      "equity": 67881.65
+      "equity": 133291.96
     },
     {
       "entry_ts": 1770325200,
-      "equity": 69218.92
+      "equity": 131923.05
     },
     {
       "entry_ts": 1770325200,
-      "equity": 68508.04
+      "equity": 134521.93
     },
     {
       "entry_ts": 1770339600,
-      "equity": 69871.35
+      "equity": 137198.92
     },
     {
       "entry_ts": 1770346800,
-      "equity": 69155.87
+      "equity": 135794.0
     },
     {
       "entry_ts": 1770354000,
-      "equity": 68439.42
+      "equity": 134387.18
+    },
+    {
+      "entry_ts": 1770357600,
+      "equity": 137041.32
+    },
+    {
+      "entry_ts": 1770357600,
+      "equity": 139747.89
+    },
+    {
+      "entry_ts": 1770357600,
+      "equity": 143891.41
+    },
+    {
+      "entry_ts": 1770357600,
+      "equity": 148173.62
+    },
+    {
+      "entry_ts": 1770357600,
+      "equity": 152583.27
+    },
+    {
+      "entry_ts": 1770357600,
+      "equity": 157107.36
     },
     {
       "entry_ts": 1770361200,
-      "equity": 67734.49
+      "equity": 155489.16
+    },
+    {
+      "entry_ts": 1770364800,
+      "equity": 158555.4
+    },
+    {
+      "entry_ts": 1770364800,
+      "equity": 163267.67
+    },
+    {
+      "entry_ts": 1770364800,
+      "equity": 168100.39
+    },
+    {
+      "entry_ts": 1770364800,
+      "equity": 171415.33
     },
     {
       "entry_ts": 1770368400,
-      "equity": 67034.12
+      "equity": 169642.9
     },
     {
       "entry_ts": 1770375600,
-      "equity": 66343.66
+      "equity": 167895.58
+    },
+    {
+      "entry_ts": 1770375600,
+      "equity": 171198.08
     },
     {
       "entry_ts": 1770382800,
-      "equity": 65659.0
+      "equity": 169431.32
     },
     {
       "entry_ts": 1770390000,
-      "equity": 64982.05
+      "equity": 167684.48
     },
     {
       "entry_ts": 1770397200,
-      "equity": 64778.01
+      "equity": 167157.95
     },
     {
       "entry_ts": 1770404400,
-      "equity": 64525.38
+      "equity": 166506.04
     },
     {
       "entry_ts": 1770411600,
-      "equity": 64382.77
+      "equity": 166138.06
     },
     {
       "entry_ts": 1770411600,
-      "equity": 64472.91
+      "equity": 166370.65
     },
     {
       "entry_ts": 1770418800,
-      "equity": 64372.98
+      "equity": 166112.78
     },
     {
       "entry_ts": 1770426000,
-      "equity": 64365.25
+      "equity": 166092.84
     },
     {
       "entry_ts": 1770469200,
-      "equity": 65090.65
+      "equity": 168560.98
     },
     {
       "entry_ts": 1770469200,
-      "equity": 66350.15
+      "equity": 170460.67
+    },
+    {
+      "entry_ts": 1770469200,
+      "equity": 173759.08
     },
     {
       "entry_ts": 1770476400,
-      "equity": 65644.85
+      "equity": 171912.02
     },
     {
       "entry_ts": 1770476400,
-      "equity": 64947.05
+      "equity": 170084.6
+    },
+    {
+      "entry_ts": 1770476400,
+      "equity": 168276.6
     },
     {
       "entry_ts": 1770483600,
-      "equity": 65168.52
+      "equity": 168850.42
     },
     {
       "entry_ts": 1770483600,
-      "equity": 65390.74
+      "equity": 169426.2
+    },
+    {
+      "entry_ts": 1770483600,
+      "equity": 171826.97
     },
     {
       "entry_ts": 1770487200,
-      "equity": 65495.37
+      "equity": 172101.89
     },
     {
       "entry_ts": 1770487200,
-      "equity": 65600.16
+      "equity": 172377.25
+    },
+    {
+      "entry_ts": 1770487200,
+      "equity": 170558.67
     },
     {
       "entry_ts": 1770577200,
-      "equity": 64886.43
+      "equity": 168703.0
     },
     {
       "entry_ts": 1770577200,
-      "equity": 64180.46
+      "equity": 166867.51
+    },
+    {
+      "entry_ts": 1770577200,
+      "equity": 165051.99
+    },
+    {
+      "entry_ts": 1770580800,
+      "equity": 163292.53
+    },
+    {
+      "entry_ts": 1770580800,
+      "equity": 161551.84
+    },
+    {
+      "entry_ts": 1770580800,
+      "equity": 159829.69
+    },
+    {
+      "entry_ts": 1770580800,
+      "equity": 158065.17
     },
     {
       "entry_ts": 1770598800,
-      "equity": 63488.6
+      "equity": 156361.23
     },
     {
       "entry_ts": 1770598800,
-      "equity": 62804.19
+      "equity": 154675.66
+    },
+    {
+      "entry_ts": 1770598800,
+      "equity": 153008.25
     },
     {
       "entry_ts": 1770609600,
-      "equity": 62125.28
+      "equity": 151354.23
     },
     {
       "entry_ts": 1770609600,
-      "equity": 61453.7
+      "equity": 149718.1
+    },
+    {
+      "entry_ts": 1770609600,
+      "equity": 148099.64
+    },
+    {
+      "entry_ts": 1770624000,
+      "equity": 146495.72
+    },
+    {
+      "entry_ts": 1770624000,
+      "equity": 144856.44
+    },
+    {
+      "entry_ts": 1770624000,
+      "equity": 143287.64
+    },
+    {
+      "entry_ts": 1770624000,
+      "equity": 141735.84
     },
     {
       "entry_ts": 1770627600,
-      "equity": 60784.47
+      "equity": 140192.33
     },
     {
       "entry_ts": 1770627600,
-      "equity": 60122.53
+      "equity": 138665.64
+    },
+    {
+      "entry_ts": 1770627600,
+      "equity": 137155.57
+    },
+    {
+      "entry_ts": 1770649200,
+      "equity": 135645.49
+    },
+    {
+      "entry_ts": 1770649200,
+      "equity": 134196.79
+    },
+    {
+      "entry_ts": 1770649200,
+      "equity": 132763.57
+    },
+    {
+      "entry_ts": 1770649200,
+      "equity": 131345.66
     },
     {
       "entry_ts": 1770652800,
-      "equity": 60396.09
+      "equity": 129925.81
     },
     {
       "entry_ts": 1770652800,
-      "equity": 60670.89
+      "equity": 130516.97
+    },
+    {
+      "entry_ts": 1770652800,
+      "equity": 131110.82
     },
     {
       "entry_ts": 1770674400,
-      "equity": 61836.98
+      "equity": 134943.19
     },
     {
       "entry_ts": 1770674400,
-      "equity": 63644.48
+      "equity": 138887.58
+    },
+    {
+      "entry_ts": 1770674400,
+      "equity": 141557.0
+    },
+    {
+      "entry_ts": 1770706800,
+      "equity": 142761.65
+    },
+    {
+      "entry_ts": 1770706800,
+      "equity": 143976.55
+    },
+    {
+      "entry_ts": 1770706800,
+      "equity": 145201.79
+    },
+    {
+      "entry_ts": 1770706800,
+      "equity": 143556.66
+    },
+    {
+      "entry_ts": 1770732000,
+      "equity": 141978.97
+    },
+    {
+      "entry_ts": 1770746400,
+      "equity": 140459.8
+    },
+    {
+      "entry_ts": 1770746400,
+      "equity": 138956.88
+    },
+    {
+      "entry_ts": 1770746400,
+      "equity": 137428.35
+    },
+    {
+      "entry_ts": 1770746400,
+      "equity": 135957.87
+    },
+    {
+      "entry_ts": 1770746400,
+      "equity": 134462.33
+    },
+    {
+      "entry_ts": 1770750000,
+      "equity": 132917.36
+    },
+    {
+      "entry_ts": 1770750000,
+      "equity": 131447.29
+    },
+    {
+      "entry_ts": 1770750000,
+      "equity": 129936.96
+    },
+    {
+      "entry_ts": 1770750000,
+      "equity": 128499.86
+    },
+    {
+      "entry_ts": 1770750000,
+      "equity": 127078.65
+    },
+    {
+      "entry_ts": 1770753600,
+      "equity": 125710.01
+    },
+    {
+      "entry_ts": 1770753600,
+      "equity": 124312.12
+    },
+    {
+      "entry_ts": 1770753600,
+      "equity": 122973.28
+    },
+    {
+      "entry_ts": 1770753600,
+      "equity": 121648.86
+    },
+    {
+      "entry_ts": 1770757200,
+      "equity": 120307.07
+    },
+    {
+      "entry_ts": 1770757200,
+      "equity": 118927.15
+    },
+    {
+      "entry_ts": 1770757200,
+      "equity": 117615.38
+    },
+    {
+      "entry_ts": 1770757200,
+      "equity": 116318.08
+    },
+    {
+      "entry_ts": 1770811200,
+      "equity": 118521.15
+    },
+    {
+      "entry_ts": 1770811200,
+      "equity": 117155.78
+    },
+    {
+      "entry_ts": 1770811200,
+      "equity": 115806.15
+    },
+    {
+      "entry_ts": 1770811200,
+      "equity": 117999.52
+    },
+    {
+      "entry_ts": 1770811200,
+      "equity": 116695.62
+    },
+    {
+      "entry_ts": 1770818400,
+      "equity": 115381.63
+    },
+    {
+      "entry_ts": 1770818400,
+      "equity": 114127.43
+    },
+    {
+      "entry_ts": 1770818400,
+      "equity": 112886.87
+    },
+    {
+      "entry_ts": 1770818400,
+      "equity": 111659.79
     },
     {
       "entry_ts": 1771110000,
-      "equity": 64870.27
+      "equity": 113810.35
     },
     {
       "entry_ts": 1771110000,
-      "equity": 66119.67
+      "equity": 116002.34
     },
     {
       "entry_ts": 1771117200,
-      "equity": 67393.8
+      "equity": 118237.71
     },
     {
       "entry_ts": 1771117200,
-      "equity": 68692.48
+      "equity": 120516.15
     },
     {
       "entry_ts": 1771131600,
-      "equity": 70018.93
+      "equity": 122843.31
     },
     {
       "entry_ts": 1771131600,
-      "equity": 71371.0
+      "equity": 125215.42
     },
     {
       "entry_ts": 1771138800,
-      "equity": 70612.32
+      "equity": 123884.38
     },
     {
       "entry_ts": 1771138800,
-      "equity": 69861.71
+      "equity": 122567.49
     },
     {
       "entry_ts": 1771264800,
-      "equity": 69388.05
+      "equity": 121736.48
     },
     {
       "entry_ts": 1771354800,
-      "equity": 68643.52
+      "equity": 120430.25
     },
     {
       "entry_ts": 1771358400,
-      "equity": 70628.69
+      "equity": 123913.09
     },
     {
       "entry_ts": 1771362000,
-      "equity": 69860.95
+      "equity": 122566.15
+    },
+    {
+      "entry_ts": 1771380000,
+      "equity": 121140.71
     },
     {
       "entry_ts": 1771387200,
-      "equity": 70510.66
+      "equity": 122267.32
     },
     {
       "entry_ts": 1771401600,
-      "equity": 69711.77
+      "equity": 120813.56
+    },
+    {
+      "entry_ts": 1771401600,
+      "equity": 119444.74
+    },
+    {
+      "entry_ts": 1771416000,
+      "equity": 118093.82
+    },
+    {
+      "entry_ts": 1771416000,
+      "equity": 116758.18
+    },
+    {
+      "entry_ts": 1771416000,
+      "equity": 115372.26
+    },
+    {
+      "entry_ts": 1771416000,
+      "equity": 114067.4
+    },
+    {
+      "entry_ts": 1771416000,
+      "equity": 112713.42
     },
     {
       "entry_ts": 1771423200,
-      "equity": 68924.73
+      "equity": 111440.89
+    },
+    {
+      "entry_ts": 1771430400,
+      "equity": 110142.6
+    },
+    {
+      "entry_ts": 1771430400,
+      "equity": 108913.41
+    },
+    {
+      "entry_ts": 1771430400,
+      "equity": 107697.94
+    },
+    {
+      "entry_ts": 1771430400,
+      "equity": 106496.03
+    },
+    {
+      "entry_ts": 1771430400,
+      "equity": 105255.35
+    },
+    {
+      "entry_ts": 1771434000,
+      "equity": 108236.18
+    },
+    {
+      "entry_ts": 1771434000,
+      "equity": 110274.27
+    },
+    {
+      "entry_ts": 1771434000,
+      "equity": 112350.73
+    },
+    {
+      "entry_ts": 1771434000,
+      "equity": 115586.43
+    },
+    {
+      "entry_ts": 1771434000,
+      "equity": 118859.84
     },
     {
       "entry_ts": 1771437600,
-      "equity": 68158.29
+      "equity": 117538.12
     },
     {
       "entry_ts": 1771441200,
-      "equity": 68522.25
+      "equity": 118165.77
+    },
+    {
+      "entry_ts": 1771484400,
+      "equity": 116842.32
+    },
+    {
+      "entry_ts": 1771484400,
+      "equity": 115474.09
+    },
+    {
+      "entry_ts": 1771484400,
+      "equity": 114180.78
+    },
+    {
+      "entry_ts": 1771484400,
+      "equity": 112843.73
+    },
+    {
+      "entry_ts": 1771484400,
+      "equity": 111579.88
+    },
+    {
+      "entry_ts": 1771491600,
+      "equity": 110336.88
+    },
+    {
+      "entry_ts": 1771491600,
+      "equity": 109107.72
+    },
+    {
+      "entry_ts": 1771491600,
+      "equity": 107892.26
+    },
+    {
+      "entry_ts": 1771491600,
+      "equity": 106637.48
+    },
+    {
+      "entry_ts": 1771495200,
+      "equity": 105448.47
+    },
+    {
+      "entry_ts": 1771495200,
+      "equity": 107430.9
+    },
+    {
+      "entry_ts": 1771495200,
+      "equity": 109450.6
+    },
+    {
+      "entry_ts": 1771495200,
+      "equity": 112545.86
+    },
+    {
+      "entry_ts": 1771495200,
+      "equity": 115728.66
+    },
+    {
+      "entry_ts": 1771502400,
+      "equity": 114368.85
+    },
+    {
+      "entry_ts": 1771502400,
+      "equity": 116514.41
+    },
+    {
+      "entry_ts": 1771502400,
+      "equity": 118700.22
+    },
+    {
+      "entry_ts": 1771502400,
+      "equity": 120927.03
     },
     {
       "entry_ts": 1771506000,
-      "equity": 67802.77
+      "equity": 119657.3
+    },
+    {
+      "entry_ts": 1771527600,
+      "equity": 118332.69
+    },
+    {
+      "entry_ts": 1771527600,
+      "equity": 116968.32
+    },
+    {
+      "entry_ts": 1771527600,
+      "equity": 115673.48
+    },
+    {
+      "entry_ts": 1771527600,
+      "equity": 114339.76
+    },
+    {
+      "entry_ts": 1771527600,
+      "equity": 113074.02
     },
     {
       "entry_ts": 1771534800,
-      "equity": 67100.33
+      "equity": 111902.58
+    },
+    {
+      "entry_ts": 1771534800,
+      "equity": 110659.34
+    },
+    {
+      "entry_ts": 1771534800,
+      "equity": 109429.91
+    },
+    {
+      "entry_ts": 1771534800,
+      "equity": 108158.34
+    },
+    {
+      "entry_ts": 1771534800,
+      "equity": 106956.7
+    },
+    {
+      "entry_ts": 1771549200,
+      "equity": 105759.85
+    },
+    {
+      "entry_ts": 1771549200,
+      "equity": 104576.4
+    },
+    {
+      "entry_ts": 1771556400,
+      "equity": 103407.24
     },
     {
       "entry_ts": 1771570800,
-      "equity": 68353.76
+      "equity": 105338.88
     },
     {
       "entry_ts": 1771574400,
-      "equity": 67583.42
+      "equity": 104151.71
+    },
+    {
+      "entry_ts": 1771588800,
+      "equity": 107076.29
+    },
+    {
+      "entry_ts": 1771588800,
+      "equity": 109074.34
+    },
+    {
+      "entry_ts": 1771588800,
+      "equity": 112137.14
+    },
+    {
+      "entry_ts": 1771588800,
+      "equity": 114229.62
+    },
+    {
+      "entry_ts": 1771588800,
+      "equity": 112931.98
+    },
+    {
+      "entry_ts": 1771596000,
+      "equity": 111670.53
+    },
+    {
+      "entry_ts": 1771596000,
+      "equity": 110423.17
+    },
+    {
+      "entry_ts": 1771596000,
+      "equity": 109134.53
+    },
+    {
+      "entry_ts": 1771596000,
+      "equity": 107915.49
+    },
+    {
+      "entry_ts": 1771596000,
+      "equity": 106710.08
+    },
+    {
+      "entry_ts": 1771596000,
+      "equity": 105518.13
     },
     {
       "entry_ts": 1771599600,
-      "equity": 66873.79
+      "equity": 104410.19
     },
     {
       "entry_ts": 1771606800,
-      "equity": 66637.73
+      "equity": 103321.19
     },
     {
       "entry_ts": 1771606800,
-      "equity": 67567.32
+      "equity": 102956.46
     },
     {
       "entry_ts": 1771606800,
-      "equity": 66862.6
+      "equity": 104392.71
     },
     {
       "entry_ts": 1771617600,
-      "equity": 66397.9
+      "equity": 103240.21
     },
     {
       "entry_ts": 1771617600,
-      "equity": 65664.87
+      "equity": 102522.69
     },
     {
       "entry_ts": 1771621200,
-      "equity": 65968.24
+      "equity": 102996.35
     },
     {
       "entry_ts": 1771628400,
-      "equity": 65235.33
+      "equity": 101852.06
     },
     {
       "entry_ts": 1771664400,
-      "equity": 66438.27
+      "equity": 103730.21
+    },
+    {
+      "entry_ts": 1771693200,
+      "equity": 106599.39
+    },
+    {
+      "entry_ts": 1771693200,
+      "equity": 109547.93
+    },
+    {
+      "entry_ts": 1771693200,
+      "equity": 111559.23
+    },
+    {
+      "entry_ts": 1771693200,
+      "equity": 113607.45
+    },
+    {
+      "entry_ts": 1771693200,
+      "equity": 116820.27
     },
     {
       "entry_ts": 1771696800,
-      "equity": 67657.42
+      "equity": 118963.92
     },
     {
       "entry_ts": 1771801200,
-      "equity": 66870.56
+      "equity": 117558.96
+    },
+    {
+      "entry_ts": 1771801200,
+      "equity": 116078.89
+    },
+    {
+      "entry_ts": 1771801200,
+      "equity": 114708.0
+    },
+    {
+      "entry_ts": 1771801200,
+      "equity": 113353.3
+    },
+    {
+      "entry_ts": 1771801200,
+      "equity": 111926.18
+    },
+    {
+      "entry_ts": 1771801200,
+      "equity": 110624.48
+    },
+    {
+      "entry_ts": 1771801200,
+      "equity": 109318.01
+    },
+    {
+      "entry_ts": 1771801200,
+      "equity": 108026.96
     },
     {
       "entry_ts": 1771804800,
-      "equity": 68778.38
+      "equity": 111108.97
     },
     {
       "entry_ts": 1771808400,
-      "equity": 70119.55
+      "equity": 109848.99
     },
     {
       "entry_ts": 1771808400,
-      "equity": 72166.34
+      "equity": 113021.43
+    },
+    {
+      "entry_ts": 1771808400,
+      "equity": 115151.89
+    },
+    {
+      "entry_ts": 1771808400,
+      "equity": 118417.59
+    },
+    {
+      "entry_ts": 1771808400,
+      "equity": 117074.74
+    },
+    {
+      "entry_ts": 1771808400,
+      "equity": 120492.15
+    },
+    {
+      "entry_ts": 1771808400,
+      "equity": 119125.77
+    },
+    {
+      "entry_ts": 1771808400,
+      "equity": 117710.55
+    },
+    {
+      "entry_ts": 1771808400,
+      "equity": 116375.72
+    },
+    {
+      "entry_ts": 1771808400,
+      "equity": 118569.4
+    },
+    {
+      "entry_ts": 1771808400,
+      "equity": 120804.43
+    },
+    {
+      "entry_ts": 1771808400,
+      "equity": 119369.28
+    },
+    {
+      "entry_ts": 1771808400,
+      "equity": 121696.98
+    },
+    {
+      "entry_ts": 1771808400,
+      "equity": 120316.93
     },
     {
       "entry_ts": 1771812000,
-      "equity": 71368.18
+      "equity": 118986.23
     },
     {
       "entry_ts": 1771815600,
-      "equity": 70607.4
+      "equity": 117633.35
+    },
+    {
+      "entry_ts": 1771815600,
+      "equity": 116295.86
+    },
+    {
+      "entry_ts": 1771815600,
+      "equity": 114904.96
+    },
+    {
+      "entry_ts": 1771815600,
+      "equity": 113680.08
+    },
+    {
+      "entry_ts": 1771815600,
+      "equity": 112387.53
+    },
+    {
+      "entry_ts": 1771815600,
+      "equity": 111109.69
+    },
+    {
+      "entry_ts": 1771830000,
+      "equity": 113199.66
+    },
+    {
+      "entry_ts": 1771830000,
+      "equity": 111866.17
+    },
+    {
+      "entry_ts": 1771830000,
+      "equity": 115095.75
+    },
+    {
+      "entry_ts": 1771830000,
+      "equity": 117260.7
+    },
+    {
+      "entry_ts": 1771830000,
+      "equity": 115879.37
+    },
+    {
+      "entry_ts": 1771830000,
+      "equity": 118059.06
+    },
+    {
+      "entry_ts": 1771830000,
+      "equity": 121467.42
     },
     {
       "entry_ts": 1771837200,
-      "equity": 69866.73
+      "equity": 120125.21
+    },
+    {
+      "entry_ts": 1771837200,
+      "equity": 122394.37
+    },
+    {
+      "entry_ts": 1771837200,
+      "equity": 121110.45
+    },
+    {
+      "entry_ts": 1771837200,
+      "equity": 123398.23
+    },
+    {
+      "entry_ts": 1771837200,
+      "equity": 126905.21
+    },
+    {
+      "entry_ts": 1771837200,
+      "equity": 129302.45
     },
     {
       "entry_ts": 1771866000,
-      "equity": 69128.24
+      "equity": 127935.72
+    },
+    {
+      "entry_ts": 1771869600,
+      "equity": 131640.74
+    },
+    {
+      "entry_ts": 1771869600,
+      "equity": 134151.13
+    },
+    {
+      "entry_ts": 1771869600,
+      "equity": 137997.24
+    },
+    {
+      "entry_ts": 1771876800,
+      "equity": 140619.19
+    },
+    {
+      "entry_ts": 1771876800,
+      "equity": 143290.95
+    },
+    {
+      "entry_ts": 1771876800,
+      "equity": 142909.8
+    },
+    {
+      "entry_ts": 1771876800,
+      "equity": 141279.2
+    },
+    {
+      "entry_ts": 1771884000,
+      "equity": 143957.85
+    },
+    {
+      "entry_ts": 1771884000,
+      "equity": 143386.34
+    },
+    {
+      "entry_ts": 1771884000,
+      "equity": 147474.28
+    },
+    {
+      "entry_ts": 1771902000,
+      "equity": 145837.32
+    },
+    {
+      "entry_ts": 1771912800,
+      "equity": 144218.53
+    },
+    {
+      "entry_ts": 1771952400,
+      "equity": 142567.22
+    },
+    {
+      "entry_ts": 1771952400,
+      "equity": 140997.56
+    },
+    {
+      "entry_ts": 1771952400,
+      "equity": 139383.14
+    },
+    {
+      "entry_ts": 1771952400,
+      "equity": 137848.53
+    },
+    {
+      "entry_ts": 1771952400,
+      "equity": 136330.82
     },
     {
       "entry_ts": 1771959600,
-      "equity": 70475.55
+      "equity": 134825.72
+    },
+    {
+      "entry_ts": 1771959600,
+      "equity": 137453.48
+    },
+    {
+      "entry_ts": 1771959600,
+      "equity": 135935.99
+    },
+    {
+      "entry_ts": 1771959600,
+      "equity": 134375.45
+    },
+    {
+      "entry_ts": 1771959600,
+      "equity": 132891.94
     },
     {
       "entry_ts": 1771999200,
-      "equity": 69699.61
+      "equity": 131428.8
     },
     {
       "entry_ts": 1771999200,
-      "equity": 68932.22
+      "equity": 129981.77
     },
     {
       "entry_ts": 1772002800,
-      "equity": 68209.12
+      "equity": 128618.26
     },
     {
       "entry_ts": 1772020800,
-      "equity": 69497.59
+      "equity": 130404.77
     },
     {
       "entry_ts": 1772020800,
-      "equity": 70462.91
+      "equity": 132868.11
     },
     {
       "entry_ts": 1772024400,
-      "equity": 71837.64
+      "equity": 135460.37
+    },
+    {
+      "entry_ts": 1772182800,
+      "equity": 133884.97
     },
     {
       "entry_ts": 1772186400,
-      "equity": 73921.65
+      "equity": 137768.97
+    },
+    {
+      "entry_ts": 1772190000,
+      "equity": 141682.99
     },
     {
       "entry_ts": 1772197200,
-      "equity": 75318.03
+      "equity": 144359.38
+    },
+    {
+      "entry_ts": 1772240400,
+      "equity": 142679.03
+    },
+    {
+      "entry_ts": 1772240400,
+      "equity": 141092.44
+    },
+    {
+      "entry_ts": 1772240400,
+      "equity": 139523.5
+    },
+    {
+      "entry_ts": 1772240400,
+      "equity": 137971.99
+    },
+    {
+      "entry_ts": 1772240400,
+      "equity": 136366.0
+    },
+    {
+      "entry_ts": 1772247600,
+      "equity": 134759.61
+    },
+    {
+      "entry_ts": 1772247600,
+      "equity": 133244.91
+    },
+    {
+      "entry_ts": 1772247600,
+      "equity": 131747.24
+    },
+    {
+      "entry_ts": 1772247600,
+      "equity": 130266.4
+    },
+    {
+      "entry_ts": 1772258400,
+      "equity": 128826.96
+    },
+    {
+      "entry_ts": 1772258400,
+      "equity": 127344.16
+    },
+    {
+      "entry_ts": 1772258400,
+      "equity": 125937.0
+    },
+    {
+      "entry_ts": 1772258400,
+      "equity": 124487.47
+    },
+    {
+      "entry_ts": 1772258400,
+      "equity": 123111.88
+    },
+    {
+      "entry_ts": 1772265600,
+      "equity": 121758.88
+    },
+    {
+      "entry_ts": 1772265600,
+      "equity": 120420.75
+    },
+    {
+      "entry_ts": 1772265600,
+      "equity": 119046.75
+    },
+    {
+      "entry_ts": 1772265600,
+      "equity": 117738.43
+    },
+    {
+      "entry_ts": 1772287200,
+      "equity": 121157.55
+    },
+    {
+      "entry_ts": 1772287200,
+      "equity": 124711.1
+    },
+    {
+      "entry_ts": 1772287200,
+      "equity": 127119.28
+    },
+    {
+      "entry_ts": 1772287200,
+      "equity": 129573.95
+    },
+    {
+      "entry_ts": 1772287200,
+      "equity": 133374.35
+    },
+    {
+      "entry_ts": 1772287200,
+      "equity": 135949.81
+    },
+    {
+      "entry_ts": 1772287200,
+      "equity": 139897.79
     },
     {
       "entry_ts": 1772290800,
-      "equity": 76801.04
+      "equity": 142652.38
+    },
+    {
+      "entry_ts": 1772294400,
+      "equity": 145402.72
+    },
+    {
+      "entry_ts": 1772294400,
+      "equity": 149615.04
+    },
+    {
+      "entry_ts": 1772294400,
+      "equity": 152499.61
+    },
+    {
+      "entry_ts": 1772294400,
+      "equity": 156969.38
+    },
+    {
+      "entry_ts": 1772294400,
+      "equity": 159995.75
     },
     {
       "entry_ts": 1772420400,
-      "equity": 75969.29
+      "equity": 158262.99
     },
     {
       "entry_ts": 1772442000,
-      "equity": 75138.94
+      "equity": 156533.18
+    },
+    {
+      "entry_ts": 1772521200,
+      "equity": 154720.52
+    },
+    {
+      "entry_ts": 1772528400,
+      "equity": 153013.96
+    },
+    {
+      "entry_ts": 1772528400,
+      "equity": 151326.21
+    },
+    {
+      "entry_ts": 1772528400,
+      "equity": 149657.08
+    },
+    {
+      "entry_ts": 1772528400,
+      "equity": 147940.52
     },
     {
       "entry_ts": 1772542800,
-      "equity": 75946.69
+      "equity": 152261.86
+    },
+    {
+      "entry_ts": 1772542800,
+      "equity": 153898.68
     },
     {
       "entry_ts": 1772546400,
-      "equity": 75124.95
+      "equity": 152233.49
+    },
+    {
+      "entry_ts": 1772546400,
+      "equity": 150586.33
     },
     {
       "entry_ts": 1772550000,
-      "equity": 75039.3
+      "equity": 150414.66
     },
     {
       "entry_ts": 1772553600,
-      "equity": 75298.19
+      "equity": 148716.48
+    },
+    {
+      "entry_ts": 1772553600,
+      "equity": 149229.55
+    },
+    {
+      "entry_ts": 1772553600,
+      "equity": 147613.39
+    },
+    {
+      "entry_ts": 1772553600,
+      "equity": 145946.84
+    },
+    {
+      "entry_ts": 1772553600,
+      "equity": 144366.23
+    },
+    {
+      "entry_ts": 1772553600,
+      "equity": 142802.75
+    },
+    {
+      "entry_ts": 1772554500,
+      "equity": 141156.23
+    },
+    {
+      "entry_ts": 1772554500,
+      "equity": 139528.7
     },
     {
       "entry_ts": 1772560800,
-      "equity": 74479.7
+      "equity": 138012.02
     },
     {
       "entry_ts": 1772568000,
-      "equity": 74177.31
+      "equity": 137451.69
     },
     {
       "entry_ts": 1772582400,
-      "equity": 73371.74
+      "equity": 135958.97
+    },
+    {
+      "entry_ts": 1772582400,
+      "equity": 134482.45
     },
     {
       "entry_ts": 1772596800,
-      "equity": 72572.73
+      "equity": 133017.94
+    },
+    {
+      "entry_ts": 1772596800,
+      "equity": 131569.37
     },
     {
       "entry_ts": 1772607600,
-      "equity": 74685.32
+      "equity": 135399.36
+    },
+    {
+      "entry_ts": 1772607600,
+      "equity": 139340.83
     },
     {
       "entry_ts": 1772625600,
-      "equity": 73874.98
+      "equity": 137828.99
+    },
+    {
+      "entry_ts": 1772625600,
+      "equity": 136333.54
+    },
+    {
+      "entry_ts": 1772626500,
+      "equity": 134713.9
+    },
+    {
+      "entry_ts": 1772626500,
+      "equity": 133113.5
+    },
+    {
+      "entry_ts": 1772634600,
+      "equity": 136848.66
+    },
+    {
+      "entry_ts": 1772634600,
+      "equity": 140688.64
+    },
+    {
+      "entry_ts": 1772667000,
+      "equity": 140936.25
+    },
+    {
+      "entry_ts": 1772667000,
+      "equity": 141184.3
+    },
+    {
+      "entry_ts": 1772712900,
+      "equity": 145095.1
+    },
+    {
+      "entry_ts": 1772712900,
+      "equity": 149114.24
     },
     {
       "entry_ts": 1772719200,
-      "equity": 74915.14
+      "equity": 151846.01
+    },
+    {
+      "entry_ts": 1772719200,
+      "equity": 153984.0
     },
     {
       "entry_ts": 1772748000,
-      "equity": 74733.1
+      "equity": 152304.03
     },
     {
       "entry_ts": 1772748000,
-      "equity": 74616.51
+      "equity": 151933.94
+    },
+    {
+      "entry_ts": 1772748000,
+      "equity": 151696.92
+    },
+    {
+      "entry_ts": 1772763300,
+      "equity": 149738.51
+    },
+    {
+      "entry_ts": 1772763300,
+      "equity": 147805.39
     },
     {
       "entry_ts": 1772773200,
-      "equity": 76778.15
+      "equity": 152087.31
+    },
+    {
+      "entry_ts": 1772773200,
+      "equity": 156493.28
     },
     {
       "entry_ts": 1772823600,
-      "equity": 75945.88
+      "equity": 154796.89
     },
     {
       "entry_ts": 1772830800,
-      "equity": 75119.59
+      "equity": 153112.7
     },
     {
       "entry_ts": 1772852400,
-      "equity": 76148.73
+      "equity": 155210.35
     },
     {
       "entry_ts": 1772859600,
-      "equity": 78322.77
+      "equity": 159641.6
     },
     {
       "entry_ts": 1772920800,
-      "equity": 77429.89
+      "equity": 157821.69
     },
     {
       "entry_ts": 1772928000,
-      "equity": 76539.45
+      "equity": 156006.74
     },
     {
       "entry_ts": 1772938800,
-      "equity": 75653.89
+      "equity": 154201.74
     },
     {
       "entry_ts": 1772946000,
-      "equity": 74780.84
+      "equity": 152422.25
     },
     {
       "entry_ts": 1772949600,
-      "equity": 73932.08
+      "equity": 150692.26
     },
     {
       "entry_ts": 1772956800,
-      "equity": 73089.25
+      "equity": 148974.37
+    },
+    {
+      "entry_ts": 1773000000,
+      "equity": 147025.78
+    },
+    {
+      "entry_ts": 1773000000,
+      "equity": 145102.68
     },
     {
       "entry_ts": 1773025200,
-      "equity": 74512.3
+      "equity": 143474.63
+    },
+    {
+      "entry_ts": 1773025200,
+      "equity": 146268.08
     },
     {
       "entry_ts": 1773036000,
-      "equity": 75919.09
+      "equity": 149029.63
     },
     {
       "entry_ts": 1773039600,
-      "equity": 75062.73
+      "equity": 147348.57
     },
     {
       "entry_ts": 1773046800,
-      "equity": 74261.06
+      "equity": 145774.89
     },
     {
       "entry_ts": 1773054000,
-      "equity": 75703.95
+      "equity": 148607.29
     },
     {
       "entry_ts": 1773057600,
-      "equity": 77126.43
+      "equity": 151399.63
     },
     {
       "entry_ts": 1773064800,
-      "equity": 76256.44
+      "equity": 149691.84
     },
     {
       "entry_ts": 1773064800,
-      "equity": 75396.27
+      "equity": 148003.31
     },
     {
       "entry_ts": 1773072000,
-      "equity": 76433.72
+      "equity": 150782.82
     },
     {
       "entry_ts": 1773072000,
-      "equity": 77869.15
+      "equity": 152857.59
+    },
+    {
+      "entry_ts": 1773100800,
+      "equity": 150884.2
+    },
+    {
+      "entry_ts": 1773100800,
+      "equity": 148936.28
+    },
+    {
+      "entry_ts": 1773104400,
+      "equity": 152969.48
+    },
+    {
+      "entry_ts": 1773104400,
+      "equity": 157111.89
+    },
+    {
+      "entry_ts": 1773116100,
+      "equity": 155089.86
+    },
+    {
+      "entry_ts": 1773116100,
+      "equity": 153093.85
+    },
+    {
+      "entry_ts": 1773120600,
+      "equity": 151123.53
+    },
+    {
+      "entry_ts": 1773120600,
+      "equity": 149178.57
+    },
+    {
+      "entry_ts": 1773131400,
+      "equity": 147295.94
+    },
+    {
+      "entry_ts": 1773131400,
+      "equity": 145437.07
+    },
+    {
+      "entry_ts": 1773143100,
+      "equity": 143594.38
+    },
+    {
+      "entry_ts": 1773143100,
+      "equity": 141775.04
+    },
+    {
+      "entry_ts": 1773151200,
+      "equity": 145733.4
+    },
+    {
+      "entry_ts": 1773151200,
+      "equity": 149802.27
+    },
+    {
+      "entry_ts": 1773153900,
+      "equity": 154053.66
+    },
+    {
+      "entry_ts": 1773153900,
+      "equity": 158425.7
+    },
+    {
+      "entry_ts": 1773155700,
+      "equity": 156594.3
+    },
+    {
+      "entry_ts": 1773156600,
+      "equity": 154784.07
+    },
+    {
+      "entry_ts": 1773214200,
+      "equity": 152692.94
+    },
+    {
+      "entry_ts": 1773214200,
+      "equity": 150630.06
+    },
+    {
+      "entry_ts": 1773216900,
+      "equity": 148569.44
+    },
+    {
+      "entry_ts": 1773216900,
+      "equity": 146537.01
+    },
+    {
+      "entry_ts": 1773223200,
+      "equity": 144790.29
+    },
+    {
+      "entry_ts": 1773227700,
+      "equity": 142821.14
+    },
+    {
+      "entry_ts": 1773227700,
+      "equity": 140878.77
+    },
+    {
+      "entry_ts": 1773232200,
+      "equity": 139013.54
+    },
+    {
+      "entry_ts": 1773232200,
+      "equity": 137173.0
+    },
+    {
+      "entry_ts": 1773234000,
+      "equity": 140895.87
+    },
+    {
+      "entry_ts": 1773234000,
+      "equity": 144719.79
     },
     {
       "entry_ts": 1773244800,
-      "equity": 77002.46
+      "equity": 143109.06
     },
     {
       "entry_ts": 1773244800,
-      "equity": 76168.52
+      "equity": 141516.25
     },
     {
       "entry_ts": 1773244800,
-      "equity": 75320.77
+      "equity": 139983.63
     },
     {
       "entry_ts": 1773248400,
-      "equity": 76359.44
+      "equity": 141914.01
     },
     {
       "entry_ts": 1773248400,
-      "equity": 75517.96
+      "equity": 144151.99
     },
     {
       "entry_ts": 1773248400,
-      "equity": 76708.88
+      "equity": 142563.44
     },
     {
       "entry_ts": 1773255600,
-      "equity": 75874.29
+      "equity": 141012.35
     },
     {
       "entry_ts": 1773259200,
-      "equity": 75024.5
+      "equity": 139433.01
     },
     {
       "entry_ts": 1773259200,
-      "equity": 74184.22
+      "equity": 137871.36
     },
     {
       "entry_ts": 1773277200,
-      "equity": 73331.1
+      "equity": 140194.49
+    },
+    {
+      "entry_ts": 1773277200,
+      "equity": 142556.77
+    },
+    {
+      "entry_ts": 1773277200,
+      "equity": 140917.36
+    },
+    {
+      "entry_ts": 1773284400,
+      "equity": 139295.41
+    },
+    {
+      "entry_ts": 1773284400,
+      "equity": 137692.11
+    },
+    {
+      "entry_ts": 1773284400,
+      "equity": 136107.28
+    },
+    {
+      "entry_ts": 1773284400,
+      "equity": 134459.02
+    },
+    {
+      "entry_ts": 1773284400,
+      "equity": 132830.72
+    },
+    {
+      "entry_ts": 1773306000,
+      "equity": 131238.08
+    },
+    {
+      "entry_ts": 1773309600,
+      "equity": 129654.04
+    },
+    {
+      "entry_ts": 1773309600,
+      "equity": 128169.5
+    },
+    {
+      "entry_ts": 1773309600,
+      "equity": 126701.96
+    },
+    {
+      "entry_ts": 1773309600,
+      "equity": 125251.22
     },
     {
       "entry_ts": 1773313200,
-      "equity": 72486.33
+      "equity": 123808.33
+    },
+    {
+      "entry_ts": 1773327600,
+      "equity": 122330.05
+    },
+    {
+      "entry_ts": 1773327600,
+      "equity": 120869.43
+    },
+    {
+      "entry_ts": 1773327600,
+      "equity": 119496.36
+    },
+    {
+      "entry_ts": 1773327600,
+      "equity": 118138.88
+    },
+    {
+      "entry_ts": 1773327600,
+      "equity": 116796.82
     },
     {
       "entry_ts": 1773331200,
-      "equity": 71664.33
+      "equity": 115472.34
     },
     {
       "entry_ts": 1773334800,
-      "equity": 70878.89
+      "equity": 114206.77
     },
     {
       "entry_ts": 1773338400,
-      "equity": 72200.07
+      "equity": 116335.58
     },
     {
       "entry_ts": 1773342000,
-      "equity": 74296.76
+      "equity": 119713.97
+    },
+    {
+      "entry_ts": 1773466200,
+      "equity": 122761.88
+    },
+    {
+      "entry_ts": 1773466200,
+      "equity": 125887.4
+    },
+    {
+      "entry_ts": 1773496800,
+      "equity": 123900.9
+    },
+    {
+      "entry_ts": 1773496800,
+      "equity": 121945.74
+    },
+    {
+      "entry_ts": 1773499500,
+      "equity": 120042.17
+    },
+    {
+      "entry_ts": 1773499500,
+      "equity": 118168.31
+    },
+    {
+      "entry_ts": 1773509400,
+      "equity": 121005.53
+    },
+    {
+      "entry_ts": 1773509400,
+      "equity": 123910.88
+    },
+    {
+      "entry_ts": 1773513000,
+      "equity": 121815.54
+    },
+    {
+      "entry_ts": 1773513000,
+      "equity": 119755.64
     },
     {
       "entry_ts": 1773522000,
-      "equity": 75291.6
+      "equity": 121359.17
+    },
+    {
+      "entry_ts": 1773522000,
+      "equity": 123428.34
+    },
+    {
+      "entry_ts": 1773522900,
+      "equity": 126175.86
+    },
+    {
+      "entry_ts": 1773522900,
+      "equity": 128984.53
     },
     {
       "entry_ts": 1773597600,
-      "equity": 77409.55
+      "equity": 132612.87
+    },
+    {
+      "entry_ts": 1773597600,
+      "equity": 136343.27
     },
     {
       "entry_ts": 1773601200,
-      "equity": 76494.57
+      "equity": 134731.69
+    },
+    {
+      "entry_ts": 1773601200,
+      "equity": 133139.16
     },
     {
       "entry_ts": 1773637200,
-      "equity": 75663.07
+      "equity": 131691.94
     },
     {
       "entry_ts": 1773673200,
-      "equity": 77107.48
+      "equity": 134205.94
     },
     {
       "entry_ts": 1773673200,
-      "equity": 78579.46
+      "equity": 136767.93
     },
     {
       "entry_ts": 1773680400,
-      "equity": 80080.33
+      "equity": 139380.2
     },
     {
       "entry_ts": 1773680400,
-      "equity": 81609.87
+      "equity": 142042.36
     },
     {
       "entry_ts": 1773687600,
-      "equity": 83170.25
+      "equity": 144758.21
     },
     {
       "entry_ts": 1773687600,
-      "equity": 84760.46
+      "equity": 147525.99
     },
     {
       "entry_ts": 1773687600,
-      "equity": 83838.27
+      "equity": 145920.9
     },
     {
       "entry_ts": 1773694800,
-      "equity": 82928.62
+      "equity": 144337.66
     },
     {
       "entry_ts": 1773709200,
-      "equity": 82029.68
+      "equity": 142783.15
     },
     {
       "entry_ts": 1773709200,
-      "equity": 81146.22
+      "equity": 141235.38
     },
     {
       "entry_ts": 1773709200,
-      "equity": 80266.59
+      "equity": 139704.38
+    },
+    {
+      "entry_ts": 1773761400,
+      "equity": 143628.68
+    },
+    {
+      "entry_ts": 1773761400,
+      "equity": 147663.21
     },
     {
       "entry_ts": 1773802800,
-      "equity": 79366.8
+      "equity": 146007.91
+    },
+    {
+      "entry_ts": 1773802800,
+      "equity": 144371.16
+    },
+    {
+      "entry_ts": 1773810000,
+      "equity": 148303.83
+    },
+    {
+      "entry_ts": 1773810000,
+      "equity": 152343.62
+    },
+    {
+      "entry_ts": 1773812700,
+      "equity": 150407.34
+    },
+    {
+      "entry_ts": 1773812700,
+      "equity": 148495.66
     },
     {
       "entry_ts": 1773813600,
-      "equity": 81646.22
+      "equity": 152760.45
+    },
+    {
+      "entry_ts": 1773813600,
+      "equity": 157147.73
+    },
+    {
+      "entry_ts": 1773815400,
+      "equity": 161419.01
+    },
+    {
+      "entry_ts": 1773815400,
+      "equity": 165806.38
+    },
+    {
+      "entry_ts": 1773823500,
+      "equity": 163591.21
+    },
+    {
+      "entry_ts": 1773823500,
+      "equity": 161405.63
+    },
+    {
+      "entry_ts": 1773831600,
+      "equity": 165705.47
+    },
+    {
+      "entry_ts": 1773831600,
+      "equity": 170119.87
     },
     {
       "entry_ts": 1773874800,
-      "equity": 80733.41
+      "equity": 168217.93
     },
     {
       "entry_ts": 1773878400,
-      "equity": 79838.89
+      "equity": 166354.07
+    },
+    {
+      "entry_ts": 1773891000,
+      "equity": 164219.75
+    },
+    {
+      "entry_ts": 1773891000,
+      "equity": 162112.81
+    },
+    {
+      "entry_ts": 1773892800,
+      "equity": 160062.08
+    },
+    {
+      "entry_ts": 1773892800,
+      "equity": 158037.3
     },
     {
       "entry_ts": 1773896400,
-      "equity": 82135.85
+      "equity": 162584.03
+    },
+    {
+      "entry_ts": 1773900000,
+      "equity": 160498.08
+    },
+    {
+      "entry_ts": 1773900000,
+      "equity": 158438.89
+    },
+    {
+      "entry_ts": 1773902700,
+      "equity": 156434.63
+    },
+    {
+      "entry_ts": 1773902700,
+      "equity": 154455.74
     },
     {
       "entry_ts": 1773903600,
-      "equity": 81218.39
+      "equity": 152730.47
+    },
+    {
+      "entry_ts": 1773907200,
+      "equity": 150828.97
+    },
+    {
+      "entry_ts": 1773907200,
+      "equity": 148951.15
     },
     {
       "entry_ts": 1773914400,
-      "equity": 80308.75
+      "equity": 147282.9
     },
     {
       "entry_ts": 1773921600,
-      "equity": 79414.11
+      "equity": 145642.17
     },
     {
       "entry_ts": 1773925200,
-      "equity": 78531.02
+      "equity": 144022.63
     },
     {
       "entry_ts": 1773932400,
-      "equity": 77665.61
+      "equity": 142435.5
     },
     {
       "entry_ts": 1773950400,
-      "equity": 77532.03
+      "equity": 142190.51
     },
     {
       "entry_ts": 1773957600,
-      "equity": 78170.12
+      "equity": 143360.74
+    },
+    {
+      "entry_ts": 1773975600,
+      "equity": 141444.0
+    },
+    {
+      "entry_ts": 1773975600,
+      "equity": 139552.9
+    },
+    {
+      "entry_ts": 1773979200,
+      "equity": 137680.1
+    },
+    {
+      "entry_ts": 1773979200,
+      "equity": 135832.43
+    },
+    {
+      "entry_ts": 1773983700,
+      "equity": 134050.31
+    },
+    {
+      "entry_ts": 1773983700,
+      "equity": 132291.57
+    },
+    {
+      "entry_ts": 1773990000,
+      "equity": 135868.73
+    },
+    {
+      "entry_ts": 1773990000,
+      "equity": 139542.62
+    },
+    {
+      "entry_ts": 1773991800,
+      "equity": 137741.13
+    },
+    {
+      "entry_ts": 1773991800,
+      "equity": 135962.89
     },
     {
       "entry_ts": 1773993600,
-      "equity": 79511.52
+      "equity": 138296.01
+    },
+    {
+      "entry_ts": 1773993600,
+      "equity": 138878.24
+    },
+    {
+      "entry_ts": 1773994500,
+      "equity": 137097.82
+    },
+    {
+      "entry_ts": 1773994500,
+      "equity": 135340.23
     },
     {
       "entry_ts": 1773997200,
-      "equity": 78628.14
+      "equity": 133836.6
+    },
+    {
+      "entry_ts": 1773997200,
+      "equity": 132349.67
+    },
+    {
+      "entry_ts": 1773999900,
+      "equity": 130627.8
+    },
+    {
+      "entry_ts": 1773999900,
+      "equity": 128928.33
     },
     {
       "entry_ts": 1774000800,
-      "equity": 79063.74
+      "equity": 131321.24
     },
     {
       "entry_ts": 1774000800,
-      "equity": 80531.17
+      "equity": 132048.76
+    },
+    {
+      "entry_ts": 1774000800,
+      "equity": 131449.26
     },
     {
       "entry_ts": 1774004400,
-      "equity": 79614.72
+      "equity": 129953.37
+    },
+    {
+      "entry_ts": 1774007100,
+      "equity": 128258.78
+    },
+    {
+      "entry_ts": 1774007100,
+      "equity": 126586.28
     },
     {
       "entry_ts": 1774008000,
-      "equity": 79152.16
+      "equity": 125850.82
+    },
+    {
+      "entry_ts": 1774008900,
+      "equity": 129228.65
+    },
+    {
+      "entry_ts": 1774008900,
+      "equity": 132697.15
     },
     {
       "entry_ts": 1774018800,
-      "equity": 80679.0
+      "equity": 135256.88
     },
     {
       "entry_ts": 1774044000,
-      "equity": 80562.02
+      "equity": 135060.76
+    },
+    {
+      "entry_ts": 1774044000,
+      "equity": 133430.57
+    },
+    {
+      "entry_ts": 1774044000,
+      "equity": 133056.97
+    },
+    {
+      "entry_ts": 1774047600,
+      "equity": 131944.61
+    },
+    {
+      "entry_ts": 1774047600,
+      "equity": 130841.55
+    },
+    {
+      "entry_ts": 1774047600,
+      "equity": 129747.72
+    },
+    {
+      "entry_ts": 1774047600,
+      "equity": 128175.18
+    },
+    {
+      "entry_ts": 1774050300,
+      "equity": 127944.46
+    },
+    {
+      "entry_ts": 1774050300,
+      "equity": 127714.16
     },
     {
       "entry_ts": 1774051200,
-      "equity": 79919.13
+      "equity": 126695.0
     },
     {
       "entry_ts": 1774054800,
-      "equity": 79068.0
+      "equity": 125345.7
+    },
+    {
+      "entry_ts": 1774056600,
+      "equity": 126621.72
+    },
+    {
+      "entry_ts": 1774056600,
+      "equity": 127910.73
+    },
+    {
+      "entry_ts": 1774059300,
+      "equity": 126079.05
+    },
+    {
+      "entry_ts": 1774059300,
+      "equity": 124273.59
+    },
+    {
+      "entry_ts": 1774073700,
+      "equity": 122286.46
+    },
+    {
+      "entry_ts": 1774073700,
+      "equity": 120331.1
+    },
+    {
+      "entry_ts": 1774080900,
+      "equity": 118362.48
+    },
+    {
+      "entry_ts": 1774080900,
+      "equity": 116426.07
+    },
+    {
+      "entry_ts": 1774083600,
+      "equity": 114928.83
+    },
+    {
+      "entry_ts": 1774087200,
+      "equity": 116976.86
+    },
+    {
+      "entry_ts": 1774087200,
+      "equity": 115456.17
+    },
+    {
+      "entry_ts": 1774087200,
+      "equity": 118668.16
+    },
+    {
+      "entry_ts": 1774087200,
+      "equity": 120782.82
     },
     {
       "entry_ts": 1774094400,
-      "equity": 79463.34
+      "equity": 121386.74
     },
     {
       "entry_ts": 1774108800,
-      "equity": 81681.95
+      "equity": 124775.85
+    },
+    {
+      "entry_ts": 1774108800,
+      "equity": 128259.6
+    },
+    {
+      "entry_ts": 1774135800,
+      "equity": 131146.72
+    },
+    {
+      "entry_ts": 1774135800,
+      "equity": 134098.83
     },
     {
       "entry_ts": 1774137600,
-      "equity": 80744.24
+      "equity": 132559.38
     },
     {
       "entry_ts": 1774137600,
-      "equity": 79820.53
+      "equity": 131042.9
+    },
+    {
+      "entry_ts": 1774137600,
+      "equity": 129543.77
     },
     {
       "entry_ts": 1774141200,
-      "equity": 81352.29
+      "equity": 132029.71
     },
     {
       "entry_ts": 1774144800,
-      "equity": 80433.82
+      "equity": 130539.1
     },
     {
       "entry_ts": 1774144800,
-      "equity": 79515.26
+      "equity": 134229.44
+    },
+    {
+      "entry_ts": 1774144800,
+      "equity": 132696.54
+    },
+    {
+      "entry_ts": 1774148400,
+      "equity": 131165.22
+    },
+    {
+      "entry_ts": 1774148400,
+      "equity": 129651.57
+    },
+    {
+      "entry_ts": 1774148400,
+      "equity": 128071.12
+    },
+    {
+      "entry_ts": 1774148400,
+      "equity": 126593.18
     },
     {
       "entry_ts": 1774152000,
-      "equity": 78615.15
+      "equity": 125160.14
     },
     {
       "entry_ts": 1774155600,
-      "equity": 77772.4
+      "equity": 123818.43
+    },
+    {
+      "entry_ts": 1774155600,
+      "equity": 122380.9
     },
     {
       "entry_ts": 1774166400,
-      "equity": 79977.24
+      "equity": 124609.45
+    },
+    {
+      "entry_ts": 1774166400,
+      "equity": 125446.83
+    },
+    {
+      "entry_ts": 1774166400,
+      "equity": 129003.24
+    },
+    {
+      "entry_ts": 1774166400,
+      "equity": 131352.39
+    },
+    {
+      "entry_ts": 1774166400,
+      "equity": 129714.43
     },
     {
       "entry_ts": 1774170000,
-      "equity": 79115.89
+      "equity": 128317.4
     },
     {
       "entry_ts": 1774173600,
-      "equity": 81353.29
+      "equity": 131946.22
+    },
+    {
+      "entry_ts": 1774173600,
+      "equity": 130401.13
     },
     {
       "entry_ts": 1774191600,
-      "equity": 80476.3
+      "equity": 128995.41
     },
     {
       "entry_ts": 1774213200,
-      "equity": 79610.37
+      "equity": 127607.42
     },
     {
       "entry_ts": 1774220400,
-      "equity": 78707.59
+      "equity": 126036.57
+    },
+    {
+      "entry_ts": 1774220400,
+      "equity": 124485.06
+    },
+    {
+      "entry_ts": 1774220400,
+      "equity": 123038.54
+    },
+    {
+      "entry_ts": 1774220400,
+      "equity": 121608.83
+    },
+    {
+      "entry_ts": 1774220400,
+      "equity": 120229.79
+    },
+    {
+      "entry_ts": 1774220400,
+      "equity": 118832.72
     },
     {
       "entry_ts": 1774227600,
-      "equity": 77818.98
+      "equity": 117462.58
     },
     {
       "entry_ts": 1774227600,
-      "equity": 76945.08
+      "equity": 116108.24
+    },
+    {
+      "entry_ts": 1774227600,
+      "equity": 114769.51
+    },
+    {
+      "entry_ts": 1774227600,
+      "equity": 113473.76
+    },
+    {
+      "entry_ts": 1774227600,
+      "equity": 112091.65
+    },
+    {
+      "entry_ts": 1774227600,
+      "equity": 110832.86
     },
     {
       "entry_ts": 1774234800,
-      "equity": 76080.21
+      "equity": 109587.1
     },
     {
       "entry_ts": 1774234800,
-      "equity": 75222.03
+      "equity": 108350.96
     },
     {
       "entry_ts": 1774242000,
-      "equity": 74370.51
+      "equity": 107186.18
     },
     {
       "entry_ts": 1774242000,
-      "equity": 73571.03
+      "equity": 105972.84
     },
     {
       "entry_ts": 1774249200,
-      "equity": 72748.51
+      "equity": 104773.22
+    },
+    {
+      "entry_ts": 1774249200,
+      "equity": 103527.47
+    },
+    {
+      "entry_ts": 1774249200,
+      "equity": 102370.03
+    },
+    {
+      "entry_ts": 1774249200,
+      "equity": 101211.2
+    },
+    {
+      "entry_ts": 1774249200,
+      "equity": 100065.49
+    },
+    {
+      "entry_ts": 1774249200,
+      "equity": 98875.71
     },
     {
       "entry_ts": 1774256400,
-      "equity": 74844.39
+      "equity": 97820.71
     },
     {
       "entry_ts": 1774256400,
-      "equity": 74045.8
+      "equity": 96725.12
     },
     {
       "entry_ts": 1774256400,
-      "equity": 73216.49
+      "equity": 95628.26
+    },
+    {
+      "entry_ts": 1774256400,
+      "equity": 94543.83
+    },
+    {
+      "entry_ts": 1774256400,
+      "equity": 93415.92
+    },
+    {
+      "entry_ts": 1774256400,
+      "equity": 96107.24
+    },
+    {
+      "entry_ts": 1774256400,
+      "equity": 95017.38
     },
     {
       "entry_ts": 1774260000,
-      "equity": 72395.0
+      "equity": 93951.28
     },
     {
       "entry_ts": 1774263600,
-      "equity": 74074.56
+      "equity": 96130.95
+    },
+    {
+      "entry_ts": 1774266300,
+      "equity": 98882.22
+    },
+    {
+      "entry_ts": 1774266300,
+      "equity": 101712.23
     },
     {
       "entry_ts": 1774267200,
-      "equity": 74791.61
+      "equity": 103642.73
     },
     {
       "entry_ts": 1774267200,
-      "equity": 73980.12
+      "equity": 105609.87
+    },
+    {
+      "entry_ts": 1774267200,
+      "equity": 108625.03
+    },
+    {
+      "entry_ts": 1774267200,
+      "equity": 111726.28
+    },
+    {
+      "entry_ts": 1774267200,
+      "equity": 112807.79
+    },
+    {
+      "entry_ts": 1774267200,
+      "equity": 111565.77
+    },
+    {
+      "entry_ts": 1774267200,
+      "equity": 110337.43
+    },
+    {
+      "entry_ts": 1774267200,
+      "equity": 109140.27
+    },
+    {
+      "entry_ts": 1774267200,
+      "equity": 111211.75
     },
     {
       "entry_ts": 1774270800,
-      "equity": 73489.63
+      "equity": 110041.81
     },
     {
       "entry_ts": 1774270800,
-      "equity": 72716.52
+      "equity": 109312.23
     },
     {
       "entry_ts": 1774274400,
-      "equity": 71926.09
+      "equity": 108124.01
     },
     {
       "entry_ts": 1774274400,
-      "equity": 71144.25
+      "equity": 106948.7
     },
     {
       "entry_ts": 1774278000,
-      "equity": 70376.61
+      "equity": 105794.72
     },
     {
       "entry_ts": 1774281600,
-      "equity": 69607.39
+      "equity": 104638.38
     },
     {
       "entry_ts": 1774285200,
-      "equity": 70279.1
+      "equity": 103539.68
     },
     {
       "entry_ts": 1774285200,
-      "equity": 69541.17
+      "equity": 104538.84
     },
     {
       "entry_ts": 1774292400,
-      "equity": 68782.48
+      "equity": 103404.59
     },
     {
       "entry_ts": 1774292400,
-      "equity": 68036.19
+      "equity": 102276.45
+    },
+    {
+      "entry_ts": 1774306800,
+      "equity": 100973.45
+    },
+    {
+      "entry_ts": 1774306800,
+      "equity": 99687.05
+    },
+    {
+      "entry_ts": 1774342800,
+      "equity": 98386.13
+    },
+    {
+      "entry_ts": 1774342800,
+      "equity": 97102.19
+    },
+    {
+      "entry_ts": 1774348200,
+      "equity": 95803.93
+    },
+    {
+      "entry_ts": 1774348200,
+      "equity": 94523.04
+    },
+    {
+      "entry_ts": 1774358100,
+      "equity": 97046.8
+    },
+    {
+      "entry_ts": 1774358100,
+      "equity": 99637.95
+    },
+    {
+      "entry_ts": 1774371600,
+      "equity": 98510.05
+    },
+    {
+      "entry_ts": 1774371600,
+      "equity": 97339.75
+    },
+    {
+      "entry_ts": 1774371600,
+      "equity": 96237.86
+    },
+    {
+      "entry_ts": 1774371600,
+      "equity": 95148.45
+    },
+    {
+      "entry_ts": 1774371600,
+      "equity": 94018.09
+    },
+    {
+      "entry_ts": 1774371600,
+      "equity": 92953.8
+    },
+    {
+      "entry_ts": 1774371600,
+      "equity": 91901.57
+    },
+    {
+      "entry_ts": 1774378800,
+      "equity": 90855.73
+    },
+    {
+      "entry_ts": 1774378800,
+      "equity": 89821.79
+    },
+    {
+      "entry_ts": 1774378800,
+      "equity": 88799.62
+    },
+    {
+      "entry_ts": 1774378800,
+      "equity": 87789.08
+    },
+    {
+      "entry_ts": 1774378800,
+      "equity": 86738.24
     },
     {
       "entry_ts": 1774393200,
-      "equity": 68968.28
+      "equity": 87926.55
     },
     {
       "entry_ts": 1774393200,
-      "equity": 68997.25
+      "equity": 87963.48
+    },
+    {
+      "entry_ts": 1774407600,
+      "equity": 86769.82
+    },
+    {
+      "entry_ts": 1774407600,
+      "equity": 85592.35
+    },
+    {
+      "entry_ts": 1774413900,
+      "equity": 85600.06
+    },
+    {
+      "entry_ts": 1774413900,
+      "equity": 85607.76
     },
     {
       "entry_ts": 1774418400,
-      "equity": 68196.19
+      "equity": 84613.85
     },
     {
       "entry_ts": 1774425600,
-      "equity": 67398.3
+      "equity": 83623.87
+    },
+    {
+      "entry_ts": 1774428300,
+      "equity": 82503.31
+    },
+    {
+      "entry_ts": 1774428300,
+      "equity": 81397.77
+    },
+    {
+      "entry_ts": 1774435500,
+      "equity": 83528.76
+    },
+    {
+      "entry_ts": 1774435500,
+      "equity": 85715.54
+    },
+    {
+      "entry_ts": 1774443600,
+      "equity": 88052.15
+    },
+    {
+      "entry_ts": 1774443600,
+      "equity": 90452.45
     },
     {
       "entry_ts": 1774558800,
-      "equity": 66658.26
+      "equity": 89443.91
+    },
+    {
+      "entry_ts": 1774558800,
+      "equity": 88446.61
+    },
+    {
+      "entry_ts": 1774558800,
+      "equity": 87475.46
+    },
+    {
+      "entry_ts": 1774558800,
+      "equity": 86427.51
+    },
+    {
+      "entry_ts": 1774558800,
+      "equity": 85392.11
+    },
+    {
+      "entry_ts": 1774558800,
+      "equity": 84439.98
     },
     {
       "entry_ts": 1774566000,
-      "equity": 65928.35
+      "equity": 83549.14
     },
     {
       "entry_ts": 1774566000,
-      "equity": 65232.81
+      "equity": 82634.28
+    },
+    {
+      "entry_ts": 1774566000,
+      "equity": 81706.3
+    },
+    {
+      "entry_ts": 1774566000,
+      "equity": 80788.73
+    },
+    {
+      "entry_ts": 1774566000,
+      "equity": 79881.48
+    },
+    {
+      "entry_ts": 1774566000,
+      "equity": 78942.07
+    },
+    {
+      "entry_ts": 1774580400,
+      "equity": 78035.82
+    },
+    {
+      "entry_ts": 1774580400,
+      "equity": 77139.96
+    },
+    {
+      "entry_ts": 1774583100,
+      "equity": 76042.26
+    },
+    {
+      "entry_ts": 1774583100,
+      "equity": 74960.18
     },
     {
       "entry_ts": 1774587600,
-      "equity": 67093.25
+      "equity": 77098.05
+    },
+    {
+      "entry_ts": 1774587600,
+      "equity": 76206.02
+    },
+    {
+      "entry_ts": 1774590300,
+      "equity": 75157.43
+    },
+    {
+      "entry_ts": 1774590300,
+      "equity": 74123.26
     },
     {
       "entry_ts": 1774594800,
-      "equity": 69008.09
+      "equity": 76238.74
+    },
+    {
+      "entry_ts": 1774598400,
+      "equity": 77639.24
+    },
+    {
+      "entry_ts": 1774598400,
+      "equity": 79787.52
+    },
+    {
+      "entry_ts": 1774598400,
+      "equity": 82046.31
+    },
+    {
+      "entry_ts": 1774598400,
+      "equity": 83553.5
+    },
+    {
+      "entry_ts": 1774598400,
+      "equity": 85865.42
     },
     {
       "entry_ts": 1774602000,
-      "equity": 70324.77
+      "equity": 87503.73
+    },
+    {
+      "entry_ts": 1774605600,
+      "equity": 86498.32
+    },
+    {
+      "entry_ts": 1774605600,
+      "equity": 85504.45
+    },
+    {
+      "entry_ts": 1774605600,
+      "equity": 84522.0
+    },
+    {
+      "entry_ts": 1774605600,
+      "equity": 83497.6
+    },
+    {
+      "entry_ts": 1774605600,
+      "equity": 82538.21
+    },
+    {
+      "entry_ts": 1774605600,
+      "equity": 81589.85
     },
     {
       "entry_ts": 1774609200,
-      "equity": 69554.01
+      "equity": 80695.62
     },
     {
       "entry_ts": 1774609200,
-      "equity": 69643.04
+      "equity": 80798.91
+    },
+    {
+      "entry_ts": 1774612800,
+      "equity": 79869.72
     },
     {
       "entry_ts": 1774630800,
-      "equity": 68866.52
+      "equity": 78979.18
     },
     {
       "entry_ts": 1774645200,
-      "equity": 68095.9
+      "equity": 78095.4
     },
     {
       "entry_ts": 1774652400,
-      "equity": 67333.91
+      "equity": 77221.51
     },
     {
       "entry_ts": 1774659600,
-      "equity": 66585.15
+      "equity": 76362.81
     },
     {
       "entry_ts": 1774666800,
-      "equity": 65850.05
+      "equity": 75519.76
     },
     {
       "entry_ts": 1774674000,
-      "equity": 65118.46
+      "equity": 74680.74
+    },
+    {
+      "entry_ts": 1774677600,
+      "equity": 74647.13
+    },
+    {
+      "entry_ts": 1774677600,
+      "equity": 76010.19
+    },
+    {
+      "entry_ts": 1774677600,
+      "equity": 77398.14
+    },
+    {
+      "entry_ts": 1774677600,
+      "equity": 79527.36
+    },
+    {
+      "entry_ts": 1774677600,
+      "equity": 81715.16
     },
     {
       "entry_ts": 1774681200,
-      "equity": 64353.97
+      "equity": 83213.0
     },
     {
       "entry_ts": 1774681200,
-      "equity": 63665.38
+      "equity": 82322.62
     },
     {
       "entry_ts": 1774681200,
-      "equity": 64832.37
+      "equity": 81356.15
+    },
+    {
+      "entry_ts": 1774681200,
+      "equity": 80401.03
+    },
+    {
+      "entry_ts": 1774684800,
+      "equity": 82598.39
+    },
+    {
+      "entry_ts": 1774684800,
+      "equity": 84095.9
+    },
+    {
+      "entry_ts": 1774684800,
+      "equity": 85620.55
+    },
+    {
+      "entry_ts": 1774684800,
+      "equity": 87172.86
     },
     {
       "entry_ts": 1774688400,
-      "equity": 64116.62
+      "equity": 86210.47
     },
     {
       "entry_ts": 1774695600,
-      "equity": 63409.41
+      "equity": 85259.57
+    },
+    {
+      "entry_ts": 1774706400,
+      "equity": 84244.98
+    },
+    {
+      "entry_ts": 1774706400,
+      "equity": 83242.46
     },
     {
       "entry_ts": 1774710000,
-      "equity": 64215.98
+      "equity": 84301.31
+    },
+    {
+      "entry_ts": 1774710000,
+      "equity": 85443.59
+    },
+    {
+      "entry_ts": 1774713600,
+      "equity": 84425.1
+    },
+    {
+      "entry_ts": 1774742400,
+      "equity": 83396.8
+    },
+    {
+      "entry_ts": 1774742400,
+      "equity": 82381.03
+    },
+    {
+      "entry_ts": 1774742400,
+      "equity": 81377.63
+    },
+    {
+      "entry_ts": 1774742400,
+      "equity": 80386.45
+    },
+    {
+      "entry_ts": 1774742400,
+      "equity": 79332.58
+    },
+    {
+      "entry_ts": 1774742400,
+      "equity": 78366.31
     },
     {
       "entry_ts": 1774746000,
-      "equity": 65436.73
+      "equity": 79856.06
+    },
+    {
+      "entry_ts": 1774749600,
+      "equity": 82049.7
     },
     {
       "entry_ts": 1774753200,
-      "equity": 64658.68
+      "equity": 81074.13
+    },
+    {
+      "entry_ts": 1774753200,
+      "equity": 80110.16
     },
     {
       "entry_ts": 1774764000,
-      "equity": 64892.75
+      "equity": 80400.16
+    },
+    {
+      "entry_ts": 1774764000,
+      "equity": 82641.71
     },
     {
       "entry_ts": 1774796400,
-      "equity": 64119.87
+      "equity": 81657.45
+    },
+    {
+      "entry_ts": 1774796400,
+      "equity": 80684.91
+    },
+    {
+      "entry_ts": 1774821600,
+      "equity": 82903.75
+    },
+    {
+      "entry_ts": 1774821600,
+      "equity": 85183.6
+    },
+    {
+      "entry_ts": 1774821600,
+      "equity": 86738.2
+    },
+    {
+      "entry_ts": 1774821600,
+      "equity": 88321.17
+    },
+    {
+      "entry_ts": 1774821600,
+      "equity": 90816.25
     },
     {
       "entry_ts": 1774825200,
-      "equity": 63383.14
+      "equity": 89681.04
+    },
+    {
+      "entry_ts": 1774825200,
+      "equity": 88627.29
+    },
+    {
+      "entry_ts": 1774825200,
+      "equity": 87608.96
+    },
+    {
+      "entry_ts": 1774825200,
+      "equity": 86602.34
+    },
+    {
+      "entry_ts": 1774825200,
+      "equity": 85519.81
+    },
+    {
+      "entry_ts": 1774825200,
+      "equity": 84514.95
+    },
+    {
+      "entry_ts": 1774825200,
+      "equity": 83521.9
+    },
+    {
+      "entry_ts": 1774828800,
+      "equity": 85912.29
+    },
+    {
+      "entry_ts": 1774828800,
+      "equity": 87503.39
+    },
+    {
+      "entry_ts": 1774828800,
+      "equity": 89123.95
+    },
+    {
+      "entry_ts": 1774828800,
+      "equity": 90774.53
+    },
+    {
+      "entry_ts": 1774828800,
+      "equity": 93306.23
+    },
+    {
+      "entry_ts": 1774828800,
+      "equity": 95034.26
+    },
+    {
+      "entry_ts": 1774832400,
+      "equity": 93943.27
+    },
+    {
+      "entry_ts": 1774832400,
+      "equity": 92858.22
+    },
+    {
+      "entry_ts": 1774832400,
+      "equity": 95458.25
+    },
+    {
+      "entry_ts": 1774832400,
+      "equity": 94355.71
+    },
+    {
+      "entry_ts": 1774832400,
+      "equity": 96105.07
+    },
+    {
+      "entry_ts": 1774832400,
+      "equity": 98796.01
+    },
+    {
+      "entry_ts": 1774832400,
+      "equity": 97589.71
+    },
+    {
+      "entry_ts": 1774832400,
+      "equity": 99399.02
+    },
+    {
+      "entry_ts": 1774832400,
+      "equity": 98250.96
+    },
+    {
+      "entry_ts": 1774836000,
+      "equity": 97128.94
     },
     {
       "entry_ts": 1774839600,
-      "equity": 62701.13
+      "equity": 96083.83
     },
     {
       "entry_ts": 1774843200,
-      "equity": 61977.56
+      "equity": 94975.02
     },
     {
       "entry_ts": 1774843200,
-      "equity": 61262.34
+      "equity": 93879.01
     },
     {
       "entry_ts": 1774846800,
-      "equity": 60557.83
+      "equity": 92799.4
     },
     {
       "entry_ts": 1774846800,
-      "equity": 59861.41
+      "equity": 91732.21
     },
     {
       "entry_ts": 1774872000,
-      "equity": 60965.25
+      "equity": 90687.38
     },
     {
       "entry_ts": 1774872000,
-      "equity": 60270.86
+      "equity": 91903.5
     },
     {
       "entry_ts": 1774872000,
-      "equity": 61079.09
+      "equity": 90856.72
+    },
+    {
+      "entry_ts": 1774872000,
+      "equity": 92532.11
     },
     {
       "entry_ts": 1774879200,
-      "equity": 60373.02
+      "equity": 91462.44
     },
     {
       "entry_ts": 1774879200,
-      "equity": 59675.11
+      "equity": 90405.14
     },
     {
       "entry_ts": 1774886400,
-      "equity": 60777.9
+      "equity": 91622.89
     },
     {
       "entry_ts": 1774886400,
-      "equity": 61596.58
+      "equity": 93316.09
     },
     {
       "entry_ts": 1774890000,
-      "equity": 60906.7
+      "equity": 92270.95
     },
     {
       "entry_ts": 1774915200,
-      "equity": 60229.42
+      "equity": 91244.89
     },
     {
       "entry_ts": 1774922400,
-      "equity": 61966.43
+      "equity": 93876.39
     },
     {
       "entry_ts": 1774926000,
-      "equity": 63108.47
+      "equity": 95138.09
     },
     {
       "entry_ts": 1774926000,
-      "equity": 63956.65
+      "equity": 96891.49
     },
     {
       "entry_ts": 1774929600,
-      "equity": 63223.07
+      "equity": 95813.09
     },
     {
       "entry_ts": 1774929600,
-      "equity": 62497.9
+      "equity": 94714.11
     },
     {
       "entry_ts": 1774929600,
-      "equity": 61802.3
+      "equity": 93627.74
     },
     {
       "entry_ts": 1774936800,
-      "equity": 63584.06
+      "equity": 92539.79
     },
     {
       "entry_ts": 1774936800,
-      "equity": 62845.21
+      "equity": 95207.71
     },
     {
       "entry_ts": 1774936800,
-      "equity": 63691.74
+      "equity": 96490.15
     },
     {
       "entry_ts": 1774940400,
-      "equity": 63005.78
+      "equity": 95450.96
     },
     {
       "entry_ts": 1774969200,
-      "equity": 64184.62
+      "equity": 97294.11
     },
     {
       "entry_ts": 1774969200,
-      "equity": 65064.59
+      "equity": 98628.02
     },
     {
       "entry_ts": 1774969200,
-      "equity": 66320.98
+      "equity": 100473.35
     },
     {
       "entry_ts": 1774972800,
-      "equity": 68257.56
+      "equity": 103407.17
     },
     {
       "entry_ts": 1774980000,
-      "equity": 67510.14
+      "equity": 102274.86
     },
     {
       "entry_ts": 1774983600,
-      "equity": 69476.03
+      "equity": 105253.1
+    },
+    {
+      "entry_ts": 1774983600,
+      "equity": 104065.85
+    },
+    {
+      "entry_ts": 1774983600,
+      "equity": 102891.99
+    },
+    {
+      "entry_ts": 1775095200,
+      "equity": 105834.7
+    },
+    {
+      "entry_ts": 1775095200,
+      "equity": 108800.18
+    },
+    {
+      "entry_ts": 1775095200,
+      "equity": 110824.96
+    },
+    {
+      "entry_ts": 1775095200,
+      "equity": 112887.41
+    },
+    {
+      "entry_ts": 1775095200,
+      "equity": 114988.24
+    },
+    {
+      "entry_ts": 1775095200,
+      "equity": 118210.21
+    },
+    {
+      "entry_ts": 1775095200,
+      "equity": 121591.03
+    },
+    {
+      "entry_ts": 1775102400,
+      "equity": 123856.27
+    },
+    {
+      "entry_ts": 1775102400,
+      "equity": 122419.53
+    },
+    {
+      "entry_ts": 1775102400,
+      "equity": 120970.09
+    },
+    {
+      "entry_ts": 1775102400,
+      "equity": 123223.76
+    },
+    {
+      "entry_ts": 1775102400,
+      "equity": 125519.42
     },
     {
       "entry_ts": 1775156400,
-      "equity": 68754.18
+      "equity": 124215.27
+    },
+    {
+      "entry_ts": 1775160000,
+      "equity": 122822.82
+    },
+    {
+      "entry_ts": 1775160000,
+      "equity": 121382.11
+    },
+    {
+      "entry_ts": 1775160000,
+      "equity": 120021.41
+    },
+    {
+      "entry_ts": 1775160000,
+      "equity": 118613.56
+    },
+    {
+      "entry_ts": 1775160000,
+      "equity": 117283.9
+    },
+    {
+      "entry_ts": 1775160000,
+      "equity": 115969.15
+    },
+    {
+      "entry_ts": 1775160000,
+      "equity": 114669.14
+    },
+    {
+      "entry_ts": 1775167200,
+      "equity": 113298.84
+    },
+    {
+      "entry_ts": 1775167200,
+      "equity": 112010.63
+    },
+    {
+      "entry_ts": 1775167200,
+      "equity": 110737.07
+    },
+    {
+      "entry_ts": 1775167200,
+      "equity": 109477.99
+    },
+    {
+      "entry_ts": 1775167200,
+      "equity": 108233.23
+    },
+    {
+      "entry_ts": 1775185200,
+      "equity": 106926.85
+    },
+    {
+      "entry_ts": 1775250000,
+      "equity": 107368.46
+    },
+    {
+      "entry_ts": 1775250000,
+      "equity": 107678.75
+    },
+    {
+      "entry_ts": 1775250000,
+      "equity": 107989.95
+    },
+    {
+      "entry_ts": 1775404800,
+      "equity": 110958.59
+    },
+    {
+      "entry_ts": 1775404800,
+      "equity": 112982.47
+    },
+    {
+      "entry_ts": 1775404800,
+      "equity": 116173.1
+    },
+    {
+      "entry_ts": 1775404800,
+      "equity": 118292.1
+    },
+    {
+      "entry_ts": 1775404800,
+      "equity": 121543.95
+    },
+    {
+      "entry_ts": 1775412000,
+      "equity": 123746.32
+    },
+    {
+      "entry_ts": 1775412000,
+      "equity": 125988.61
+    },
+    {
+      "entry_ts": 1775412000,
+      "equity": 128271.52
+    },
+    {
+      "entry_ts": 1775412000,
+      "equity": 131878.52
+    },
+    {
+      "entry_ts": 1775412000,
+      "equity": 134268.15
+    },
+    {
+      "entry_ts": 1775412000,
+      "equity": 132557.58
     },
     {
       "entry_ts": 1775552400,
-      "equity": 67957.31
+      "equity": 131021.24
     },
     {
       "entry_ts": 1775559600,
-      "equity": 67166.97
+      "equity": 129497.46
     },
     {
       "entry_ts": 1775559600,
-      "equity": 66402.61
+      "equity": 128023.78
     },
     {
       "entry_ts": 1775566800,
-      "equity": 65633.67
+      "equity": 126541.26
     },
     {
       "entry_ts": 1775584800,
-      "equity": 67519.32
+      "equity": 130176.79
     },
     {
       "entry_ts": 1775588400,
-      "equity": 66763.78
+      "equity": 128720.11
     },
     {
       "entry_ts": 1775592000,
-      "equity": 68689.25
+      "equity": 132432.4
     },
     {
       "entry_ts": 1775592000,
-      "equity": 70670.25
+      "equity": 136251.75
     },
     {
       "entry_ts": 1775595600,
-      "equity": 69882.98
+      "equity": 134733.91
+    },
+    {
+      "entry_ts": 1775667600,
+      "equity": 137254.78
     },
     {
       "entry_ts": 1775750400,
-      "equity": 69094.0
+      "equity": 135705.17
     },
     {
       "entry_ts": 1775757600,
-      "equity": 68317.39
+      "equity": 134179.85
     },
     {
       "entry_ts": 1775822400,
-      "equity": 69087.32
+      "equity": 135692.05
+    },
+    {
+      "entry_ts": 1775822400,
+      "equity": 136518.42
+    },
+    {
+      "entry_ts": 1775833200,
+      "equity": 135910.91
+    },
+    {
+      "entry_ts": 1775833200,
+      "equity": 135049.24
+    },
+    {
+      "entry_ts": 1775833200,
+      "equity": 134448.27
+    },
+    {
+      "entry_ts": 1775876400,
+      "equity": 132802.62
+    },
+    {
+      "entry_ts": 1775926800,
+      "equity": 135130.65
+    },
+    {
+      "entry_ts": 1775926800,
+      "equity": 138707.56
+    },
+    {
+      "entry_ts": 1775926800,
+      "equity": 141139.1
+    },
+    {
+      "entry_ts": 1775934000,
+      "equity": 139424.26
     },
     {
       "entry_ts": 1776045600,
-      "equity": 68281.07
+      "equity": 137797.18
+    },
+    {
+      "entry_ts": 1776045600,
+      "equity": 136189.09
     },
     {
       "entry_ts": 1776092400,
-      "equity": 69175.56
+      "equity": 137973.16
     },
     {
       "entry_ts": 1776092400,
-      "equity": 70427.63
+      "equity": 140470.48
     },
     {
       "entry_ts": 1776103200,
-      "equity": 69595.18
+      "equity": 138810.12
     },
     {
       "entry_ts": 1776103200,
-      "equity": 68772.56
+      "equity": 137169.38
     },
     {
       "entry_ts": 1776171600,
-      "equity": 68016.07
+      "equity": 135660.52
+    },
+    {
+      "entry_ts": 1776200400,
+      "equity": 134097.71
     },
     {
       "entry_ts": 1776254400,
-      "equity": 69059.43
+      "equity": 136154.77
+    },
+    {
+      "entry_ts": 1776254400,
+      "equity": 136409.38
+    },
+    {
+      "entry_ts": 1776272400,
+      "equity": 138882.48
     },
     {
       "entry_ts": 1776286800,
-      "equity": 68270.08
+      "equity": 137295.05
+    },
+    {
+      "entry_ts": 1776286800,
+      "equity": 135725.77
     },
     {
       "entry_ts": 1776294000,
-      "equity": 67489.76
+      "equity": 134174.43
+    },
+    {
+      "entry_ts": 1776294000,
+      "equity": 132640.81
     },
     {
       "entry_ts": 1776297600,
-      "equity": 68379.95
+      "equity": 134390.34
+    },
+    {
+      "entry_ts": 1776297600,
+      "equity": 138213.75
     },
     {
       "entry_ts": 1776330000,
-      "equity": 67617.51
+      "equity": 136672.67
     },
     {
       "entry_ts": 1776330000,
-      "equity": 66863.57
+      "equity": 135148.77
     },
     {
       "entry_ts": 1776366000,
-      "equity": 66136.77
+      "equity": 133679.7
     },
     {
       "entry_ts": 1776366000,
-      "equity": 65417.86
+      "equity": 132226.6
     },
     {
       "entry_ts": 1776391200,
-      "equity": 64674.71
+      "equity": 130724.51
+    },
+    {
+      "entry_ts": 1776391200,
+      "equity": 129239.48
     },
     {
       "entry_ts": 1776430800,
-      "equity": 63969.11
+      "equity": 127829.47
     },
     {
       "entry_ts": 1776430800,
-      "equity": 63271.21
+      "equity": 126434.85
     },
     {
       "entry_ts": 1776600000,
-      "equity": 62534.73
+      "equity": 124963.15
     },
     {
       "entry_ts": 1776607200,
-      "equity": 61814.96
+      "equity": 123524.83
     },
     {
       "entry_ts": 1776614400,
-      "equity": 63576.07
+      "equity": 127044.05
     },
     {
       "entry_ts": 1776621600,
-      "equity": 65389.89
+      "equity": 130668.62
     },
     {
       "entry_ts": 1776646800,
-      "equity": 66568.22
+      "equity": 133023.26
     },
     {
       "entry_ts": 1776654000,
-      "equity": 65812.0
+      "equity": 131512.12
     },
     {
       "entry_ts": 1776675600,
-      "equity": 65064.38
+      "equity": 130018.14
     },
     {
       "entry_ts": 1776682800,
-      "equity": 64323.29
+      "equity": 128537.24
+    },
+    {
+      "entry_ts": 1776783600,
+      "equity": 130885.61
     },
     {
       "entry_ts": 1776812400,
-      "equity": 66162.94
+      "equity": 134628.94
+    },
+    {
+      "entry_ts": 1776816000,
+      "equity": 137089.96
+    },
+    {
+      "entry_ts": 1776816000,
+      "equity": 139595.96
+    },
+    {
+      "entry_ts": 1776816000,
+      "equity": 143441.83
+    },
+    {
+      "entry_ts": 1776884400,
+      "equity": 146042.43
     },
     {
       "entry_ts": 1776967200,
-      "equity": 65396.77
+      "equity": 144351.26
     },
     {
       "entry_ts": 1776970800,
-      "equity": 66569.34
+      "equity": 146939.48
     },
     {
       "entry_ts": 1776974400,
-      "equity": 65794.47
+      "equity": 145229.1
     },
     {
       "entry_ts": 1776978000,
-      "equity": 65031.26
+      "equity": 143544.44
     },
     {
       "entry_ts": 1777003200,
-      "equity": 64261.94
+      "equity": 141846.31
     },
     {
       "entry_ts": 1777010400,
-      "equity": 63502.36
+      "equity": 140169.69
     },
     {
       "entry_ts": 1777028400,
-      "equity": 62751.76
+      "equity": 138512.88
     },
     {
       "entry_ts": 1777035600,
-      "equity": 63055.48
+      "equity": 139183.29
     },
     {
       "entry_ts": 1777039200,
-      "equity": 62310.16
+      "equity": 137538.14
     },
     {
       "entry_ts": 1777302000,
-      "equity": 61609.17
+      "equity": 135990.83
     },
     {
       "entry_ts": 1777305600,
-      "equity": 60887.12
+      "equity": 134397.02
     },
     {
       "entry_ts": 1777309200,
-      "equity": 60181.43
+      "equity": 132839.36
     },
     {
       "entry_ts": 1777312800,
-      "equity": 59459.26
+      "equity": 131289.13
     },
     {
       "entry_ts": 1777312800,
-      "equity": 58765.37
+      "equity": 129713.66
     },
     {
       "entry_ts": 1777320000,
-      "equity": 58088.98
+      "equity": 128220.65
     },
     {
       "entry_ts": 1777345200,
-      "equity": 58079.1
+      "equity": 128198.85
     },
     {
       "entry_ts": 1777352400,
-      "equity": 57379.83
+      "equity": 126655.34
     },
     {
       "entry_ts": 1777399200,
-      "equity": 58987.61
+      "equity": 130204.22
     },
     {
       "entry_ts": 1777406400,
-      "equity": 60632.19
+      "equity": 133834.32
+    },
+    {
+      "entry_ts": 1777435200,
+      "equity": 132182.8
+    },
+    {
+      "entry_ts": 1777435200,
+      "equity": 130551.67
+    },
+    {
+      "entry_ts": 1777435200,
+      "equity": 128940.66
+    },
+    {
+      "entry_ts": 1777435200,
+      "equity": 127219.3
+    },
+    {
+      "entry_ts": 1777435200,
+      "equity": 125649.41
+    },
+    {
+      "entry_ts": 1777435200,
+      "equity": 123971.99
+    },
+    {
+      "entry_ts": 1777435200,
+      "equity": 122442.18
+    },
+    {
+      "entry_ts": 1777442400,
+      "equity": 124589.82
+    },
+    {
+      "entry_ts": 1777442400,
+      "equity": 126775.12
+    },
+    {
+      "entry_ts": 1777442400,
+      "equity": 130132.13
+    },
+    {
+      "entry_ts": 1777442400,
+      "equity": 128510.68
+    },
+    {
+      "entry_ts": 1777442400,
+      "equity": 130764.76
     },
     {
       "entry_ts": 1777453200,
-      "equity": 62328.68
+      "equity": 134423.55
     },
     {
       "entry_ts": 1777456800,
-      "equity": 61572.63
+      "equity": 132793.0
     },
     {
       "entry_ts": 1777460400,
-      "equity": 63292.97
+      "equity": 136503.23
     },
     {
       "entry_ts": 1777464000,
-      "equity": 62534.72
+      "equity": 134867.92
     },
     {
       "entry_ts": 1777464000,
-      "equity": 64288.82
+      "equity": 138650.97
+    },
+    {
+      "entry_ts": 1777467600,
+      "equity": 142412.57
+    },
+    {
+      "entry_ts": 1777467600,
+      "equity": 144974.57
+    },
+    {
+      "entry_ts": 1777467600,
+      "equity": 147582.67
+    },
+    {
+      "entry_ts": 1777467600,
+      "equity": 151586.58
+    },
+    {
+      "entry_ts": 1777467600,
+      "equity": 155821.91
+    },
+    {
+      "entry_ts": 1777467600,
+      "equity": 158625.15
+    },
+    {
+      "entry_ts": 1777467600,
+      "equity": 163057.14
     },
     {
       "entry_ts": 1777471200,
-      "equity": 66090.83
+      "equity": 167627.63
+    },
+    {
+      "entry_ts": 1777474800,
+      "equity": 165624.48
+    },
+    {
+      "entry_ts": 1777474800,
+      "equity": 163522.7
+    },
+    {
+      "entry_ts": 1777474800,
+      "equity": 161568.61
+    },
+    {
+      "entry_ts": 1777474800,
+      "equity": 159637.86
+    },
+    {
+      "entry_ts": 1777474800,
+      "equity": 157730.19
     },
     {
       "entry_ts": 1777492800,
-      "equity": 66380.97
+      "equity": 158422.62
     }
   ]
 }

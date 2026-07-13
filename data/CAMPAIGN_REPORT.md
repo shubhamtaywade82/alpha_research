@@ -14,53 +14,68 @@ Generated from `data/experiments.jsonl` (experiment DB), `data/finalists.json`, 
 
 | Rank | Symbol | Family | TF pair | Params | Research alpha_R (pooled) | Research net_R (pooled) | Holdout net_R | Holdout trades | Holdout status |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | XRPUSDT | confluence | 2h+4h | thr=0.65 trend_heavy htf=true stop=1.0 r=2.0 h=20 | 0.488 | 0.454 | 0.008 | 11 | PASSED |
-| 2 | XRPUSDT | confluence | 2h+4h | thr=0.65 trend_heavy htf=false stop=1.0 r=2.0 h=20 | 0.488 | 0.454 | 0.008 | 11 | PASSED |
+| 1 | XRPUSDT | confluence | 2h+4h | thr=0.65 trend_heavy htf=false stop=1.0 r=2.0 h=20 | 0.488 | 0.454 | 0.008 | 11 | PASSED |
+| 2 | XRPUSDT | confluence | 2h+4h | thr=0.65 trend_heavy htf=true stop=1.0 r=2.0 h=20 | 0.488 | 0.454 | 0.008 | 11 | PASSED |
 | 3 | XRPUSDT | discovery | 2h+4h | stop=1.5 r=2.0 h=40 delay=1 | 0.417 | 0.161 | -0.398 | 26 | FAILED |
 | 4 | ETHUSDT | discovery | 1h+4h | stop=1.0 r=3.0 h=10 delay=1 | 0.4 | 0.193 | -0.143 | 21 | FAILED |
 | 5 | XRPUSDT | discovery | 1h+4h | stop=1.0 r=1.5 h=40 delay=3 | 0.383 | 0.011 | -0.287 | 79 | FAILED |
-| 6 | SOLUSDT | discovery | 1h+4h | stop=1.0 r=3.0 h=20 delay=1 | 0.358 | 0.138 | -0.474 | 16 | FAILED |
-| 7 | SOLUSDT | discovery | 1h+4h | stop=1.0 r=3.0 h=40 delay=3 | 0.357 | 0.006 | 0.087 | 21 | PASSED |
-| 8 | SOLUSDT | confluence | 2h+4h | thr=0.55 trend_heavy htf=false stop=1.0 r=2.0 h=20 | 0.333 | 0.409 | 0.357 | 87 | PASSED |
-| 9 | ETHUSDT | discovery | 1h+4h | stop=1.0 r=2.0 h=10 delay=1 | 0.299 | 0.057 | -0.162 | 21 | FAILED |
-| 10 | XRPUSDT | discovery | 1h+4h | stop=1.0 r=2.0 h=10 delay=3 | 0.291 | 0.022 | -0.365 | 79 | FAILED |
+| 6 | XRPUSDT | supertrend_kmeans | 1h+4h | stop=1.0 r=2.0 h=20 delay=1 | 0.375 | 0.11 | -0.12 | 22 | FAILED |
+| 7 | XRPUSDT | supertrend_kmeans | 15m+4h | stop=1.0 r=3.0 h=20 delay=3 | 0.372 | 0.015 | -0.025 | 20 | FAILED |
+| 8 | XRPUSDT | supertrend_kmeans | 15m+4h | stop=1.0 r=3.0 h=20 delay=3 | 0.372 | 0.015 | -0.025 | 20 | FAILED |
+| 9 | XRPUSDT | supertrend_kmeans | 1h+4h | stop=1.0 r=2.0 h=20 delay=3 | 0.359 | 0.174 | -0.152 | 15 | FAILED |
+| 10 | XRPUSDT | supertrend_kmeans | 1h+4h | stop=0.7 r=3.0 h=20 delay=1 | 0.358 | 0.126 | -0.488 | 22 | FAILED |
+| 11 | SOLUSDT | discovery | 1h+4h | stop=1.0 r=3.0 h=20 delay=1 | 0.358 | 0.138 | -0.474 | 16 | FAILED |
+| 12 | SOLUSDT | discovery | 1h+4h | stop=1.0 r=3.0 h=40 delay=3 | 0.357 | 0.006 | 0.087 | 21 | PASSED |
+| 13 | XRPUSDT | supertrend_kmeans | 1h+4h | stop=1.0 r=2.0 h=20 delay=1 | 0.35 | 0.084 | -0.076 | 21 | FAILED |
+| 14 | XRPUSDT | supertrend_kmeans | 1h+4h | stop=1.0 r=3.0 h=20 delay=1 | 0.339 | 0.063 | 0.021 | 22 | PASSED |
+| 15 | SOLUSDT | confluence | 2h+4h | thr=0.55 trend_heavy htf=false stop=1.0 r=2.0 h=20 | 0.333 | 0.409 | 0.357 | 87 | PASSED |
+| 16 | XRPUSDT | supertrend_adaptive | 1h+4h | stop=1.0 r=3.0 h=20 delay=3 | 0.321 | 0.071 | 0.321 | 9 | PASSED |
+| 17 | XRPUSDT | supertrend_adaptive | 1h+4h | stop=1.0 r=3.0 h=20 delay=1 | 0.312 | 0.063 | -0.085 | 10 | FAILED |
+| 18 | XRPUSDT | supertrend_kmeans | 1h+4h | stop=1.0 r=2.0 h=20 delay=3 | 0.302 | 0.052 | 0.091 | 12 | PASSED |
+| 19 | ETHUSDT | discovery | 1h+4h | stop=1.0 r=2.0 h=10 delay=1 | 0.299 | 0.057 | -0.162 | 21 | FAILED |
+| 20 | XRPUSDT | supertrend_kmeans | 1h+4h | stop=0.7 r=3.0 h=20 delay=3 | 0.297 | 0.113 | 0.313 | 13 | PASSED |
+| 21 | XRPUSDT | discovery | 1h+4h | stop=1.0 r=2.0 h=10 delay=3 | 0.291 | 0.022 | -0.365 | 79 | FAILED |
+| 22 | XRPUSDT | supertrend_kmeans | 1h+4h | stop=1.0 r=2.0 h=20 delay=3 | 0.281 | 0.03 | -0.004 | 13 | FAILED |
+| 23 | ETHUSDT | discovery | 1h+4h | stop=1.0 r=3.0 h=20 delay=1 | 0.267 | 0.158 | -0.082 | 43 | FAILED |
+| 24 | XRPUSDT | supertrend_adaptive | 1h+4h | stop=1.0 r=2.0 h=20 delay=1 | 0.259 | 0.055 | -0.249 | 10 | FAILED |
+| 25 | XRPUSDT | supertrend_kmeans | 1h+4h | stop=0.7 r=3.0 h=20 delay=1 | 0.251 | 0.067 | -0.529 | 23 | FAILED |
 
-**4/10 finalists passed the holdout confirmation** (positive net expectancy on the untouched final 20% of data).
+**8/25 finalists passed the holdout confirmation** (positive net expectancy on the untouched final 20% of data).
 
 ## Combined Portfolio Simulation (Phase 4, research slice, walk-forward)
 
 - Starting balance: $10000.0
-- Ending balance: $66380.97 (563.81%)
-- Max drawdown: 38.75%
-- Sharpe (per-trade): 2.71
-- Win rate: 42.4%
-- Total trades: 1079
+- Ending balance: $158422.62 (1484.23%)
+- Max drawdown: 57.34%
+- Sharpe (per-trade): 2.268
+- Win rate: 39.3%
+- Total trades: 2247
 
 | Symbol | P&L ($) | Trades | Win rate |
 |---|---|---|---|
-| XRPUSDT | 24578.69 | 439 | 44.6% |
-| SOLUSDT | 24347.53 | 478 | 41.2% |
-| ETHUSDT | 7454.75 | 162 | 40.1% |
+| XRPUSDT | 82500.69 | 1464 | 39.0% |
+| SOLUSDT | 41523.54 | 478 | 41.2% |
+| ETHUSDT | 24398.39 | 305 | 38.0% |
 
 This mixes all 10 finalists, including duplicate/near-duplicate configs on the same symbol+bucket — inflates trade count without adding real diversification.
 
 ## Recommended Portfolio — holdout-confirmed, deduplicated (research slice, walk-forward)
 
-The 4 finalists that passed holdout include one exact duplicate (XRPUSDT confluence config with `require_htf_alignment` true vs false producing identical trades) — deduplicated to 3 distinct strategies: XRPUSDT confluence 2h+4h, SOLUSDT discovery 1h+4h, SOLUSDT confluence 2h+4h.
+8 finalists passed holdout; some are duplicate/near-duplicate parameter variants of the same underlying signal on the same symbol+timeframe. Deduplicated to 5 distinct strategies (one representative per symbol+family+timeframe mechanism): SOLUSDT discovery 1h+4h, SOLUSDT confluence 2h+4h, XRPUSDT confluence 2h+4h, XRPUSDT supertrend_kmeans 1h+4h, XRPUSDT supertrend_adaptive 1h+4h.
 
 - Starting balance: $10000.0
-- Ending balance: $31065.7 (210.66%)
-- Max drawdown: 24.47%
-- Sharpe (per-trade): 3.012
-- Win rate: 43.5%
-- Total trades: 430
+- Ending balance: $33390.74 (233.91%)
+- Max drawdown: 25.29%
+- Sharpe (per-trade): 2.459
+- Win rate: 40.8%
+- Total trades: 573
 
 | Symbol | P&L ($) | Trades | Win rate |
 |---|---|---|---|
-| XRPUSDT | 5518.25 | 47 | 51.1% |
-| SOLUSDT | 15547.45 | 383 | 42.6% |
+| XRPUSDT | 6331.55 | 190 | 37.4% |
+| SOLUSDT | 17059.18 | 383 | 42.6% |
 
-All 3 of these strategies individually confirmed positive expectancy on the untouched holdout slice (see leaderboard above). This is the closest thing this campaign produced to an actionable result — still requires live/paper validation before real capital, given the holdout sample sizes (11-87 trades per strategy).
+All 5 of these strategies individually confirmed positive expectancy on the untouched holdout slice (see leaderboard above). This is the closest thing this campaign produced to an actionable result — still requires live/paper validation before real capital, given the small holdout sample sizes (9-87 trades per strategy).
 
 ## Caveats
 

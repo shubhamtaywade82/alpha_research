@@ -20,7 +20,7 @@ FINALISTS_PATH = File.join(root, "data", "finalists.json")
 MIN_ALPHA_NET_R = 0.10
 MIN_TOTAL_TRADES = 40
 MIN_FOLD_ALPHA_POSITIVE_RATE = 0.60
-TOP_N = 10
+TOP_N = 25
 
 unless File.exist?(EXPERIMENT_PATH)
   puts "No experiment database found at #{EXPERIMENT_PATH}"

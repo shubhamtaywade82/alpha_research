@@ -21,6 +21,7 @@ finalists = load_json(File.join(data_dir, "finalists.json")) || []
 holdout = load_json(File.join(data_dir, "holdout_results.json")) || []
 portfolio = load_json(File.join(data_dir, "finalists_portfolio_results.json"))
 deduped_portfolio = load_json(File.join(data_dir, "finalists_deduped_portfolio_results.json"))
+deduped_finalists = load_json(File.join(data_dir, "finalists_deduped.json")) || []
 
 # Positional match: bin/run_holdout_eval.rb iterates finalists.json in order
 # and writes one holdout result per finalist at the same index. Several
@@ -89,9 +90,11 @@ if portfolio
 end
 
 if deduped_portfolio
+  passed_count = holdout.count { |h| h["status"] == "PASSED" }
+  strategy_list = deduped_finalists.map { |f| "#{f['symbol']} #{f['family']} #{f['timeframe_pair']}" }.join(", ")
   lines << "## Recommended Portfolio — holdout-confirmed, deduplicated (research slice, walk-forward)"
   lines << ""
-  lines << "The 4 finalists that passed holdout include one exact duplicate (XRPUSDT confluence config with `require_htf_alignment` true vs false producing identical trades) — deduplicated to 3 distinct strategies: XRPUSDT confluence 2h+4h, SOLUSDT discovery 1h+4h, SOLUSDT confluence 2h+4h."
+  lines << "#{passed_count} finalists passed holdout; some are duplicate/near-duplicate parameter variants of the same underlying signal on the same symbol+timeframe. Deduplicated to #{deduped_finalists.size} distinct strategies (one representative per symbol+family+timeframe mechanism): #{strategy_list}."
   lines << ""
   lines << "- Starting balance: $#{deduped_portfolio['starting_balance_usdt']}"
   lines << "- Ending balance: $#{deduped_portfolio['ending_balance_usdt']} (#{deduped_portfolio['total_return_pct']}%)"
@@ -107,7 +110,7 @@ if deduped_portfolio
     lines << "| #{sym} | #{s['pnl']} | #{s['trades']} | #{wr}% |"
   end
   lines << ""
-  lines << "All 3 of these strategies individually confirmed positive expectancy on the untouched holdout slice (see leaderboard above). This is the closest thing this campaign produced to an actionable result — still requires live/paper validation before real capital, given the holdout sample sizes (11-87 trades per strategy)."
+  lines << "All #{deduped_finalists.size} of these strategies individually confirmed positive expectancy on the untouched holdout slice (see leaderboard above). This is the closest thing this campaign produced to an actionable result — still requires live/paper validation before real capital, given the small holdout sample sizes (9-87 trades per strategy)."
   lines << ""
 end
 
