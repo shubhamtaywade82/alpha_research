@@ -30,14 +30,17 @@ class MoveLabeler
     keyword_init: true
   )
 
-  def initialize(atr_period: 14, stop_atr_buffer: 0.5, r_multiple_target:)
+  def initialize(atr_period: 14, stop_atr_buffer: 0.5, r_multiple_target:, atr_cache: nil)
     @atr_period = atr_period
     @stop_atr_buffer = stop_atr_buffer
     @r_multiple_target = r_multiple_target
+    @atr_cache = atr_cache
   end
 
+  attr_writer :atr_cache
+
   def label_swing_events(candles:, swings:, regimes:, funding_series:, feature_extractor:)
-    atr_series = Indicators.atr(candles, @atr_period)
+    atr_series = @atr_cache || Indicators.atr(candles, @atr_period)
     events = []
 
     swings.each_cons(2) do |a, b|
@@ -110,8 +113,8 @@ class MoveLabeler
   # close. This matches how a real trade would be managed, avoiding the
   # optimistic MFE bias of the previous implementation.
   def label_signal_events(candles:, swings:, regimes:, funding_series:, feature_extractor:,
-                           entry_delay_bars:, forward_horizon_bars: 20, htf_regimes: nil)
-    atr_series = Indicators.atr(candles, @atr_period)
+                           entry_delay_bars:, forward_horizon_bars: 20)
+    atr_series = @atr_cache || Indicators.atr(candles, @atr_period)
     events = []
 
     swings.each do |swing|
@@ -167,8 +170,7 @@ class MoveLabeler
 
       regime = regimes[entry_index]
       context = feature_extractor.extract(
-        candles: candles, index: entry_index, regime: regime, funding_rate: funding_series[entry_index],
-        htf_regime: htf_regimes&.[](entry_index)
+        candles: candles, index: entry_index, regime: regime, funding_rate: funding_series[entry_index]
       )
       next if context.nil?
 
@@ -183,8 +185,8 @@ class MoveLabeler
   end
 
   def label_baseline_samples(candles:, regimes:, funding_series:, feature_extractor:,
-                              forward_horizon_bars: 20, stride: 5, htf_regimes: nil)
-    atr_series = Indicators.atr(candles, @atr_period)
+                              forward_horizon_bars: 20, stride: 5)
+    atr_series = @atr_cache || Indicators.atr(candles, @atr_period)
     samples = []
 
     (0...candles.size).step(stride) do |i|
@@ -244,8 +246,7 @@ class MoveLabeler
       end
 
       context = feature_extractor.extract(
-        candles: candles, index: i, regime: regime, funding_rate: funding_series[i],
-        htf_regime: htf_regimes&.[](i)
+        candles: candles, index: i, regime: regime, funding_rate: funding_series[i]
       )
       next if context.nil?
 

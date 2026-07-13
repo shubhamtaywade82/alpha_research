@@ -9,19 +9,39 @@ require_relative "indicators"
 class ContextFeatureExtractor
   def initialize(profile)
     @profile = profile
+    @ema_cache_fast = nil
+    @ema_cache_slow = nil
   end
+
+  attr_writer :ema_cache_fast, :ema_cache_slow
 
   # regime: RegimeClassifier::Regime for this index (nil if not warmed up)
   # htf_regime: optional higher-timeframe Regime aligned to this timestamp,
   #   for multi-timeframe confluence features
+  # ema_fast_series / ema_slow_series: optional precomputed EMA arrays to
+  #   avoid O(n²) recomputation when calling extract on many indices.
   # Returns nil (not a Hash) if inputs aren't sufficiently warmed up, so
   # callers can filter cleanly with `.compact`/`reject(&:nil?)`.
-  def extract(candles:, index:, regime:, funding_rate:, htf_regime: nil)
+  def extract(candles:, index:, regime:, funding_rate:, htf_regime: nil,
+              ema_fast_series: nil, ema_slow_series: nil)
     return nil if regime.nil? || index < 25
 
-    closes = candles[0..index].map { |c| c[:close] }
-    ema_fast = Indicators.ema(closes, @profile.ema_fast)[index]
-    ema_slow = Indicators.ema(closes, @profile.ema_slow)[index]
+    ema_fast = if @ema_cache_fast
+                 @ema_cache_fast[index]
+               elsif ema_fast_series
+                 ema_fast_series[index]
+               else
+                 closes = candles[0..index].map { |c| c[:close] }
+                 Indicators.ema(closes, @profile.ema_fast)[index]
+               end
+    ema_slow = if @ema_cache_slow
+                 @ema_cache_slow[index]
+               elsif ema_slow_series
+                 ema_slow_series[index]
+               else
+                 closes ||= candles[0..index].map { |c| c[:close] }
+                 Indicators.ema(closes, @profile.ema_slow)[index]
+               end
     return nil if ema_fast.nil? || ema_slow.nil? || ema_fast.zero? || ema_slow.zero?
 
     close = candles[index][:close]
