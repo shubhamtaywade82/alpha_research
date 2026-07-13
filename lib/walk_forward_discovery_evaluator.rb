@@ -22,6 +22,7 @@ class WalkForwardDiscoveryEvaluator
   FoldSummary = Struct.new(
     :fold, :tradeable_buckets, :trade_count, :gross_expectancy_r, :net_expectancy_r,
     :baseline_net_expectancy_r, :alpha_net_r, :win_rate, :bucket_aggregates,
+    :sharpe, :max_drawdown_r, :trades,
     keyword_init: true
   )
 
@@ -31,7 +32,8 @@ class WalkForwardDiscoveryEvaluator
 
   def initialize(profile:, cost_model:, entry_delay_bars:, forward_horizon_bars: 20,
                  baseline_stride: 5, min_move_atr_multiple: 1.5,
-                 bucket_by: ->(ctx) { ctx[:regime_state] }, htf_regimes: nil)
+                 bucket_by: ->(ctx) { ctx[:regime_state] }, htf_regimes: nil,
+                 stop_atr_buffer: 0.5, regimes: nil, swings: nil, atr_cache: nil, extractor: nil)
     @profile = profile
     @cost_model = cost_model
     @entry_delay_bars = entry_delay_bars
@@ -40,13 +42,22 @@ class WalkForwardDiscoveryEvaluator
     @min_move_atr_multiple = min_move_atr_multiple
     @bucket_by = bucket_by
     @htf_regimes = htf_regimes
+    @stop_atr_buffer = stop_atr_buffer
+    @precomputed_regimes = regimes
+    @precomputed_swings = swings
+    @precomputed_atr_cache = atr_cache
+    @precomputed_extractor = extractor
   end
 
+  # candles/funding_series are still required so precomputed regimes/swings
+  # (computed once per symbol/timeframe by the caller, not once per grid
+  # combo) can be paired with the same series they were derived from.
   def evaluate(candles:, funding_series:, n_folds:, embargo_bars:)
-    regimes = RegimeClassifier.new(@profile).classify(candles)
-    swings = SwingPointDetector.new(min_move_atr_multiple: @min_move_atr_multiple).detect(candles)
-    extractor = ContextFeatureExtractor.new(@profile)
-    labeler = MoveLabeler.new(r_multiple_target: @profile.r_multiple_target)
+    regimes = @precomputed_regimes || RegimeClassifier.new(@profile).classify(candles)
+    swings = @precomputed_swings || SwingPointDetector.new(min_move_atr_multiple: @min_move_atr_multiple).detect(candles)
+    extractor = @precomputed_extractor || ContextFeatureExtractor.new(@profile)
+    labeler = MoveLabeler.new(r_multiple_target: @profile.r_multiple_target,
+                               stop_atr_buffer: @stop_atr_buffer, atr_cache: @precomputed_atr_cache)
 
     events = labeler.label_signal_events(
       candles: candles, swings: swings, regimes: regimes, funding_series: funding_series,
@@ -136,6 +147,9 @@ class WalkForwardDiscoveryEvaluator
       baseline_net_expectancy_r: baseline_expectancy&.round(3),
       alpha_net_r: (net_expectancy && baseline_expectancy ? (net_expectancy - baseline_expectancy).round(3) : nil),
       win_rate: win_rate(trades),
+      sharpe: sharpe(trades.map(&:net_r)),
+      max_drawdown_r: max_drawdown(trades.sort_by(&:entry_ts).map(&:net_r)),
+      trades: trades,
       bucket_aggregates: summarize_buckets(
         tradeable: tradeable,
         bucket_trade_gross: bucket_trade_gross,
@@ -181,15 +195,33 @@ class WalkForwardDiscoveryEvaluator
       end
     end
 
+    all_net = bucket_trade_net.values.flatten
+    all_baseline = bucket_baseline_net.values.flatten
+    all_gross = bucket_trade_gross.values.flatten
+
     {
       total_folds: folds.size,
       folds_with_trades: valid.size,
       total_trades: valid.sum(&:trade_count),
+      # mean_* fields below are UNWEIGHTED averages of each fold's own mean —
+      # a fold with 5 trades counts the same as a fold with 100. That can
+      # make the aggregate look profitable even when most of the actual
+      # trade volume was a loser (Simpson's-paradox risk). pooled_* fields
+      # are the trade-count-weighted truth (all trades flattened, then
+      # averaged once) — prefer pooled_* for any real trading decision.
       mean_gross_expectancy_r: mean(valid.map(&:gross_expectancy_r))&.round(3),
       mean_net_expectancy_r: mean(valid.map(&:net_expectancy_r))&.round(3),
       mean_baseline_net_expectancy_r: mean(valid.map(&:baseline_net_expectancy_r).compact)&.round(3),
       mean_alpha_net_r: mean(valid.map(&:alpha_net_r).compact)&.round(3),
       mean_win_rate: mean(valid.map(&:win_rate))&.round(3),
+      mean_sharpe: mean(valid.map(&:sharpe).compact)&.round(3),
+      pooled_gross_expectancy_r: mean(all_gross)&.round(3),
+      pooled_net_expectancy_r: mean(all_net)&.round(3),
+      pooled_baseline_net_expectancy_r: mean(all_baseline)&.round(3),
+      pooled_alpha_net_r: (mean(all_net) && mean(all_baseline) ? (mean(all_net) - mean(all_baseline)).round(3) : nil),
+      pooled_win_rate: all_net.empty? ? nil : (all_net.count(&:positive?) / all_net.size.to_f).round(3),
+      worst_fold_drawdown_r: valid.map(&:max_drawdown_r).compact.max&.round(3),
+      folds_with_positive_alpha: valid.count { |f| f.alpha_net_r && f.alpha_net_r.positive? },
       bucket_aggregates: aggregate_buckets(
         bucket_direction: bucket_direction,
         bucket_trade_gross: bucket_trade_gross,
@@ -268,5 +300,30 @@ class WalkForwardDiscoveryEvaluator
     return nil if trades.empty?
 
     (trades.count { |trade| trade.net_r.positive? } / trades.size.to_f).round(3)
+  end
+
+  def sharpe(net_rs)
+    vals = net_rs.compact
+    return nil if vals.size < 2
+
+    m = mean(vals)
+    std = Math.sqrt(vals.sum { |v| (v - m)**2 } / vals.size.to_f)
+    return nil if std.zero?
+
+    (m / std).round(3)
+  end
+
+  def max_drawdown(net_rs)
+    return nil if net_rs.empty?
+
+    cumulative = 0.0
+    peak = 0.0
+    max_dd = 0.0
+    net_rs.each do |r|
+      cumulative += r
+      peak = [peak, cumulative].max
+      max_dd = [max_dd, peak - cumulative].max
+    end
+    max_dd.round(3)
   end
 end

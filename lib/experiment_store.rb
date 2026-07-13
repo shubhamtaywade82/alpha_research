@@ -14,7 +14,7 @@ class ExperimentStore
     entry[:id] = @experiments.size + 1
     entry[:timestamp] = Time.now.utc.iso8601
     @experiments << entry
-    File.open(@path, "a") { |f| f.puts(JSON.generate(entry)) }
+    File.open(@path, "a") { |f| f.puts(JSON.generate(deep_plain(entry))) }
     entry[:id]
   end
 
@@ -50,6 +50,24 @@ class ExperimentStore
   end
 
   private
+
+  # Structs (BucketAggregate/FoldSummary/Fold) and Ranges have no #to_json
+  # in stdlib, so JSON.generate silently falls back to Struct#to_s /
+  # Range#to_s — recurse and convert to plain Hash/Array/String first.
+  def deep_plain(obj)
+    case obj
+    when Struct
+      deep_plain(obj.to_h)
+    when Hash
+      obj.transform_values { |v| deep_plain(v) }
+    when Array
+      obj.map { |v| deep_plain(v) }
+    when Range
+      obj.to_s
+    else
+      obj
+    end
+  end
 
   def load
     File.readlines(@path).each do |line|

@@ -23,8 +23,9 @@ class ConfluenceScorer
   # not calibrated.
   MIN_SCORE_THRESHOLD = 0.55
 
-  def initialize(profile)
+  def initialize(profile, min_score_threshold: MIN_SCORE_THRESHOLD)
     @profile = profile
+    @min_score_threshold = min_score_threshold
   end
 
   def score(trend:, structure:, funding:)
@@ -57,11 +58,11 @@ class ConfluenceScorer
 
     reasons = [trend.reason, structure.reason, funding.reason].reject { |r| r.include?("no_") }
 
-    if total < MIN_SCORE_THRESHOLD
+    if total < @min_score_threshold
       Candidate.new(
         direction: :none, score: total, trend_component: trend_component,
         structure_component: structure_component, funding_component: funding_component,
-        reasons: reasons + ["below_min_score_threshold=#{MIN_SCORE_THRESHOLD}"]
+        reasons: reasons + ["below_min_score_threshold=#{@min_score_threshold}"]
       )
     else
       Candidate.new(

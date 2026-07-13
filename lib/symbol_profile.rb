@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "json"
+
 # SymbolProfile holds per-symbol tuning parameters.
 #
 # IMPORTANT: These are starting priors based on known qualitative behavior
@@ -78,10 +80,28 @@ class SymbolProfile
     )
   }.freeze
 
+  CALIBRATED_PATH = File.expand_path("../data/calibrated_profiles.json", __dir__)
+
   def self.for(symbol)
-    PROFILES.fetch(symbol) do
+    base = PROFILES.fetch(symbol) do
       raise ArgumentError, "No SymbolProfile configured for #{symbol}. " \
         "Refusing to guess parameters for an unconfigured symbol."
     end
+
+    override = calibrated_overrides[symbol]
+    return base.dup unless override
+
+    profile = base.dup
+    profile.adx_trend_threshold = override["adx_trend_threshold"] if override["adx_trend_threshold"]
+    profile.ema_fast = override["ema_fast"] if override["ema_fast"]
+    profile.ema_slow = override["ema_slow"] if override["ema_slow"]
+    profile.r_multiple_target = override["r_multiple_target"] if override["r_multiple_target"]
+    profile
+  end
+
+  def self.calibrated_overrides
+    return {} unless File.exist?(CALIBRATED_PATH)
+
+    @calibrated_overrides ||= JSON.parse(File.read(CALIBRATED_PATH))
   end
 end

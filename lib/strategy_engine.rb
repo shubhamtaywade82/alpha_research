@@ -16,14 +16,14 @@ require_relative "position_sizer"
 class StrategyEngine
   Evaluation = Struct.new(:symbol, :timestamp, :regime, :candidate, :sizing, keyword_init: true)
 
-  def initialize(symbol)
+  def initialize(symbol, profile: nil, min_score_threshold: ConfluenceScorer::MIN_SCORE_THRESHOLD)
     @symbol = symbol
-    @profile = SymbolProfile.for(symbol)
+    @profile = profile || SymbolProfile.for(symbol)
     @regime_classifier = RegimeClassifier.new(@profile)
     @trend_signal = TrendFollowingSignal.new(@profile)
     @structure_signal = SmcStructureSignal.new(@profile)
     @funding_signal = FundingCarrySignal.new(@profile)
-    @scorer = ConfluenceScorer.new(@profile)
+    @scorer = ConfluenceScorer.new(@profile, min_score_threshold: min_score_threshold)
     @sizer = PositionSizer.new(@profile)
   end
 

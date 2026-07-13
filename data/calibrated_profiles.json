@@ -1,0 +1,29 @@
+{
+  "XRPUSDT": {
+    "adx_trend_threshold": 18.0,
+    "ema_fast": 13,
+    "ema_slow": 34,
+    "r_multiple_target": 3.0,
+    "calibration_timeframe": "1h",
+    "calibration_weighted_edge": 0.161,
+    "calibration_total_events": 1178
+  },
+  "ETHUSDT": {
+    "adx_trend_threshold": 26.0,
+    "ema_fast": 13,
+    "ema_slow": 34,
+    "r_multiple_target": 3.0,
+    "calibration_timeframe": "1h",
+    "calibration_weighted_edge": 0.141,
+    "calibration_total_events": 1247
+  },
+  "SOLUSDT": {
+    "adx_trend_threshold": 18.0,
+    "ema_fast": 34,
+    "ema_slow": 89,
+    "r_multiple_target": 2.0,
+    "calibration_timeframe": "1h",
+    "calibration_weighted_edge": 0.089,
+    "calibration_total_events": 1227
+  }
+}
