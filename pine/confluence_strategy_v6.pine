@@ -1,0 +1,145 @@
+//@version=6
+strategy("Confluence Regime Strategy (SOL/ETH/XRP)", shorttitle = "ConfluenceV6",
+     overlay = true, initial_capital = 10000, default_qty_type = strategy.percent_of_equity,
+     default_qty_value = 1, pyramiding = 0, commission_type = strategy.commission.percent,
+     commission_value = 0.04, slippage = 2)
+
+// Ports the discovery+confluence pipeline from the alpha_research Ruby campaign
+// (RegimeClassifier + TrendFollowingSignal + SmcStructureSignal + ConfluenceScorer)
+// to a single self-contained Pine strategy. Defaults match the best-confirmed
+// finalist: SOLUSDT confluence, 2h entry / 4h regime filter, trend_heavy weights.
+// Funding-carry signal is omitted (no perp funding feed in Pine) — it only carried
+// weight 0.1 in the validated preset, so this is a minor, documented simplification.
+
+// ── Inputs ──────────────────────────────────────────────────────────────
+grpRegime = "Regime classification"
+adxThreshold   = input.float(18.0, "ADX trend threshold", group = grpRegime, minval = 5, maxval = 50)
+emaFastLen     = input.int(21, "EMA fast", group = grpRegime, minval = 2)
+emaSlowLen     = input.int(55, "EMA slow", group = grpRegime, minval = 5)
+atrPctLookback = input.int(100, "ATR percentile lookback", group = grpRegime, minval = 20)
+highVolThresh  = input.float(0.6, "High-vol regime threshold (ATR percentile)", group = grpRegime, minval = 0, maxval = 1)
+
+grpSignal = "Signals & confluence"
+structureLookback = input.int(20, "Structure lookback (swing window)", group = grpSignal, minval = 5)
+weightTrend       = input.float(0.6, "Weight: trend", group = grpSignal, minval = 0, maxval = 1)
+weightStructure   = input.float(0.3, "Weight: structure", group = grpSignal, minval = 0, maxval = 1)
+scoreThreshold    = input.float(0.55, "Min confluence score to enter", group = grpSignal, minval = 0, maxval = 1)
+
+grpHtf = "Higher-timeframe filter"
+useHtfFilter = input.bool(false, "Require HTF-regime alignment", group = grpHtf)
+htfTimeframe = input.timeframe("240", "HTF timeframe (regime filter)", group = grpHtf)
+
+grpRisk = "Risk / exits"
+stopAtrMult   = input.float(1.0, "Stop = ATR x", group = grpRisk, minval = 0.1)
+rMultipleTgt  = input.float(2.0, "Target R-multiple", group = grpRisk, minval = 0.5)
+horizonBars   = input.int(20, "Max bars in trade (timeout)", group = grpRisk, minval = 1)
+atrLen        = input.int(14, "ATR length", group = grpRisk, minval = 2)
+
+// ── Regime classification (mirrors lib/regime_classifier.rb) ──────────
+[diPlus, diMinus, adxVal] = ta.dmi(atrLen, atrLen)
+atrVal      = ta.atr(atrLen)
+atrPctRank  = ta.percentrank(atrVal, atrPctLookback) / 100.0
+emaFast     = ta.ema(close, emaFastLen)
+emaSlow     = ta.ema(close, emaSlowLen)
+
+// regime codes: 1 = trending_bull, 2 = trending_bear, 3 = high_vol_range, 4 = low_vol_range
+regimeState = adxVal >= adxThreshold and emaFast > emaSlow ? 1 :
+     adxVal >= adxThreshold and emaFast < emaSlow ? 2 :
+     atrPctRank >= highVolThresh ? 3 : 4
+
+// ── Trend-following signal (mirrors lib/signals/trend_following_signal.rb) ──
+trendDir  = regimeState == 1 and close > emaFast ? 1 :
+     regimeState == 2 and close < emaFast ? -1 : 0
+trendConf = math.max(math.min((adxVal - adxThreshold) / 30.0, 1.0), 0.0)
+
+// ── SMC structure signal (mirrors lib/signals/smc_structure_signal.rb) ──
+swingHigh = ta.highest(high[1], structureLookback)
+swingLow  = ta.lowest(low[1], structureLookback)
+
+structDir  = high > swingHigh and close < swingHigh ? -1 :   // liquidity sweep high -> short
+     low < swingLow and close > swingLow ? 1 :        // liquidity sweep low -> long
+     close > swingHigh ? 1 :                          // break of structure up -> long
+     close < swingLow ? -1 : 0                        // break of structure down -> short
+structConf = (high > swingHigh and close < swingHigh) or (low < swingLow and close > swingLow) ? 0.6 :
+     (close > swingHigh or close < swingLow) ? 0.7 : 0.0
+
+// ── Confluence scorer (mirrors lib/confluence_scorer.rb) ───────────────
+// Hard conflict guard: if trend and structure disagree, no trade — never averaged away.
+conflict = trendDir != 0 and structDir != 0 and trendDir != structDir
+direction = trendDir != 0 ? trendDir : structDir
+
+trendComponent     = (direction != 0 and trendDir == direction) ? trendConf * weightTrend : 0.0
+structureComponent = (direction != 0 and structDir == direction) ? structConf * weightStructure : 0.0
+score = trendComponent + structureComponent
+
+candidateDir = conflict or direction == 0 or score < scoreThreshold ? 0 : direction
+
+// ── Optional HTF regime-alignment filter ───────────────────────────────
+htfRegimeState = request.security(syminfo.tickerid, htfTimeframe, regimeState, lookahead = barmerge.lookahead_off)
+htfAligned = htfRegimeState == regimeState
+finalDir = useHtfFilter and not htfAligned ? 0 : candidateDir
+
+// ── Entries ─────────────────────────────────────────────────────────────
+var float entryPrice = na
+var float stopPrice  = na
+var float targetPrice = na
+var int   entryBar   = na
+
+if finalDir != 0 and strategy.position_size == 0
+    entryPrice := close
+    stopPrice  := finalDir == 1 ? close - atrVal * stopAtrMult : close + atrVal * stopAtrMult
+    stopDist    = math.abs(entryPrice - stopPrice)
+    targetPrice := finalDir == 1 ? entryPrice + stopDist * rMultipleTgt : entryPrice - stopDist * rMultipleTgt
+    entryBar   := bar_index
+    if finalDir == 1
+        strategy.entry("Long", strategy.long)
+    else
+        strategy.entry("Short", strategy.short)
+
+// Registered unconditionally every bar (no-op while flat) so the stop/target
+// bracket is live from the same bar the position opens, not one bar late.
+strategy.exit("XLong", from_entry = "Long", stop = stopPrice, limit = targetPrice)
+strategy.exit("XShort", from_entry = "Short", stop = stopPrice, limit = targetPrice)
+
+if strategy.position_size != 0 and not na(entryBar) and bar_index - entryBar >= horizonBars
+    strategy.close_all(comment = "horizon timeout")
+
+// ── Plots ───────────────────────────────────────────────────────────────
+plot(emaFast, "EMA fast", color = color.new(color.teal, 0))
+plot(emaSlow, "EMA slow", color = color.new(color.orange, 0))
+plotshape(finalDir == 1 and strategy.position_size[1] == 0, style = shape.triangleup, location = location.belowbar, color = color.green, size = size.tiny, title = "Long signal")
+plotshape(finalDir == -1 and strategy.position_size[1] == 0, style = shape.triangledown, location = location.abovebar, color = color.red, size = size.tiny, title = "Short signal")
+
+// ── Performance table ──────────────────────────────────────────────────
+var table perfTable = table.new(position.top_right, 2, 10, border_width = 1)
+
+f_cell(row, label, value) =>
+    table.cell(perfTable, 0, row, label, text_halign = text.align_left, bgcolor = color.new(color.gray, 85), text_color = color.white)
+    table.cell(perfTable, 1, row, value, text_halign = text.align_right, bgcolor = color.new(color.gray, 85), text_color = color.white)
+
+if barstate.islast
+    netProfit    = strategy.netprofit
+    netProfitPct = strategy.netprofit / strategy.initial_capital * 100.0
+    totalTrades  = strategy.closedtrades
+    winTrades    = strategy.wintrades
+    winRate      = totalTrades > 0 ? winTrades / float(totalTrades) * 100.0 : 0.0
+    grossProfit  = strategy.grossprofit
+    grossLoss    = strategy.grossloss
+    profitFactor = grossLoss != 0 ? grossProfit / math.abs(grossLoss) : na
+    maxDD        = strategy.max_drawdown
+    maxDDPct     = strategy.max_drawdown / strategy.equity * 100.0
+    avgTrade     = totalTrades > 0 ? netProfit / totalTrades : 0.0
+    avgWin       = winTrades > 0 ? grossProfit / winTrades : 0.0
+    avgLoss      = (totalTrades - winTrades) > 0 ? grossLoss / (totalTrades - winTrades) : 0.0
+
+    table.cell(perfTable, 0, 0, "Confluence Strategy", text_halign = text.align_left, bgcolor = color.new(color.blue, 60), text_color = color.white)
+    table.cell(perfTable, 1, 0, "Performance", text_halign = text.align_right, bgcolor = color.new(color.blue, 60), text_color = color.white)
+    f_cell(1, "Net Profit", str.tostring(netProfit, format.mintick) + " (" + str.tostring(netProfitPct, "#.##") + "%)")
+    f_cell(2, "Total Closed Trades", str.tostring(totalTrades))
+    f_cell(3, "Win Rate", str.tostring(winRate, "#.##") + "%")
+    f_cell(4, "Profit Factor", na(profitFactor) ? "n/a" : str.tostring(profitFactor, "#.##"))
+    f_cell(5, "Max Drawdown", str.tostring(maxDD, format.mintick) + " (" + str.tostring(maxDDPct, "#.##") + "%)")
+    f_cell(6, "Avg Trade P&L", str.tostring(avgTrade, format.mintick))
+    f_cell(7, "Avg Win / Avg Loss", str.tostring(avgWin, format.mintick) + " / " + str.tostring(avgLoss, format.mintick))
+    f_cell(8, "Gross Profit / Loss", str.tostring(grossProfit, format.mintick) + " / " + str.tostring(grossLoss, format.mintick))
+    f_cell(9, "Current Equity", str.tostring(strategy.equity, format.mintick))

@@ -1,0 +1,18 @@
+{
+  "starting_equity_usdt": 10000.0,
+  "equity_usdt": 10000.0,
+  "open_positions": [
+
+  ],
+  "trade_ledger": [
+
+  ],
+  "last_processed_entry_ts": {
+    "sol_confluence_2h4h": 1783929600,
+    "xrp_confluence_2h4h": 1783929600,
+    "sol_discovery_1h4h": 1783933200
+  },
+  "event_log": [
+
+  ]
+}
