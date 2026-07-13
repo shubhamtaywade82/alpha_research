@@ -63,7 +63,7 @@ puts "Regimes classified, #{swings.size} swings detected (#{swings.map(&:type).t
 raise "no swings detected on mock data" if swings.empty?
 
 extractor = ContextFeatureExtractor.new(profile)
-labeler = MoveLabeler.new
+labeler = MoveLabeler.new(r_multiple_target: profile.r_multiple_target)
 
 baseline_samples = labeler.label_baseline_samples(
   candles: candles, regimes: regimes, funding_series: funding_series,

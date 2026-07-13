@@ -2,26 +2,23 @@
 
 require_relative "indicators"
 
-# Two labeling jobs, deliberately kept separate:
+# Three labeling jobs, deliberately kept separate:
 #
-# 1. label_swing_events: the "reverse-engineered pattern" — from each
-#    confirmed swing to the next opposite swing, what context preceded it
-#    and what R-multiple was realized (using the swing's own ATR-based
-#    stop distance).
+# 1. label_swing_events: from each confirmed swing to the next opposite
+#    swing, what context preceded it and what R-multiple was realized
+#    (using first-touch stop/target simulation, not MFE).
 #
-# 2. label_baseline_samples: an UNCONDITIONAL control — at ordinary,
-#    non-swing bars (sampled on a stride to keep volume sane), what R-
-#    multiple would a same-direction trade have realized over a FIXED
-#    forward horizon, using the same stop-distance convention. This is
-#    the number swing-triggered events must beat, in the same regime
-#    bucket, or the "pattern" isn't adding anything over just being in
-#    that regime.
+# 2. label_signal_events: entry happens after swing confirmation with a
+#    delay, outcome determined by first-touch of ATR-based stop or
+#    R-multiple target within a fixed forward horizon. This mirrors
+#    realistic trade management.
 #
-# KNOWN SIMPLIFICATION: both labelers use max-favorable-excursion to the
-# endpoint (swing-to-swing, or end of forward window) — neither checks
-# whether the stop would have been hit FIRST. This is not a substitute
-# for proper triple-barrier sequencing; treat R-multiples here as an
-# upper-bound signal for discovery, not a realistic P&L simulation.
+# 3. label_baseline_samples: an UNCONDITIONAL control — at ordinary,
+#    non-swing bars (sampled on a stride), what R-multiple would a
+#    same-direction trade have realized over a FIXED forward horizon
+#    using the same first-touch logic. This is the number swing-triggered
+#    events must beat, in the same regime bucket, or the "pattern" isn't
+#    adding anything over just being in that regime.
 class MoveLabeler
   SwingEvent = Struct.new(
     :direction, :entry_index, :entry_ts, :entry_price, :stop_price,
@@ -31,9 +28,10 @@ class MoveLabeler
     :index, :ts, :context, :long_r_multiple, :short_r_multiple, keyword_init: true
   )
 
-  def initialize(atr_period: 14, stop_atr_buffer: 0.5)
+  def initialize(atr_period: 14, stop_atr_buffer: 0.5, r_multiple_target:)
     @atr_period = atr_period
     @stop_atr_buffer = stop_atr_buffer
+    @r_multiple_target = r_multiple_target
   end
 
   def label_swing_events(candles:, swings:, regimes:, funding_series:, feature_extractor:)
@@ -53,9 +51,40 @@ class MoveLabeler
       stop_distance = (entry_price - stop_price).abs
       next if stop_distance <= 0
 
-      exit_price = b.price
-      raw_move = direction == :long ? exit_price - entry_price : entry_price - exit_price
-      r_multiple = raw_move / stop_distance
+      target_price = direction == :long ? entry_price + stop_distance * @r_multiple_target \
+                                         : entry_price - stop_distance * @r_multiple_target
+
+      exit_index = nil
+      exit_price = nil
+      r_multiple = nil
+
+      (a.index + 1..b.index).each do |i|
+        bar = candles[i]
+        if direction == :long
+          if bar[:low] <= stop_price
+            exit_index, exit_price, r_multiple = i, stop_price, -1.0
+            break
+          elsif bar[:high] >= target_price
+            exit_index, exit_price, r_multiple = i, target_price, @r_multiple_target
+            break
+          end
+        else
+          if bar[:high] >= stop_price
+            exit_index, exit_price, r_multiple = i, stop_price, -1.0
+            break
+          elsif bar[:low] <= target_price
+            exit_index, exit_price, r_multiple = i, target_price, @r_multiple_target
+            break
+          end
+        end
+      end
+
+      unless exit_index
+        exit_index = b.index
+        exit_price = b.price
+        raw_move = direction == :long ? exit_price - entry_price : entry_price - exit_price
+        r_multiple = raw_move / stop_distance
+      end
 
       context = feature_extractor.extract(
         candles: candles, index: a.index, regime: regimes[a.index], funding_rate: funding_series[a.index]
@@ -64,7 +93,7 @@ class MoveLabeler
 
       events << SwingEvent.new(
         direction: direction, entry_index: a.index, entry_ts: a.ts, entry_price: entry_price,
-        stop_price: stop_price, exit_index: b.index, exit_price: exit_price,
+        stop_price: stop_price, exit_index: exit_index, exit_price: exit_price,
         r_multiple: r_multiple.round(3), context: context
       )
     end
@@ -72,14 +101,12 @@ class MoveLabeler
     events
   end
 
-  # REALISTIC variant, unlike label_swing_events above: entry happens
-  # `entry_delay_bars` AFTER the swing was actually confirmed (not at the
-  # extreme itself, which is only knowable in hindsight), and the outcome
-  # is measured the same way the baseline measures it — fixed forward
-  # horizon, max-favorable-excursion within that window. This makes
-  # signal-triggered events and baseline samples directly comparable:
-  # same entry-to-outcome methodology on both sides, only the trigger
-  # condition (just-confirmed swing vs. an ordinary bar) differs.
+  # Signal-triggered events: entry happens `entry_delay_bars` AFTER the
+  # swing was confirmed (not at the extreme itself), and the outcome is
+  # determined by first-touch of the ATR-based stop or R-multiple target.
+  # If neither is touched within the forward horizon, exit at the final bar's
+  # close. This matches how a real trade would be managed, avoiding the
+  # optimistic MFE bias of the previous implementation.
   def label_signal_events(candles:, swings:, regimes:, funding_series:, feature_extractor:,
                            entry_delay_bars:, forward_horizon_bars: 20)
     atr_series = Indicators.atr(candles, @atr_period)
@@ -100,11 +127,41 @@ class MoveLabeler
       stop_distance = (entry_price - stop_price).abs
       next if stop_distance <= 0
 
-      future = candles[(entry_index + 1)..(entry_index + forward_horizon_bars)]
-      max_high = future.map { |c| c[:high] }.max
-      min_low = future.map { |c| c[:low] }.min
-      raw_move = direction == :long ? (max_high - entry_price) : (entry_price - min_low)
-      exit_price = direction == :long ? max_high : min_low
+      target_price = direction == :long ? entry_price + stop_distance * @r_multiple_target \
+                                         : entry_price - stop_distance * @r_multiple_target
+
+      exit_index = nil
+      exit_price = nil
+      r_multiple = nil
+      last_bar = entry_index + forward_horizon_bars
+
+      ((entry_index + 1)..last_bar).each do |i|
+        bar = candles[i]
+        if direction == :long
+          if bar[:low] <= stop_price
+            exit_index, exit_price, r_multiple = i, stop_price, -1.0
+            break
+          elsif bar[:high] >= target_price
+            exit_index, exit_price, r_multiple = i, target_price, @r_multiple_target
+            break
+          end
+        else
+          if bar[:high] >= stop_price
+            exit_index, exit_price, r_multiple = i, stop_price, -1.0
+            break
+          elsif bar[:low] <= target_price
+            exit_index, exit_price, r_multiple = i, target_price, @r_multiple_target
+            break
+          end
+        end
+      end
+
+      unless exit_index
+        exit_index = last_bar
+        exit_price = candles[last_bar][:close]
+        raw_move = direction == :long ? exit_price - entry_price : entry_price - exit_price
+        r_multiple = raw_move / stop_distance
+      end
 
       regime = regimes[entry_index]
       context = feature_extractor.extract(
@@ -114,8 +171,8 @@ class MoveLabeler
 
       events << SwingEvent.new(
         direction: direction, entry_index: entry_index, entry_ts: candles[entry_index][:ts],
-        entry_price: entry_price, stop_price: stop_price, exit_index: entry_index + forward_horizon_bars,
-        exit_price: exit_price, r_multiple: (raw_move / stop_distance).round(3), context: context
+        entry_price: entry_price, stop_price: stop_price, exit_index: exit_index,
+        exit_price: exit_price, r_multiple: r_multiple.round(3), context: context
       )
     end
 
@@ -136,9 +193,38 @@ class MoveLabeler
 
       entry_price = candles[i][:close]
       stop_distance = atr * @stop_atr_buffer
-      future = candles[(i + 1)..(i + forward_horizon_bars)]
-      max_high = future.map { |c| c[:high] }.max
-      min_low = future.map { |c| c[:low] }.min
+      next if stop_distance <= 0
+
+      stop_long = entry_price - stop_distance
+      target_long = entry_price + stop_distance * @r_multiple_target
+      stop_short = entry_price + stop_distance
+      target_short = entry_price - stop_distance * @r_multiple_target
+
+      long_r = nil
+      short_r = nil
+      last_bar = i + forward_horizon_bars
+
+      ((i + 1)..last_bar).each do |j|
+        bar = candles[j]
+        if long_r.nil?
+          long_r = -1.0 if bar[:low] <= stop_long
+          long_r = @r_multiple_target if !long_r && bar[:high] >= target_long
+        end
+        if short_r.nil?
+          short_r = -1.0 if bar[:high] >= stop_short
+          short_r = @r_multiple_target if !short_r && bar[:low] <= target_short
+        end
+        break if !long_r.nil? && !short_r.nil?
+      end
+
+      if long_r.nil?
+        close_price = candles[last_bar][:close]
+        long_r = (close_price - entry_price) / stop_distance
+      end
+      if short_r.nil?
+        close_price = candles[last_bar][:close]
+        short_r = (entry_price - close_price) / stop_distance
+      end
 
       context = feature_extractor.extract(
         candles: candles, index: i, regime: regime, funding_rate: funding_series[i]
@@ -147,8 +233,8 @@ class MoveLabeler
 
       samples << BaselineSample.new(
         index: i, ts: candles[i][:ts], context: context,
-        long_r_multiple: ((max_high - entry_price) / stop_distance).round(3),
-        short_r_multiple: ((entry_price - min_low) / stop_distance).round(3)
+        long_r_multiple: long_r.round(3),
+        short_r_multiple: short_r.round(3)
       )
     end
 

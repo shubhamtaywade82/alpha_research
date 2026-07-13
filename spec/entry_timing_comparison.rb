@@ -64,7 +64,7 @@ end
   funding_series = Array.new(candles.size, 0.0001)
   swings = SwingPointDetector.new(min_move_atr_multiple: 1.5).detect(candles)
   extractor = ContextFeatureExtractor.new(profile)
-  labeler = MoveLabeler.new
+  labeler = MoveLabeler.new(r_multiple_target: profile.r_multiple_target)
 
   results = {}
   %i[inflated_retrospective delay_1 delay_3].each do |scenario|

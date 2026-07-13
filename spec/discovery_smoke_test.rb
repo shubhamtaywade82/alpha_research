@@ -48,7 +48,7 @@ puts "Detected #{swings.size} confirmed swings (types: #{swings.map(&:type).tall
 raise "No swings detected — pipeline broken" if swings.empty?
 
 extractor = ContextFeatureExtractor.new(profile)
-labeler = MoveLabeler.new
+labeler = MoveLabeler.new(r_multiple_target: profile.r_multiple_target)
 
 swing_events = labeler.label_swing_events(
   candles: candles, swings: swings, regimes: regimes,

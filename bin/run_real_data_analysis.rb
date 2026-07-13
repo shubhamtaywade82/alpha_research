@@ -75,7 +75,7 @@ SYMBOLS.each do |symbol|
   puts "#{swings.size} confirmed swings (#{swings.map(&:type).tally})"
 
   extractor = ContextFeatureExtractor.new(profile)
-  labeler = MoveLabeler.new
+  labeler = MoveLabeler.new(r_multiple_target: profile.r_multiple_target)
 
   baseline_samples = labeler.label_baseline_samples(
     candles: candles, regimes: regimes, funding_series: funding_series,
